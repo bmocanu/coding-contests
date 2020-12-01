@@ -1,4 +1,4 @@
-package ws.bmocanu.aoc.utils;
+package ws.bmocanu.aoc.support;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class Point {
@@ -11,7 +11,7 @@ public class Point {
 
     public int value;
 
-    public char character;
+    public char chr;
 
     public String name;
 
@@ -24,6 +24,10 @@ public class Point {
     public int trailMarkCount;
 
     public Point link;
+
+    public int pathCount;
+
+    public Point pathLink;
 
     // ----------------------------------------------------------------------------------------------------
 
@@ -62,8 +66,8 @@ public class Point {
         return this;
     }
 
-    public Point setCharacter(char character) {
-        this.character = character;
+    public Point setChr(char chr) {
+        this.chr = chr;
         return this;
     }
 
@@ -74,6 +78,11 @@ public class Point {
 
     public Point setLink(Point link) {
         this.link = link;
+        return this;
+    }
+
+    public Point setPathLink(Point link) {
+        this.pathLink = link;
         return this;
     }
 
@@ -112,12 +121,15 @@ public class Point {
         newPoint.x = x;
         newPoint.y = y;
         newPoint.type = type;
+        newPoint.chr = chr;
         newPoint.value = value;
         newPoint.name = name;
         newPoint.enabled = enabled;
         newPoint.destroyed = destroyed;
         newPoint.marked = marked;
         newPoint.trailMarkCount = trailMarkCount;
+        newPoint.pathCount = pathCount;
+        // warning: this does not set link and pathLink, as would be just shallow clones. This must be done by hand
         return newPoint;
     }
 

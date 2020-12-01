@@ -1,4 +1,4 @@
-package ws.bmocanu.aoc.utils;
+package ws.bmocanu.aoc.support;
 
 public interface PointSupplier {
 

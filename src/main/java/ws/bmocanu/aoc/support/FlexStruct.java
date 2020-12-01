@@ -1,8 +1,16 @@
-package ws.bmocanu.aoc.utils;
+package ws.bmocanu.aoc.support;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import ws.bmocanu.aoc.utils.Utils;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class FlexStruct implements PointSupplier {
@@ -11,6 +19,14 @@ public class FlexStruct implements PointSupplier {
     private int positiveDelta = 10000;
     private int width;
     private int height;
+
+    // ----------------------------------------------------------------------------------------------------
+
+    public static FlexStruct fromLineList(List<String> lineList) {
+        FlexStruct struct = new FlexStruct();
+        struct.loadFromLineList(lineList);
+        return struct;
+    }
 
     // ----------------------------------------------------------------------------------------------------
 
@@ -77,10 +93,10 @@ public class FlexStruct implements PointSupplier {
 
     public Collection<Point> allPointsWhere(Predicate<? super Point> filterPredicate) {
         return pointMap
-                .values()
-                .stream()
-                .filter(filterPredicate)
-                .collect(Collectors.toList());
+            .values()
+            .stream()
+            .filter(filterPredicate)
+            .collect(Collectors.toList());
     }
 
     public Point pointWithMaxValue() {
@@ -96,8 +112,13 @@ public class FlexStruct implements PointSupplier {
         return this;
     }
 
-    public FlexStruct setAllPointsAsMarked() {
+    public FlexStruct forAllPointsSetMarked() {
         pointMap.values().forEach(Point::mark);
+        return this;
+    }
+
+    public FlexStruct forAllPointsClearPathLink() {
+        pointMap.values().forEach(point -> point.setPathLink(null));
         return this;
     }
 
@@ -117,13 +138,33 @@ public class FlexStruct implements PointSupplier {
         return new FlexMappingProcessor(pointMap.values());
     }
 
+    public FlexStruct forEachPoint(Consumer<Point> consumer) {
+        pointMap.values().forEach(consumer);
+        return this;
+    }
+
+    public FlexStruct forEachPointWithType(int type, Consumer<Point> consumer) {
+        pointMap.values().stream().filter(point -> point.type == type).forEach(consumer);
+        return this;
+    }
+
+    public FlexStruct forEachPointWithChr(char chr, Consumer<Point> consumer) {
+        pointMap.values().stream().filter(point -> point.chr == chr).forEach(consumer);
+        return this;
+    }
+
+    public FlexStruct forEachPointWithChrAsLetter(Consumer<Point> consumer) {
+        pointMap.values().stream().filter(point -> Utils.charIsLetter(point.chr)).forEach(consumer);
+        return this;
+    }
+
     // ----------------------------------------------------------------------------------------------------
 
     public FlexStruct loadFromLineList(List<String> lineList) {
         for (int y = 0; y < lineList.size(); y++) {
             String currentLine = lineList.get(y);
             for (int x = 0; x < currentLine.length(); x++) {
-                point(x, y).setCharacter(currentLine.charAt(x));
+                point(x, y).setChr(currentLine.charAt(x));
             }
         }
         return this;
@@ -142,24 +183,44 @@ public class FlexStruct implements PointSupplier {
                 Point newPoint = newStruct.pointByPoint(point);
                 newPoint.link = newStruct.pointByPoint(point.link);
             }
+            if (point.pathLink != null) {
+                Point newPoint = newStruct.pointByPoint(point);
+                newPoint.pathLink = newStruct.pointByPoint(point.pathLink);
+            }
         });
         return newStruct;
     }
 
-    public String printToString() {
-        StringBuilder builder = new StringBuilder((width + 1) * height);
+    public String print(Function<Point, Object> pointPrinter, char charForMissingPoints) {
+        StringBuilder builder = new StringBuilder((width + 1) * (height + 2) + 100);
+        builder.append("Width: [").append(width)
+            .append("], Height: [").append(height)
+            .append("], Points: [").append(pointMap.size())
+            .append("]\n");
+        String separator = "+" + "-".repeat(width) + "+\n";
+        builder.append(separator);
         for (int y = 0; y < height; y++) {
+            builder.append('|');
             for (int x = 0; x < width; x++) {
                 Point point = pointOrNull(x, y);
                 if (point != null) {
-                    builder.append(point.type);
+                    builder.append(pointPrinter.apply(point));
                 } else {
-                    builder.append(' ');
+                    builder.append(charForMissingPoints);
                 }
             }
-            builder.append('\n');
+            builder.append("|\n");
         }
+        builder.append(separator);
         return builder.toString();
+    }
+
+    public String printTypes() {
+        return print(point -> point.type, ' ');
+    }
+
+    public String printCharacters() {
+        return print(point -> point.chr, ' ');
     }
 
     // ----------------------------------------------------------------------------------------------------
@@ -280,7 +341,16 @@ public class FlexStruct implements PointSupplier {
 
         public FlexMappingProcessor charToType(char character, int type) {
             points.forEach(point -> {
-                if (point.character == character) {
+                if (point.chr == character) {
+                    point.type = type;
+                }
+            });
+            return this;
+        }
+
+        public FlexMappingProcessor anyLetterToType(int type) {
+            points.forEach(point -> {
+                if (Utils.charIsLetter(point.chr)) {
                     point.type = type;
                 }
             });

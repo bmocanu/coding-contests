@@ -1,15 +1,12 @@
 package ws.bmocanu.aoc.utils;
 
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.io.LineIterator;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
+
+import ws.bmocanu.aoc.support.Direction;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class Utils {
@@ -30,27 +27,6 @@ public class Utils {
                 return Direction.from(-1, 0);
             default:
                 throw new IllegalArgumentException("Invalid direction: " + dir);
-        }
-    }
-
-    public static String fileAsOneString(String fileName) {
-        try (InputStream is = Utils.class.getResourceAsStream(fileName)) {
-            return IOUtils.toString(is, StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to load payload from file [" + fileName + "]", e);
-        }
-    }
-
-    public static List<String> fileAsLineList(String fileName) {
-        try (InputStream is = Utils.class.getResourceAsStream(fileName)) {
-            List<String> resultList = new ArrayList<>();
-            LineIterator lineIterator = IOUtils.lineIterator(is, StandardCharsets.UTF_8);
-            while (lineIterator.hasNext()) {
-                resultList.add(lineIterator.nextLine());
-            }
-            return resultList;
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to load payload from file [" + fileName + "]", e);
         }
     }
 
@@ -142,24 +118,17 @@ public class Utils {
         return result;
     }
 
-//    func SmallestCommonMultiplier(values []int) int {
-//        var finalMap = make(map[int]int)
-//        for index := 0; index < len(values); index++ {
-//            var currentMap = PrimeFactors(values[index])
-//            for factor, repetition := range currentMap {
-//                var finalRepetition, found = finalMap[factor]
-//                if !found {
-//                    finalMap[factor] = repetition
-//                } else {
-//                    finalMap[factor] = Max(finalRepetition, repetition)
-//                }
-//            }
-//        }
-//        var result = 1
-//        for factor, repetition := range finalMap {
-//            result *= Pow(factor, repetition)
-//        }
-//        return result
-//    }
+    public static List<String> stringAsCsvToStringList(String content, String separator) {
+        StringTokenizer tokenizer = new StringTokenizer(content, separator);
+        List<String> stringList = new ArrayList<>();
+        while (tokenizer.hasMoreTokens()) {
+            stringList.add(tokenizer.nextToken().trim());
+        }
+        return stringList;
+    }
+
+    public static boolean charIsLetter(char chr) {
+        return (chr >= 'A' && chr <= 'Z') || (chr >= 'a' && chr <= 'z');
+    }
 
 }

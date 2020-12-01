@@ -1,4 +1,6 @@
-package ws.bmocanu.aoc.utils;
+package ws.bmocanu.aoc.support;
+
+import ws.bmocanu.aoc.utils.Utils;
 
 public class FlexCursor {
 
