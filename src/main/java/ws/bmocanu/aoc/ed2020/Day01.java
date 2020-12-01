@@ -9,6 +9,7 @@ import ws.bmocanu.aoc.utils.Log;
 public class Day01 {
 
     public static void main(String[] args) {
+        Log.appendToTimestampedFile("day01");
         List<Integer> intList = FileUtils.fileAsIntPerLineToIntList("day01.txt");
 
         ListUtils.iterateWith2IntCursors(intList, (nr1, nr2) -> {

@@ -131,4 +131,8 @@ public class Utils {
         return (chr >= 'A' && chr <= 'Z') || (chr >= 'a' && chr <= 'z');
     }
 
+    public static String printArray(int[] array) {
+        StringBuilder builder = new StringBuilder(array.length * 5);
+    }
+
 }

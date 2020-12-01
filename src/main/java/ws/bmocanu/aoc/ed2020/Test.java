@@ -15,10 +15,10 @@ public class Test {
         List<String> inputLines = FileUtils.fileAsStringPerLineToStringList("test2");
         FlexStruct flexStruct = FlexStruct.fromLineList(inputLines);
         flexStruct
-            .mapDataInsidePoints()
-            .charToType('#', typeWall)
-            .charToType('.', typeSpace)
-            .anyLetterToType(typeLetter);
+                .mapDataInsidePoints()
+                .charToType('#', typeWall)
+                .charToType('.', typeSpace)
+                .anyLetterToType(typeLetter);
         FileUtils.printStringToFile(flexStruct.print((point) -> point.chr, ' '), "test1");
     }
 

@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -76,6 +79,23 @@ public class FileUtils {
         }
     }
 
+    public static char[][] fileAsCharMatrixToCharMatrix(String fileName) {
+        List<String> lineList = fileAsStringPerLineToStringList(fileName);
+        int maxWidth = lineList.stream().mapToInt(String::length).max().orElse(0);
+        char[][] resultMatrix = new char[lineList.size()][maxWidth];
+        for (int row = 0; row < lineList.size(); row++) {
+            String currentLine = lineList.get(row);
+            for (int col = 0; col < maxWidth; col++) {
+                if (col < currentLine.length()) {
+                    resultMatrix[row][col] = currentLine.charAt(col);
+                } else {
+                    resultMatrix[row][col] = ' ';
+                }
+            }
+        }
+        return resultMatrix;
+    }
+
     public static int[] fileAsLongDigitsLineToIntArray(String fileName) {
         String fileContent = fileToOneString(fileName);
         int[] result = new int[fileContent.length()];
@@ -96,6 +116,18 @@ public class FileUtils {
         } catch (Exception e) {
             throw new RuntimeException("Failed to save to file [" + filePath + "]", e);
         }
+    }
+
+    public static String generateTimestampString() {
+        LocalDateTime localTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
+        return localTime.format(formatter);
+    }
+
+    public static File getTimestampedOutputFile(String filePrefix) {
+        ensureOutputFolderExists();
+        String filePath = outputFileName(filePrefix + "-" + generateTimestampString() + ".txt");
+        return new File(filePath);
     }
 
     // ----------------------------------------------------------------------------------------------------
