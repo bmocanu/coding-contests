@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import ws.bmocanu.aoc.support.Direction;
+import ws.bmocanu.aoc.support.Pointer;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class Utils {
@@ -98,8 +99,8 @@ public class Utils {
 
     public static int smallestCommonMultiplier(int[] numbers) {
         Map<Integer, Integer> finalMap = new HashMap<>();
-        for (int numberIndex = 0; numberIndex < numbers.length; numberIndex++) {
-            Map<Integer, Integer> currentNumberMap = primeFactors(numbers[numberIndex]);
+        for (int number : numbers) {
+            Map<Integer, Integer> currentNumberMap = primeFactors(number);
             for (Map.Entry<Integer, Integer> currentNumberEntry : currentNumberMap.entrySet()) {
                 Integer factor = currentNumberEntry.getKey();
                 Integer repetition = currentNumberEntry.getValue();
@@ -131,8 +132,116 @@ public class Utils {
         return (chr >= 'A' && chr <= 'Z') || (chr >= 'a' && chr <= 'z');
     }
 
-    public static String printArray(int[] array) {
+    public static boolean charIsDigit(char chr) {
+        return chr >= '0' && chr <= '9';
+    }
+
+    public static String printIntArray(int[] array) {
         StringBuilder builder = new StringBuilder(array.length * 5);
+        builder.append('[');
+        for (int i : array) {
+            if (builder.length() > 1) {
+                builder.append(", ");
+            }
+            builder.append(i);
+        }
+        builder.append(']');
+        return builder.toString();
+    }
+
+    public static String printByteArray(byte[] array) {
+        StringBuilder builder = new StringBuilder(array.length * 5);
+        builder.append('[');
+        for (byte i : array) {
+            if (builder.length() > 1) {
+                builder.append(", ");
+            }
+            builder.append(i);
+        }
+        builder.append(']');
+        return builder.toString();
+    }
+
+    public static String printStringArray(String[] array) {
+        StringBuilder builder = new StringBuilder(array.length * 10);
+        builder.append('[');
+        for (String str : array) {
+            if (builder.length() > 1) {
+                builder.append(", ");
+            }
+            builder.append('[').append(str).append(']');
+        }
+        builder.append(']');
+        return builder.toString();
+    }
+
+    public static String printIntMatrix(int[][] mtx, int padding) {
+        StringBuilder builder = new StringBuilder(mtx.length * (mtx[0].length * padding + 3));
+        String horizontalBorder = "+" + "-".repeat(mtx[0].length * padding) + "+\n";
+        builder.append(horizontalBorder);
+        for (int[] ints : mtx) {
+            builder.append("|");
+            for (int anInt : ints) {
+                builder.append(String.format("%" + padding + "d", anInt));
+            }
+            builder.append("|\n");
+        }
+        builder.append(horizontalBorder);
+        return builder.toString();
+    }
+
+    public static String printCharMatrix(char[][] mtx) {
+        StringBuilder builder = new StringBuilder(mtx.length * (mtx[0].length + 3));
+        String horizontalBorder = "+" + "-".repeat(mtx[0].length) + "+\n";
+        builder.append(horizontalBorder);
+        for (char[] chars : mtx) {
+            builder.append("|");
+            for (char aChar : chars) {
+                builder.append(aChar);
+            }
+            builder.append("|\n");
+        }
+        builder.append(horizontalBorder);
+        return builder.toString();
+    }
+
+    public static String printStringMatrix(String[][] mtx, int padding) {
+        StringBuilder builder = new StringBuilder(mtx.length * (mtx[0].length * padding + 3));
+        String horizontalBorder = "+" + "-".repeat(mtx[0].length * padding) + "+\n";
+        builder.append(horizontalBorder);
+        for (String[] strings : mtx) {
+            builder.append("|");
+            for (String aString : strings) {
+                builder.append(String.format("%" + padding + "s", aString));
+            }
+            builder.append("|\n");
+        }
+        builder.append(horizontalBorder);
+        return builder.toString();
+    }
+
+    public static Pointer<Integer> maxFromArray(int[] array) {
+        int max = Integer.MIN_VALUE;
+        int pos = 0;
+        for (int index = 0; index < array.length; index++) {
+            if (array[index] > max) {
+                max = array[index];
+                pos = index;
+            }
+        }
+        return new Pointer<>(max, pos);
+    }
+
+    public static Pointer<Integer> minFromArray(int[] array) {
+        int min = Integer.MAX_VALUE;
+        int pos = 0;
+        for (int index = 0; index < array.length; index++) {
+            if (array[index] < min) {
+                min = array[index];
+                pos = index;
+            }
+        }
+        return new Pointer<>(min, pos);
     }
 
 }
