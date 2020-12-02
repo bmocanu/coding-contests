@@ -1,4 +1,4 @@
-package ws.bmocanu.aoc.support;
+package ws.bmocanu.aoc.flex;
 
 import java.util.Arrays;
 

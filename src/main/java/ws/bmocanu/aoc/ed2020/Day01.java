@@ -4,7 +4,7 @@ import java.util.List;
 
 import ws.bmocanu.aoc.utils.FileUtils;
 import ws.bmocanu.aoc.utils.ListUtils;
-import ws.bmocanu.aoc.utils.Log;
+import ws.bmocanu.aoc.support.Log;
 
 public class Day01 {
 

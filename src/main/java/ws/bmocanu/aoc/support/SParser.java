@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import ws.bmocanu.aoc.utils.Log;
-
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class SParser {
 

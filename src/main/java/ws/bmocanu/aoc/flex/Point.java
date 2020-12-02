@@ -1,4 +1,4 @@
-package ws.bmocanu.aoc.support;
+package ws.bmocanu.aoc.flex;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class Point {
@@ -83,6 +83,11 @@ public class Point {
 
     public Point setPathLink(Point link) {
         this.pathLink = link;
+        return this;
+    }
+
+    public Point setPathCount(int count) {
+        this.pathCount = count;
         return this;
     }
 

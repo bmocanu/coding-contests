@@ -1,6 +1,6 @@
 package ws.bmocanu.aoc.utils;
 
-import ws.bmocanu.aoc.support.Point;
+import ws.bmocanu.aoc.flex.Point;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class GeoUtils {

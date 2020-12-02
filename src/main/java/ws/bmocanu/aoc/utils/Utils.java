@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import ws.bmocanu.aoc.support.Direction;
-import ws.bmocanu.aoc.support.Pointer;
+import ws.bmocanu.aoc.flex.Pointer;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class Utils {
@@ -242,6 +242,13 @@ public class Utils {
             }
         }
         return new Pointer<>(min, pos);
+    }
+
+    public static String strPadding(String value, int padding, String padWith) {
+        if (padding > value.length()) {
+            return padWith.repeat(padding - value.length()) + value;
+        }
+        return value;
     }
 
 }

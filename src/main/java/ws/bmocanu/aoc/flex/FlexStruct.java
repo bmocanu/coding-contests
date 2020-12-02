@@ -1,4 +1,4 @@
-package ws.bmocanu.aoc.support;
+package ws.bmocanu.aoc.flex;
 
 import java.util.Collection;
 import java.util.Comparator;
@@ -10,6 +10,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import ws.bmocanu.aoc.support.Direction;
 import ws.bmocanu.aoc.utils.Utils;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
@@ -29,6 +30,10 @@ public class FlexStruct implements PointSupplier {
     }
 
     // ----------------------------------------------------------------------------------------------------
+
+    public Point point(Point point) {
+        return point(point.x, point.y);
+    }
 
     public Point point(int x, int y) {
         long uniqueCoordsHash = getUniqueCoordsHash(x, y);
@@ -63,6 +68,14 @@ public class FlexStruct implements PointSupplier {
         return pointMap.get(getUniqueCoordsHash(x, y));
     }
 
+    public Point pointOrNull(Point point) {
+        return pointMap.get(getUniqueCoordsHash(point.x, point.y));
+    }
+
+    public Point pointOrNull(Point point, Direction deltaDir) {
+        return pointMap.get(getUniqueCoordsHash(point.x + deltaDir.deltaX, point.y + deltaDir.deltaY));
+    }
+
     public Point pointByPoint(Point point) {
         return point(point.x, point.y);
     }
@@ -93,10 +106,10 @@ public class FlexStruct implements PointSupplier {
 
     public Collection<Point> allPointsWhere(Predicate<? super Point> filterPredicate) {
         return pointMap
-            .values()
-            .stream()
-            .filter(filterPredicate)
-            .collect(Collectors.toList());
+                .values()
+                .stream()
+                .filter(filterPredicate)
+                .collect(Collectors.toList());
     }
 
     public Point pointWithMaxValue() {
@@ -107,19 +120,8 @@ public class FlexStruct implements PointSupplier {
         return pointMap.values().stream().filter(point -> point.type == type).findFirst().orElse(null);
     }
 
-    public FlexStruct setAllValuesTo(int value) {
-        pointMap.values().forEach(point -> point.value = value);
-        return this;
-    }
-
-    public FlexStruct forAllPointsSetMarked() {
-        pointMap.values().forEach(Point::mark);
-        return this;
-    }
-
-    public FlexStruct forAllPointsClearPathLink() {
-        pointMap.values().forEach(point -> point.setPathLink(null));
-        return this;
+    public AllPointsActions forAllPoints() {
+        return new AllPointsActions();
     }
 
     public boolean pointExists(int x, int y) {
@@ -132,10 +134,6 @@ public class FlexStruct implements PointSupplier {
 
     public int countPointsWhere(Predicate<? super Point> filterPredicate) {
         return (int) pointMap.values().stream().filter(filterPredicate).count();
-    }
-
-    public FlexMappingProcessor mapDataInsidePoints() {
-        return new FlexMappingProcessor(pointMap.values());
     }
 
     public FlexStruct forEachPoint(Consumer<Point> consumer) {
@@ -191,22 +189,22 @@ public class FlexStruct implements PointSupplier {
         return newStruct;
     }
 
-    public String print(Function<Point, Object> pointPrinter, char charForMissingPoints) {
-        StringBuilder builder = new StringBuilder((width + 1) * (height + 2) + 100);
+    public String print(Function<Point, Object> pointPrinter, String strForMissingPoints, int padding) {
+        StringBuilder builder = new StringBuilder((width + 1) * padding * (height + 2) + 100);
         builder.append("Width: [").append(width)
-            .append("], Height: [").append(height)
-            .append("], Points: [").append(pointMap.size())
-            .append("]\n");
-        String separator = "+" + "-".repeat(width) + "+\n";
+                .append("], Height: [").append(height)
+                .append("], Points: [").append(pointMap.size())
+                .append("]\n");
+        String separator = "+" + "-".repeat(width * padding) + "+\n";
         builder.append(separator);
         for (int y = 0; y < height; y++) {
             builder.append('|');
             for (int x = 0; x < width; x++) {
                 Point point = pointOrNull(x, y);
                 if (point != null) {
-                    builder.append(pointPrinter.apply(point));
+                    builder.append(Utils.strPadding(String.valueOf(pointPrinter.apply(point)), padding, " "));
                 } else {
-                    builder.append(charForMissingPoints);
+                    builder.append(Utils.strPadding(strForMissingPoints, padding, " "));
                 }
             }
             builder.append("|\n");
@@ -216,11 +214,11 @@ public class FlexStruct implements PointSupplier {
     }
 
     public String printTypes() {
-        return print(point -> point.type, ' ');
+        return print(point -> point.type, " ", 1);
     }
 
     public String printCharacters() {
-        return print(point -> point.chr, ' ');
+        return print(point -> point.chr, " ", 1);
     }
 
     // ----------------------------------------------------------------------------------------------------
@@ -355,6 +353,44 @@ public class FlexStruct implements PointSupplier {
                 }
             });
             return this;
+        }
+
+    }
+
+    public class AllPointsActions {
+
+        public AllPointsActions setMarked() {
+            pointMap.values().forEach(Point::mark);
+            return this;
+        }
+
+        public AllPointsActions clearPathLink() {
+            pointMap.values().forEach(point -> point.setPathLink(null));
+            return this;
+        }
+
+        public AllPointsActions clearPathCount() {
+            pointMap.values().forEach(point -> point.setPathCount(0));
+            return this;
+        }
+
+        public AllPointsActions setPathCount(int pathCount) {
+            pointMap.values().forEach(point -> point.setPathCount(pathCount));
+            return this;
+        }
+
+        public AllPointsActions setValueTo(int value) {
+            pointMap.values().forEach(point -> point.value = value);
+            return this;
+        }
+
+        public AllPointsActions setTypeTo(int type) {
+            pointMap.values().forEach(point -> point.type = type);
+            return this;
+        }
+
+        public FlexMappingProcessor mapData() {
+            return new FlexMappingProcessor(pointMap.values());
         }
 
     }

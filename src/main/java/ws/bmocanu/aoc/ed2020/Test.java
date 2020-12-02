@@ -1,38 +1,34 @@
 package ws.bmocanu.aoc.ed2020;
 
-import ws.bmocanu.aoc.support.FlexNumber;
+import ws.bmocanu.aoc.flex.FlexNumber;
+import ws.bmocanu.aoc.flex.FlexStruct;
+import ws.bmocanu.aoc.flex.Point;
+import ws.bmocanu.aoc.path.PathAdvisor;
+import ws.bmocanu.aoc.path.PathMarker;
+import ws.bmocanu.aoc.support.Log;
+import ws.bmocanu.aoc.utils.FileUtils;
+
+import java.util.List;
 
 public class Test {
 
+    static int typeWall = 1;
+    static int typeSpace = 0;
+
     public static void main(String[] args) {
-        FlexNumber n1 = FlexNumber.fromInt(89);
-        System.out.println(n1.printDigits());
-        FlexNumber n2 = FlexNumber.fromInt(123456789);
-        System.out.println(n2.printDigits());
-
-        n1.add(n2);
-        System.out.println(n1.printDigits());
-
-        n1.setDigit(35, 8);
-        System.out.println(n1.printDigits());
-
-        n2.setDigit(33, 9);
-        System.out.println(n2.printDigits());
-
-        n1.add(n2);
-        System.out.println(n1.printDigits());
-
-        n1.add(n1.deepClone());
-        System.out.println(n1.printDigits());
-        System.out.println(n1.printAsInt());
-        System.out.println("---------");
-
-        System.out.println(n1.printDigits());
-        System.out.println(n2.printDigits());
-        System.out.println(n1.compareTo(n1));
-        System.out.println(n1.compareTo(n2));
-        System.out.println(n2.compareTo(n1));
-
+        List<String> stringLines = FileUtils.fileAsStringPerLineToStringList("test2.txt");
+        FlexStruct struct = FlexStruct.fromLineList(stringLines);
+        struct.forAllPoints()
+                .setTypeTo(typeWall)
+                .mapData().charToType('.', typeSpace);
+        PathMarker pathMarker = new PathMarker(struct, new PathAdvisor() {
+            @Override
+            public boolean isFreeToWalk(Point point) {
+                return point.type == typeSpace;
+            }
+        });
+        pathMarker.startFrom(3, 5);
+        System.out.println(struct.print((point) -> point.pathCount, " ", 4));
     }
 
 }

@@ -2,7 +2,7 @@ package ws.bmocanu.aoc.ed2020;
 
 import ws.bmocanu.aoc.support.SParser;
 import ws.bmocanu.aoc.utils.FileUtils;
-import ws.bmocanu.aoc.utils.Log;
+import ws.bmocanu.aoc.support.Log;
 
 import java.util.List;
 
