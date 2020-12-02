@@ -7,31 +7,43 @@ public class Log {
 
     public static void part1(String... params) {
         String format = "[%s] ".repeat(params.length);
-        String line = String.format("Part 1: " + format + '\n', (Object[]) params);
-        appendLine(line);
+        String line = String.format(format + '\n', (Object[]) params);
+        appendLine("PART 1: " + line);
     }
 
     public static void part1(Integer... params) {
         String format = "[%d] ".repeat(params.length);
-        String line = String.format("Part 1: " + format + '\n', (Object[]) params);
-        appendLine(line);
+        String line = String.format(format, (Object[]) params);
+        appendLine("PART 1: " + line);
     }
 
     public static void part2(String... params) {
         String format = "[%s] ".repeat(params.length);
-        String line = String.format("Part 2: " + format + '\n', (Object[]) params);
-        appendLine(line);
+        String line = String.format(format, (Object[]) params);
+        appendLine("PART 2: " + line);
     }
 
     public static void part2(Integer... params) {
         String format = "[%d] ".repeat(params.length);
-        String line = String.format("Part 2: " + format + '\n', (Object[]) params);
-        appendLine(line);
+        String line = String.format(format, (Object[]) params);
+        appendLine("PART 2: " + line);
     }
 
     public static void info(String message, Object... params) {
         String line = String.format(message, params);
-        appendLine(line);
+        appendLine("INFO: " + line);
+    }
+
+    public static void error(String message, Object... params) {
+        String line = String.format(message, params);
+        appendLine("ERROR: " + line);
+    }
+
+    public static void error(Throwable throwable, String message, Object... params) {
+        StringWriter sw = new StringWriter(300);
+        throwable.printStackTrace(new PrintWriter(sw));
+        String line = String.format(message, params);
+        appendLine("ERROR: " + line + "\nCaused by: " + sw.toString());
     }
 
     // ----------------------------------------------------------------------------------------------------
@@ -57,10 +69,11 @@ public class Log {
     }
 
     private static void appendLine(String line) {
-        System.out.print(line);
+        String localLine = line + '\n';
+        System.out.print(localLine);
         if (writer != null) {
             try {
-                writer.append(line);
+                writer.append(localLine);
             } catch (IOException e) {
                 e.printStackTrace();
             }
