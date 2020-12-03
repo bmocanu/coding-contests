@@ -10,7 +10,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import ws.bmocanu.aoc.support.Direction;
+import ws.bmocanu.aoc.support.PosDelta;
+import ws.bmocanu.aoc.utils.FileUtils;
 import ws.bmocanu.aoc.utils.Utils;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
@@ -26,6 +27,12 @@ public class FlexStruct implements PointSupplier {
     public static FlexStruct fromLineList(List<String> lineList) {
         FlexStruct struct = new FlexStruct();
         struct.loadFromLineList(lineList);
+        return struct;
+    }
+
+    public static FlexStruct fromFile(String fileName) {
+        FlexStruct struct = new FlexStruct();
+        struct.loadFromFile(fileName);
         return struct;
     }
 
@@ -51,8 +58,8 @@ public class FlexStruct implements PointSupplier {
         return point;
     }
 
-    public FlexCursor cursor(int x, int y) {
-        return new FlexCursor(x, y, this);
+    public Cursor cursor(int x, int y) {
+        return new Cursor(x, y, this);
     }
 
     public int valueOrZero(int x, int y) {
@@ -72,7 +79,7 @@ public class FlexStruct implements PointSupplier {
         return pointMap.get(getUniqueCoordsHash(point.x, point.y));
     }
 
-    public Point pointOrNull(Point point, Direction deltaDir) {
+    public Point pointOrNull(Point point, PosDelta deltaDir) {
         return pointMap.get(getUniqueCoordsHash(point.x + deltaDir.deltaX, point.y + deltaDir.deltaY));
     }
 
@@ -84,10 +91,12 @@ public class FlexStruct implements PointSupplier {
         return pointMap.size();
     }
 
+    @Override
     public int width() {
         return width;
     }
 
+    @Override
     public int height() {
         return height;
     }
@@ -157,6 +166,10 @@ public class FlexStruct implements PointSupplier {
     }
 
     // ----------------------------------------------------------------------------------------------------
+
+    public FlexStruct loadFromFile(String fileName) {
+        return loadFromLineList(FileUtils.fileAsStringPerLineToStringList(fileName));
+    }
 
     public FlexStruct loadFromLineList(List<String> lineList) {
         for (int y = 0; y < lineList.size(); y++) {

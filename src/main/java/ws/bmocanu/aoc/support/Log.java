@@ -7,27 +7,15 @@ import java.io.*;
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class Log {
 
-    public static void part1(String... params) {
+    public static void part1(Object... params) {
         String format = "[%s] ".repeat(params.length);
-        String line = String.format(format + '\n', (Object[]) params);
+        String line = String.format(format, params);
         appendLine("PART 1: " + line);
     }
 
-    public static void part1(Integer... params) {
-        String format = "[%d] ".repeat(params.length);
-        String line = String.format(format, (Object[]) params);
-        appendLine("PART 1: " + line);
-    }
-
-    public static void part2(String... params) {
+    public static void part2(Object... params) {
         String format = "[%s] ".repeat(params.length);
-        String line = String.format(format, (Object[]) params);
-        appendLine("PART 2: " + line);
-    }
-
-    public static void part2(Integer... params) {
-        String format = "[%d] ".repeat(params.length);
-        String line = String.format(format, (Object[]) params);
+        String line = String.format(format, params);
         appendLine("PART 2: " + line);
     }
 

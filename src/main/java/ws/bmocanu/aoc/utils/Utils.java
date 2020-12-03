@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import ws.bmocanu.aoc.support.Direction;
+import ws.bmocanu.aoc.support.PosDelta;
 import ws.bmocanu.aoc.flex.Pointer;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
@@ -14,21 +14,6 @@ public class Utils {
 
     public static long getCantorPairingValue(int a1, int a2) {
         return (a1 + a2) * (a1 + a2 + 1) / 2 + a2;
-    }
-
-    public static Direction directionDelta0123(int dir) {
-        switch (dir) {
-            case 0:
-                return Direction.from(0, -1);
-            case 1:
-                return Direction.from(1, 0);
-            case 2:
-                return Direction.from(0, 1);
-            case 3:
-                return Direction.from(-1, 0);
-            default:
-                throw new IllegalArgumentException("Invalid direction: " + dir);
-        }
     }
 
     public static int max(int a1, int a2) {
