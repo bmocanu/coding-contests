@@ -1,6 +1,8 @@
 package ws.bmocanu.aoc.flex;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import ws.bmocanu.aoc.utils.Utils;
 
@@ -15,6 +17,12 @@ public class FlexNumber implements Comparable<FlexNumber> {
     public static FlexNumber fromInt(int number) {
         FlexNumber result = new FlexNumber();
         result.loadFromInt(number);
+        return result;
+    }
+
+    public static FlexNumber fromLong(long number) {
+        FlexNumber result = new FlexNumber();
+        result.loadFromLong(number);
         return result;
     }
 
@@ -36,6 +44,16 @@ public class FlexNumber implements Comparable<FlexNumber> {
         return this;
     }
 
+    public FlexNumber loadFromLong(long number) {
+        reset();
+        long localValue = number;
+        while (localValue > 0) {
+            addDigit((int) (localValue % 10));
+            localValue = localValue / 10;
+        }
+        return this;
+    }
+
     public FlexNumber loadFromString(String number) {
         reset();
         String localNumber = number.trim();
@@ -47,6 +65,12 @@ public class FlexNumber implements Comparable<FlexNumber> {
                 throw new IllegalArgumentException("This char is not a digit: " + currentChar);
             }
         }
+        return this;
+    }
+
+    public FlexNumber loadFromFlexNumber(FlexNumber number) {
+        digits = Arrays.copyOf(number.digits, number.digits.length);
+        length = number.length;
         return this;
     }
 
@@ -119,6 +143,33 @@ public class FlexNumber implements Comparable<FlexNumber> {
         }
         if (carryOn > 0) {
             setDigit(maxLength, carryOn);
+        }
+        return this;
+    }
+
+    public FlexNumber multiply(FlexNumber other) {
+        int termCount = 0;
+        List<FlexNumber> terms = new ArrayList<>();
+        for (int otherIndex = 0; otherIndex < other.length; otherIndex++) {
+            FlexNumber newTerm = new FlexNumber();
+            if (termCount > 0) {
+                newTerm.setDigit(termCount - 1, 0);
+            }
+            int carryOn = 0;
+            for (int thisIndex = 0; thisIndex < length; thisIndex++) {
+                int product = digits[thisIndex] * other.digits[otherIndex] + carryOn;
+                newTerm.addDigit(product % 10);
+                carryOn = product / 10;
+            }
+            if (carryOn > 0) {
+                newTerm.addDigit(carryOn);
+            }
+            terms.add(newTerm);
+            termCount++;
+        }
+        reset();
+        for (FlexNumber term : terms) {
+            add(term);
         }
         return this;
     }

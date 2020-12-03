@@ -6,7 +6,7 @@ import ws.bmocanu.aoc.support.Log;
 
 import java.util.List;
 
-public class Day02 {
+public class Day02PasswordPolicy {
 
     public static class Entry {
         int minAp;

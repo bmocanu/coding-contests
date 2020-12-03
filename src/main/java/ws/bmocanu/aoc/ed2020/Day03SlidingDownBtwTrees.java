@@ -4,7 +4,7 @@ import ws.bmocanu.aoc.flex.Cursor;
 import ws.bmocanu.aoc.flex.FlexStruct;
 import ws.bmocanu.aoc.support.Log;
 
-public class Day03 {
+public class Day03SlidingDownBtwTrees {
 
     static int typeSpace = 0;
     static int typeTree = 1;

@@ -6,7 +6,7 @@ import ws.bmocanu.aoc.utils.FileUtils;
 import ws.bmocanu.aoc.utils.ListUtils;
 import ws.bmocanu.aoc.support.Log;
 
-public class Day01 {
+public class Day01RecordsSumTo2020 {
 
     public static void main(String[] args) {
         Log.appendToTimestampedFile("day01");
