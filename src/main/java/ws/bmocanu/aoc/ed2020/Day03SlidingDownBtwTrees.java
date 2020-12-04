@@ -26,8 +26,8 @@ public class Day03SlidingDownBtwTrees {
         }
         Log.part1(trees);
 
-        int slopesX[] = new int[]{1, 3, 5, 7, 1};
-        int slopesY[] = new int[]{1, 1, 1, 1, 2};
+        int[] slopesX = new int[]{1, 3, 5, 7, 1};
+        int[] slopesY = new int[]{1, 1, 1, 1, 2};
         long result = 1;
         for (int index = 0; index < 5; index++) {
             cursor = struct.cursor(0, 0).enableCycling(true, false);

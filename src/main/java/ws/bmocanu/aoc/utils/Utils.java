@@ -1,10 +1,6 @@
 package ws.bmocanu.aoc.utils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
+import java.util.*;
 
 import ws.bmocanu.aoc.support.PosDelta;
 import ws.bmocanu.aoc.flex.Pointer;
@@ -234,6 +230,11 @@ public class Utils {
             return padWith.repeat(padding - value.length()) + value;
         }
         return value;
+    }
+
+    public static boolean strOneOf(String input, String... values) {
+        Set<String> valueSet = new HashSet<>(Arrays.asList(values));
+        return valueSet.contains(input);
     }
 
 }
