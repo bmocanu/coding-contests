@@ -1,6 +1,10 @@
 package ws.bmocanu.aoc.ed2020;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 import ws.bmocanu.aoc.support.Log;
 import ws.bmocanu.aoc.support.SReg;
@@ -27,7 +31,7 @@ public class Day04ValidatePassports {
                 while (tokenizer.hasMoreTokens()) {
                     String token = tokenizer.nextToken();
                     String id = token.substring(0, token.indexOf(':'));
-                    if (Utils.strOneOf(id, "byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid", "cid")) {
+                    if (Utils.stringOneOf(id, "byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid", "cid")) {
                         currentPass.put(id, token.substring(token.indexOf(':') + 1));
                     }
                 }
@@ -43,13 +47,13 @@ public class Day04ValidatePassports {
                 String id = entry.getKey();
                 String value = entry.getValue();
                 if (id.equals("byr")) {
-                    allValid &= SReg.intBetween("\\d+", 1920, 2002, value);
+                    allValid = allValid && SReg.parse("\\d+", value).intBtw(0, 1920, 2002);
                 }
                 if (id.equals("iyr")) {
-                    allValid &= SReg.intBetween("\\d+", 2010, 2020, value);
+                    allValid = allValid && SReg.parse("\\d+", value).intBtw(0, 2010, 2020);
                 }
                 if (id.equals("eyr")) {
-                    allValid &= SReg.intBetween("\\d+", 2020, 2030, value);
+                    allValid = allValid && SReg.parse("\\d+", value).intBtw(0, 2020, 2030);
                 }
                 if (id.equals("hgt")) {
                     if (!value.endsWith("cm") && !value.endsWith("in")) {
@@ -57,42 +61,20 @@ public class Day04ValidatePassports {
                     } else {
                         String unit = value.substring(value.length() - 2);
                         if (unit.equals("cm")) {
-                            allValid &= SReg.intBetween("(\\d+)cm", 150, 193, value);
+                            allValid = allValid && SReg.parse("(\\d+)cm", value).intBtw(1, 150, 193);
                         } else {
-                            allValid &= SReg.intBetween("(\\d+)in", 59, 76, value);
+                            allValid = allValid && SReg.parse("(\\d+)in", value).intBtw(1, 59, 76);
                         }
                     }
                 }
                 if (id.equals("hcl")) {
-                    if (!value.startsWith("#") || value.length() != 7) {
-                        allValid = false;
-                    } else {
-                        String color = value.substring(1);
-                        for (char chr : color.toCharArray()) {
-                            if (chr < '0' || (chr > '9' && chr < 'a') || (chr > 'f')) {
-                                allValid = false;
-                                break;
-                            }
-                        }
-                    }
+                    allValid = allValid && SReg.matches("#[0-9a-f]{6}", value);
                 }
                 if (id.equals("ecl")) {
-                    Set<String> color = new HashSet<>(Arrays.asList("amb", "blu", "brn", "gry", "grn", "hzl", "oth"));
-                    if (!color.contains(value)) {
-                        allValid = false;
-                    }
+                    allValid = allValid && Utils.stringOneOf(value, "amb", "blu", "brn", "gry", "grn", "hzl", "oth");
                 }
                 if (id.equals("pid")) {
-                    if (value.length() != 9) {
-                        allValid = false;
-                    } else {
-                        for (char chr : value.toCharArray()) {
-                            if (!Utils.charIsDigit(chr)) {
-                                allValid = false;
-                                break;
-                            }
-                        }
-                    }
+                    allValid = allValid && SReg.matches("\\d{9}", value);
                 }
                 if (!allValid) {
                     break;
@@ -102,16 +84,6 @@ public class Day04ValidatePassports {
                 correctPass2++;
             }
         }
-//        byr (Birth Year) - four digits; at least 1920 and at most 2002.
-//        iyr (Issue Year) - four digits; at least 2010 and at most 2020.
-//        eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
-//        hgt (Height) - a number followed by either cm or in:
-//        If cm, the number must be at least 150 and at most 193.
-//        If in, the number must be at least 59 and at most 76.
-//        hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
-//        ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
-//        pid (Passport ID) - a nine-digit number, including leading zeroes.
-//        cid (Country ID) - ignored, missing or not.
 
         Log.part2(correctPass2);
     }

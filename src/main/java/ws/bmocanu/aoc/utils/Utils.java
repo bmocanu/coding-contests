@@ -2,14 +2,13 @@ package ws.bmocanu.aoc.utils;
 
 import java.util.*;
 
-import ws.bmocanu.aoc.support.PosDelta;
 import ws.bmocanu.aoc.flex.Pointer;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class Utils {
 
     public static long getCantorPairingValue(int a1, int a2) {
-        return (a1 + a2) * (a1 + a2 + 1) / 2 + a2;
+        return (long) (a1 + a2) * (a1 + a2 + 1) / 2 + a2;
     }
 
     public static int max(int a1, int a2) {
@@ -232,9 +231,27 @@ public class Utils {
         return value;
     }
 
-    public static boolean strOneOf(String input, String... values) {
+    public static boolean stringOneOf(String input, String... values) {
         Set<String> valueSet = new HashSet<>(Arrays.asList(values));
         return valueSet.contains(input);
+    }
+
+    public static boolean intOneOf(int valueToCheck, int... values) {
+        for (int currentValue : values) {
+            if (currentValue == valueToCheck) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean charOneOf(char chrToCheck, char... values) {
+        for (char currentValue : values) {
+            if (currentValue == chrToCheck) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

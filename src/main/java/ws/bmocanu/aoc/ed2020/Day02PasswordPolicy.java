@@ -1,6 +1,6 @@
 package ws.bmocanu.aoc.ed2020;
 
-import ws.bmocanu.aoc.support.SParser;
+import ws.bmocanu.aoc.support.SBinder;
 import ws.bmocanu.aoc.utils.FileUtils;
 import ws.bmocanu.aoc.support.Log;
 
@@ -17,9 +17,9 @@ public class Day02PasswordPolicy {
 
     public static void main(String[] args) {
         List<String> lineList = FileUtils.fileAsStringPerLineToStringList("day02");
-        SParser parser = new SParser("(\\d+)-(\\d+) (\\w): (\\w+)",
-                "minAp", "maxAp", "letter", "pass");
-        List<Entry> entries = parser.parse(lineList, Entry.class);
+        SBinder parser = new SBinder("(\\d+)-(\\d+) (\\w): (\\w+)",
+                                     "minAp", "maxAp", "letter", "pass");
+        List<Entry> entries = parser.bind(lineList, Entry.class);
 
         int validPasswords = 0;
         for (Entry entry : entries) {

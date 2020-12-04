@@ -7,20 +7,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
-public class SParser {
+public class SBinder {
 
     private final Pattern pattern;
     private final String[] fieldNames;
 
-    public SParser(String regex, String... fieldNames) {
+    public SBinder(String regex, String... fieldNames) {
         this.pattern = Pattern.compile(regex);
         this.fieldNames = fieldNames;
     }
 
-    public <T> List<T> parse(List<String> stringList, Class<T> clazz) {
+    public <T> List<T> bind(List<String> stringList, Class<T> clazz) {
         List<T> entryList = new ArrayList<>();
         for (String str : stringList) {
-            T entry = parse(str, clazz);
+            T entry = bind(str, clazz);
             if (entry != null) {
                 entryList.add(entry);
             }
@@ -28,7 +28,7 @@ public class SParser {
         return entryList;
     }
 
-    public <T> T parse(String str, Class<T> clazz) {
+    public <T> T bind(String str, Class<T> clazz) {
         T entry = null;
         Matcher matcher = pattern.matcher(str);
         if (matcher.matches()) {
