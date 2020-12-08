@@ -6,7 +6,7 @@ public enum InstructionType {
     JMP("jmp"),
     ACC("acc");
 
-    private String value;
+    private final String value;
 
     InstructionType(String value) {
         this.value = value;

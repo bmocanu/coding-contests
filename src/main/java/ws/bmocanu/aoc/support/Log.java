@@ -1,22 +1,27 @@
 package ws.bmocanu.aoc.support;
 
-import ws.bmocanu.aoc.utils.FileUtils;
-
 import java.io.*;
+
+import ws.bmocanu.aoc.utils.FileUtils;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class Log {
+
+    private static Object[] part1Results;
+    private static Object[] part2Results;
 
     public static void part1(Object... params) {
         String format = "[%s] ".repeat(params.length);
         String line = String.format(format, params);
         appendLine("PART 1: " + line);
+        part1Results = params;
     }
 
     public static void part2(Object... params) {
         String format = "[%s] ".repeat(params.length);
         String line = String.format(format, params);
         appendLine("PART 2: " + line);
+        part2Results = params;
     }
 
     public static void info(String message, Object... params) {
@@ -34,6 +39,29 @@ public class Log {
         throwable.printStackTrace(new PrintWriter(sw));
         String line = String.format(message, params);
         appendLine("ERROR: " + line + "\nCaused by: " + sw.toString());
+    }
+
+    // ----------------------------------------------------------------------------------------------------
+
+    public static Object[] getPart1Results() {
+        return part1Results;
+    }
+
+    public static int getPart1Int() {
+        return (Integer) part1Results[0];
+    }
+
+    public static Object[] getPart2Results() {
+        return part2Results;
+    }
+
+    public static int getPart2Int() {
+        return (Integer) part2Results[0];
+    }
+
+    public static void reset() {
+        part1Results = null;
+        part2Results = null;
     }
 
     // ----------------------------------------------------------------------------------------------------
