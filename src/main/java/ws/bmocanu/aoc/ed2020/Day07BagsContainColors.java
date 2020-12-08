@@ -6,7 +6,7 @@ import ws.bmocanu.aoc.support.Log;
 import ws.bmocanu.aoc.support.SBinder;
 import ws.bmocanu.aoc.utils.FileUtils;
 
-public class Day07 {
+public class Day07BagsContainColors {
 
     public static class Content {
 
