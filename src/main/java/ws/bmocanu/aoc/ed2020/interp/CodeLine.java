@@ -6,6 +6,8 @@ public class CodeLine {
 
     public int value;
 
+    public boolean executed;
+
     // ----------------------------------------------------------------------------------------------------
 
     @Override
@@ -13,6 +15,7 @@ public class CodeLine {
         return "CodeLine{" +
                 "instruction=" + instruction +
                 ", value=" + value +
+                ", executed=" + executed +
                 '}';
     }
 }
