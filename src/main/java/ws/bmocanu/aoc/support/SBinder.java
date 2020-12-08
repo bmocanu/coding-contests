@@ -66,7 +66,7 @@ public class SBinder {
                 Log.error(e, "Failed to instantiate the type or set one of the fields of type [%s]", clazz.getName());
             }
         } else {
-            Log.error("Pattern did not match string: %s", str);
+            Log.error("Pattern did not match string: [%s]", str);
         }
         return entry;
     }

@@ -1,6 +1,10 @@
 package ws.bmocanu.aoc.ed2020;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 import ws.bmocanu.aoc.support.Log;
 import ws.bmocanu.aoc.support.SBinder;
@@ -16,16 +20,16 @@ public class Day07BagsContainColors {
         @Override
         public String toString() {
             return "Content{" +
-                    "number=" + number +
-                    ", bagColour='" + bagColour + '\'' +
-                    '}';
+                   "number=" + number +
+                   ", bagColour='" + bagColour + '\'' +
+                   '}';
         }
     }
 
     public static Map<String, List<Content>> bags = new HashMap<>();
 
     public static void main(String[] args) {
-        List<String> stringLines = FileUtils.fileAsStringPerLineToStringList("day07_small");
+        List<String> stringLines = FileUtils.fileAsStringPerLineToStringList("day07");
 
         for (String line : stringLines) {
             int firstIndex = line.indexOf(" bags contain ");
@@ -34,7 +38,7 @@ public class Day07BagsContainColors {
             StringTokenizer tokenizer = new StringTokenizer(rest, ",");
             List<Content> parentContent = new ArrayList<>();
             bags.put(parent, parentContent);
-            SBinder binder = new SBinder("(\\d+) (\\w+ \\w+) bags?.", "number", "bagColour");
+            SBinder binder = new SBinder("(\\d+) (\\w+ \\w+) bag.*", "number", "bagColour");
             while (tokenizer.hasMoreTokens()) {
                 String subContent = tokenizer.nextToken().trim();
                 if (subContent.contains("no other")) {
@@ -42,24 +46,14 @@ public class Day07BagsContainColors {
                 } else {
                     parentContent.add(binder.bind(subContent, Content.class));
                 }
-//                Content content = new Content();
-//                if (!subContent.contains("no other")) {
-//                    content.number = Integer.parseInt(subContent.substring(0, subContent.indexOf(' ')));
-//                    content.bagColour = subContent.substring(subContent.indexOf(' ') + 1,
-//                            subContent.indexOf(" bag"));
-//                }
-//                parentContent.add(content);
             }
         }
-        System.out.println(bags);
 
         int total = 0;
         for (String rootColour : bags.keySet()) {
             total += solvePart1(rootColour) ? 1 : 0;
         }
-
         Log.part1(total);
-
         Log.part2(solvePart2("shiny gold") - 1);
     }
 

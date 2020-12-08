@@ -59,6 +59,10 @@ public class Log {
         return (Integer) part2Results[0];
     }
 
+    public static long getPart2Long() {
+        return (Long) part2Results[0];
+    }
+
     public static void reset() {
         part1Results = null;
         part2Results = null;

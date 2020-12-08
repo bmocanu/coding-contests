@@ -7,15 +7,15 @@ import java.util.List;
 import ws.bmocanu.aoc.support.Log;
 import ws.bmocanu.aoc.utils.FileUtils;
 
-public class Day05SeatIdHalfing {
+public class Day05SeatIdHalving {
 
     public static void main(String[] args) {
         List<String> stringLines = FileUtils.fileAsStringPerLineToStringList("day05");
 
-        List<Long> seats = new ArrayList<>();
-        long maxSeatId = 0;
+        List<Integer> seats = new ArrayList<>();
+        int maxSeatId = 0;
         for (String line : stringLines) {
-            long seatId = getSeatId(line, 0, 0, 127);
+            int seatId = getSeatId(line, 0, 0, 127);
             seats.add(seatId);
             if (seatId > maxSeatId) {
                 maxSeatId = seatId;
@@ -32,7 +32,7 @@ public class Day05SeatIdHalfing {
         }
     }
 
-    public static long getSeatId(String input, int index, int left, int right) {
+    public static int getSeatId(String input, int index, int left, int right) {
         if (right - left > 0) {
             char chr = input.charAt(index);
             if (chr == 'F') {
