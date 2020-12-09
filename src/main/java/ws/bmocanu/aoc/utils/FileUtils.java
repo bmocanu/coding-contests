@@ -36,6 +36,21 @@ public class FileUtils {
         }
     }
 
+    public static List<Long> fileAsLongPerLineToLongList(String fileName) {
+        String filePath = sourceFileName(fileName);
+        List<Long> intList = new ArrayList<>();
+        try (InputStream is = Utils.class.getResourceAsStream(filePath)) {
+            List<String> resultList = new ArrayList<>();
+            LineIterator lineIterator = IOUtils.lineIterator(is, StandardCharsets.UTF_8);
+            while (lineIterator.hasNext()) {
+                intList.add(Long.parseLong(lineIterator.nextLine()));
+            }
+            return intList;
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load file [" + filePath + "]", e);
+        }
+    }
+
     public static List<Integer> fileAsCsvLineToIntList(String fileName, String separator) {
         String fileContent = fileToOneString(fileName);
         StringTokenizer tokenizer = new StringTokenizer(fileContent, separator);

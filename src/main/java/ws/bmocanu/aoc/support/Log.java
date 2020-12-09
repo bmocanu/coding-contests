@@ -51,6 +51,10 @@ public class Log {
         return (Integer) part1Results[0];
     }
 
+    public static long getPart1Long() {
+        return (Long) part1Results[0];
+    }
+
     public static Object[] getPart2Results() {
         return part2Results;
     }

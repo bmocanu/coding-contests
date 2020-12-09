@@ -19,6 +19,14 @@ public class Utils {
         return Math.min(a1, a2);
     }
 
+    public static long max(long a1, long a2) {
+        return Math.max(a1, a2);
+    }
+
+    public static long min(long a1, long a2) {
+        return Math.min(a1, a2);
+    }
+
     public static int abs(int a1) {
         return Math.abs(a1);
     }
