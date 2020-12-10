@@ -115,10 +115,10 @@ public class FlexStruct implements PointSupplier {
 
     public Collection<Point> allPointsWhere(Predicate<? super Point> filterPredicate) {
         return pointMap
-                .values()
-                .stream()
-                .filter(filterPredicate)
-                .collect(Collectors.toList());
+            .values()
+            .stream()
+            .filter(filterPredicate)
+            .collect(Collectors.toList());
     }
 
     public Point pointWithMaxValue() {
@@ -202,12 +202,12 @@ public class FlexStruct implements PointSupplier {
         return newStruct;
     }
 
-    public String print(Function<Point, Object> pointPrinter, String strForMissingPoints, int padding) {
+    public String toString(Function<Point, Object> pointPrinter, String strForMissingPoints, int padding) {
         StringBuilder builder = new StringBuilder((width + 1) * padding * (height + 2) + 100);
         builder.append("Width: [").append(width)
-                .append("], Height: [").append(height)
-                .append("], Points: [").append(pointMap.size())
-                .append("]\n");
+            .append("], Height: [").append(height)
+            .append("], Points: [").append(pointMap.size())
+            .append("]\n");
         String separator = "+" + "-".repeat(width * padding) + "+\n";
         builder.append(separator);
         for (int y = 0; y < height; y++) {
@@ -226,12 +226,12 @@ public class FlexStruct implements PointSupplier {
         return builder.toString();
     }
 
-    public String printTypes() {
-        return print(point -> point.type, " ", 1);
+    public String typesToString() {
+        return toString(point -> point.type, " ", 1);
     }
 
-    public String printCharacters() {
-        return print(point -> point.chr, " ", 1);
+    public String charactersToString() {
+        return toString(point -> point.chr, " ", 1);
     }
 
     // ----------------------------------------------------------------------------------------------------

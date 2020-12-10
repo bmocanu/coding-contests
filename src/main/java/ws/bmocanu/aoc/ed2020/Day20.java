@@ -4,11 +4,12 @@ import java.util.List;
 
 import ws.bmocanu.aoc.support.Log;
 import ws.bmocanu.aoc.utils.FileUtils;
+import ws.bmocanu.aoc.xbase.SolutionBase;
 
-public class Day20 {
+public class Day20 extends SolutionBase {
 
     public static void main(String[] args) {
-        List<String> stringLines = FileUtils.fileAsStringPerLineToStringList("day20");
+        List<String> stringLines = FileUtils.fileAsStringPerLineToStringList(filePath("day20"));
 
         Log.part1(0);
 

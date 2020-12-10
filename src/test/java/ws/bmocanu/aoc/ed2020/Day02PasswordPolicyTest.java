@@ -13,6 +13,7 @@ public class Day02PasswordPolicyTest {
     @BeforeEach
     public void setUp() {
         Log.reset();
+        Day02PasswordPolicy.setForcedFilePath("/test-ed2020/day02.txt");
     }
 
     @Test

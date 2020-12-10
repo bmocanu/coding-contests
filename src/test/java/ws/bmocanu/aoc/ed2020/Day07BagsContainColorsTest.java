@@ -13,6 +13,7 @@ public class Day07BagsContainColorsTest {
     @BeforeEach
     public void setUp() {
         Log.reset();
+        Day07BagsContainColors.setForcedFilePath("/test-ed2020/day07.txt");
     }
 
     @Test

@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -21,8 +20,7 @@ import ws.bmocanu.aoc.support.Constants;
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class FileUtils {
 
-    public static List<Integer> fileAsIntPerLineToIntList(String fileName) {
-        String filePath = sourceFileName(fileName);
+    public static List<Integer> fileAsIntPerLineToIntList(String filePath) {
         List<Integer> intList = new ArrayList<>();
         try (InputStream is = Utils.class.getResourceAsStream(filePath)) {
             List<String> resultList = new ArrayList<>();
@@ -36,8 +34,7 @@ public class FileUtils {
         }
     }
 
-    public static List<Long> fileAsLongPerLineToLongList(String fileName) {
-        String filePath = sourceFileName(fileName);
+    public static List<Long> fileAsLongPerLineToLongList(String filePath) {
         List<Long> intList = new ArrayList<>();
         try (InputStream is = Utils.class.getResourceAsStream(filePath)) {
             List<String> resultList = new ArrayList<>();
@@ -51,8 +48,8 @@ public class FileUtils {
         }
     }
 
-    public static List<Integer> fileAsCsvLineToIntList(String fileName, String separator) {
-        String fileContent = fileToOneString(fileName);
+    public static List<Integer> fileAsCsvLineToIntList(String filePath, String separator) {
+        String fileContent = fileToOneString(filePath);
         StringTokenizer tokenizer = new StringTokenizer(fileContent, separator);
         List<Integer> intList = new ArrayList<>();
         while (tokenizer.hasMoreTokens()) {
@@ -61,8 +58,8 @@ public class FileUtils {
         return intList;
     }
 
-    public static List<String> fileAsCsvLineToStringList(String fileName, String separator) {
-        String fileContent = fileToOneString(fileName);
+    public static List<String> fileAsCsvLineToStringList(String filePath, String separator) {
+        String fileContent = fileToOneString(filePath);
         StringTokenizer tokenizer = new StringTokenizer(fileContent, separator);
         List<String> stringList = new ArrayList<>();
         while (tokenizer.hasMoreTokens()) {
@@ -71,8 +68,7 @@ public class FileUtils {
         return stringList;
     }
 
-    public static String fileToOneString(String fileName) {
-        String filePath = sourceFileName(fileName);
+    public static String fileToOneString(String filePath) {
         try (InputStream is = Utils.class.getResourceAsStream(filePath)) {
             return IOUtils.toString(is, StandardCharsets.UTF_8);
         } catch (IOException e) {
@@ -80,8 +76,7 @@ public class FileUtils {
         }
     }
 
-    public static List<String> fileAsStringPerLineToStringList(String fileName) {
-        String filePath = sourceFileName(fileName);
+    public static List<String> fileAsStringPerLineToStringList(String filePath) {
         try (InputStream is = Utils.class.getResourceAsStream(filePath)) {
             List<String> resultList = new ArrayList<>();
             LineIterator lineIterator = IOUtils.lineIterator(is, StandardCharsets.UTF_8);
@@ -94,8 +89,8 @@ public class FileUtils {
         }
     }
 
-    public static char[][] fileAsCharMatrixToCharMatrix(String fileName) {
-        List<String> lineList = fileAsStringPerLineToStringList(fileName);
+    public static char[][] fileAsCharMatrixToCharMatrix(String filePath) {
+        List<String> lineList = fileAsStringPerLineToStringList(filePath);
         int maxWidth = lineList.stream().mapToInt(String::length).max().orElse(0);
         char[][] resultMatrix = new char[lineList.size()][maxWidth];
         for (int row = 0; row < lineList.size(); row++) {
@@ -111,8 +106,8 @@ public class FileUtils {
         return resultMatrix;
     }
 
-    public static int[] fileAsLongDigitsLineToIntArray(String fileName) {
-        String fileContent = fileToOneString(fileName);
+    public static int[] fileAsLongDigitsLineToIntArray(String filePath) {
+        String fileContent = fileToOneString(filePath);
         int[] result = new int[fileContent.length()];
         for (int index = 0; index < fileContent.length(); index++) {
             result[index] = ((int) fileContent.charAt(index) - (int) '0');
@@ -120,7 +115,7 @@ public class FileUtils {
         return result;
     }
 
-    public static void printStringToFile(String content, String fileName) {
+    public static void writeStringToFile(String content, String fileName) {
         ensureOutputFolderExists();
         String filePath = outputFileName(fileName);
         try {
@@ -145,15 +140,15 @@ public class FileUtils {
         return new File(filePath);
     }
 
-    // ----------------------------------------------------------------------------------------------------
-
-    private static String sourceFileName(String fileName) {
+    public static String sourceFileName(String fileName) {
         String finalFileName = fileName;
         if (!fileName.contains(".")) {
             finalFileName = finalFileName + ".txt";
         }
         return "/" + Constants.EDITION + "/" + finalFileName;
     }
+
+    // ----------------------------------------------------------------------------------------------------
 
     private static String outputFileName(String fileName) {
         String finalFileName = fileName;

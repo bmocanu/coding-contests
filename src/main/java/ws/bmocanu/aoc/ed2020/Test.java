@@ -10,7 +10,7 @@ public class Test {
         FlexNumber n1 = FlexNumber.fromLong(n1long);
         FlexNumber n2 = FlexNumber.fromLong(16757485757485L);
         n1.multiply(n2);
-        System.out.println(n1.printAsInt());
+        System.out.println(n1.toStringAsInt());
 
 //        FlexNumber n1 = FlexNumber.fromInt(5566);
 //        FlexNumber n2 = FlexNumber.fromInt(776);

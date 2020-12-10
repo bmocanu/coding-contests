@@ -13,6 +13,7 @@ public class Day04ValidatePassportsTest {
     @BeforeEach
     public void setUp() {
         Log.reset();
+        Day04ValidatePassports.setForcedFilePath("/test-ed2020/day04.txt");
     }
 
     @Test

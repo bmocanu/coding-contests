@@ -13,6 +13,7 @@ public class Day03SlidingDownBtwTreesTest {
     @BeforeEach
     public void setUp() {
         Log.reset();
+        Day03SlidingDownBtwTrees.setForcedFilePath("/test-ed2020/day03.txt");
     }
 
     @Test

@@ -114,7 +114,7 @@ public class FlexNumber implements Comparable<FlexNumber> {
         return this;
     }
 
-    public String printAsInt() {
+    public String toStringAsInt() {
         StringBuilder builder = new StringBuilder(length);
         for (int index = length - 1; index >= 0; index--) {
             builder.append(digits[index]);
@@ -122,10 +122,10 @@ public class FlexNumber implements Comparable<FlexNumber> {
         return builder.toString();
     }
 
-    public String printDigits() {
+    public String digitsToString() {
         StringBuilder builder = new StringBuilder(digits.length);
-        for (int index = 0; index < digits.length; index++) {
-            builder.append(digits[index]);
+        for (int digit : digits) {
+            builder.append(digit);
         }
         return builder.toString();
     }

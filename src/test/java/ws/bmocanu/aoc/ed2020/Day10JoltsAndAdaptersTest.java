@@ -13,6 +13,7 @@ public class Day10JoltsAndAdaptersTest {
     @BeforeEach
     public void setUp() {
         Log.reset();
+        Day10JoltsAndAdapters.setForcedFilePath("/test-ed2020/day10.txt");
     }
 
     @Test

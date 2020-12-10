@@ -13,6 +13,7 @@ public class Day01RecordsSumTo2020Test {
     @BeforeEach
     public void setUp() {
         Log.reset();
+        Day01RecordsSumTo2020.setForcedFilePath("/test-ed2020/day01.txt");
     }
 
     @Test

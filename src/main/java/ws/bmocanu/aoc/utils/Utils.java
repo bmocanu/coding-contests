@@ -124,7 +124,7 @@ public class Utils {
         return chr >= '0' && chr <= '9';
     }
 
-    public static String printIntArray(int[] array) {
+    public static String intArrayToString(int[] array) {
         StringBuilder builder = new StringBuilder(array.length * 5);
         builder.append('[');
         for (int i : array) {
@@ -137,7 +137,20 @@ public class Utils {
         return builder.toString();
     }
 
-    public static String printByteArray(byte[] array) {
+    public static String longArrayToString(long[] array) {
+        StringBuilder builder = new StringBuilder(array.length * 5);
+        builder.append('[');
+        for (long i : array) {
+            if (builder.length() > 1) {
+                builder.append(", ");
+            }
+            builder.append(i);
+        }
+        builder.append(']');
+        return builder.toString();
+    }
+
+    public static String byteArrayToString(byte[] array) {
         StringBuilder builder = new StringBuilder(array.length * 5);
         builder.append('[');
         for (byte i : array) {
@@ -150,7 +163,7 @@ public class Utils {
         return builder.toString();
     }
 
-    public static String printStringArray(String[] array) {
+    public static String stringArrayToString(String[] array) {
         StringBuilder builder = new StringBuilder(array.length * 10);
         builder.append('[');
         for (String str : array) {
@@ -163,7 +176,7 @@ public class Utils {
         return builder.toString();
     }
 
-    public static String printIntMatrix(int[][] mtx, int padding) {
+    public static String intMatrixToString(int[][] mtx, int padding) {
         StringBuilder builder = new StringBuilder(mtx.length * (mtx[0].length * padding + 3));
         String horizontalBorder = "+" + "-".repeat(mtx[0].length * padding) + "+\n";
         builder.append(horizontalBorder);
@@ -178,7 +191,7 @@ public class Utils {
         return builder.toString();
     }
 
-    public static String printCharMatrix(char[][] mtx) {
+    public static String charMatrixToString(char[][] mtx) {
         StringBuilder builder = new StringBuilder(mtx.length * (mtx[0].length + 3));
         String horizontalBorder = "+" + "-".repeat(mtx[0].length) + "+\n";
         builder.append(horizontalBorder);
@@ -193,7 +206,7 @@ public class Utils {
         return builder.toString();
     }
 
-    public static String printStringMatrix(String[][] mtx, int padding) {
+    public static String stringMatrixToString(String[][] mtx, int padding) {
         StringBuilder builder = new StringBuilder(mtx.length * (mtx[0].length * padding + 3));
         String horizontalBorder = "+" + "-".repeat(mtx[0].length * padding) + "+\n";
         builder.append(horizontalBorder);

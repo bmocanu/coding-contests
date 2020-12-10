@@ -5,11 +5,12 @@ import java.util.List;
 import ws.bmocanu.aoc.support.Log;
 import ws.bmocanu.aoc.utils.FileUtils;
 import ws.bmocanu.aoc.utils.Utils;
+import ws.bmocanu.aoc.xbase.SolutionBase;
 
-public class Day09XmasPrev25Numbers {
+public class Day09XmasPrev25Numbers extends SolutionBase {
 
     public static void main(String[] args) {
-        List<Long> numbers = FileUtils.fileAsLongPerLineToLongList("day09");
+        List<Long> numbers = FileUtils.fileAsLongPerLineToLongList(filePath("day09"));
 
         long numberP1 = 0;
         int numberP1Index = 0;

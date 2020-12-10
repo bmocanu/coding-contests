@@ -6,11 +6,12 @@ import java.util.List;
 
 import ws.bmocanu.aoc.support.Log;
 import ws.bmocanu.aoc.utils.FileUtils;
+import ws.bmocanu.aoc.xbase.SolutionBase;
 
-public class Day05SeatIdHalving {
+public class Day05SeatIdHalving extends SolutionBase {
 
     public static void main(String[] args) {
-        List<String> stringLines = FileUtils.fileAsStringPerLineToStringList("day05");
+        List<String> stringLines = FileUtils.fileAsStringPerLineToStringList(filePath("day05"));
 
         List<Integer> seats = new ArrayList<>();
         int maxSeatId = 0;

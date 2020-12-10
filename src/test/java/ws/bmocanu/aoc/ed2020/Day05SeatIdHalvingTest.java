@@ -13,6 +13,7 @@ public class Day05SeatIdHalvingTest {
     @BeforeEach
     public void setUp() {
         Log.reset();
+        Day05SeatIdHalving.setForcedFilePath("/test-ed2020/day05.txt");
     }
 
     @Test

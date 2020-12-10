@@ -13,6 +13,7 @@ public class Day06QuestionAnsweredYesTest {
     @BeforeEach
     public void setUp() {
         Log.reset();
+        Day06QuestionAnsweredYes.setForcedFilePath("/test-ed2020/day06.txt");
     }
 
     @Test

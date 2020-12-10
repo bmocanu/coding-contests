@@ -13,6 +13,7 @@ public class Day08GameConsoleCodeTest {
     @BeforeEach
     public void setUp() {
         Log.reset();
+        Day08GameConsoleCode.setForcedFilePath("/test-ed2020/day08.txt");
     }
 
     @Test

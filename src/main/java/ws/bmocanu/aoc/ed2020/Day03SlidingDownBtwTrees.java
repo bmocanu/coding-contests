@@ -3,14 +3,15 @@ package ws.bmocanu.aoc.ed2020;
 import ws.bmocanu.aoc.flex.Cursor;
 import ws.bmocanu.aoc.flex.FlexStruct;
 import ws.bmocanu.aoc.support.Log;
+import ws.bmocanu.aoc.xbase.SolutionBase;
 
-public class Day03SlidingDownBtwTrees {
+public class Day03SlidingDownBtwTrees extends SolutionBase {
 
     static int typeSpace = 0;
     static int typeTree = 1;
 
     public static void main(String[] args) {
-        FlexStruct struct = FlexStruct.fromFile("day03");
+        FlexStruct struct = FlexStruct.fromFile(filePath("day03"));
         struct.forAllPoints()
                 .setTypeTo(typeSpace)
                 .mapData()

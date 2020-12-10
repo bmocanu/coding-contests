@@ -5,11 +5,12 @@ import java.util.*;
 import ws.bmocanu.aoc.flex.FlexChars;
 import ws.bmocanu.aoc.support.Log;
 import ws.bmocanu.aoc.utils.FileUtils;
+import ws.bmocanu.aoc.xbase.SolutionBase;
 
-public class Day06QuestionAnsweredYes {
+public class Day06QuestionAnsweredYes extends SolutionBase {
 
     public static void main(String[] args) {
-        List<String> stringLines = FileUtils.fileAsStringPerLineToStringList("day06");
+        List<String> stringLines = FileUtils.fileAsStringPerLineToStringList(filePath("day06"));
 
         FlexChars fc = new FlexChars();
         int total = 0;
