@@ -35,7 +35,7 @@ public class Cursor {
     }
 
     public Point moveByDir03(int dir) {
-        PosDelta posDelta = PosDelta.byDir03(dir);
+        PosDelta posDelta = PosDelta.byDir4(dir);
         x = x + posDelta.deltaX;
         y = y + posDelta.deltaY;
         updatePointReference();

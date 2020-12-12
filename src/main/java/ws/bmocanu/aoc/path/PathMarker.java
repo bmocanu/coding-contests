@@ -3,7 +3,6 @@ package ws.bmocanu.aoc.path;
 import ws.bmocanu.aoc.flex.FlexStruct;
 import ws.bmocanu.aoc.flex.Point;
 import ws.bmocanu.aoc.support.PosDelta;
-import ws.bmocanu.aoc.utils.Utils;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class PathMarker {
@@ -45,7 +44,7 @@ public class PathMarker {
     private boolean processPointAndReturnIfWalked(Point point, int currentPathCount) {
         boolean atLeastOnePointWalked = false;
         for (int dir = 0; dir < 4; dir++) {
-            Point otherPoint = struct.pointOrNull(point, PosDelta.byDir03(dir));
+            Point otherPoint = struct.pointOrNull(point, PosDelta.byDir4(dir));
             if (otherPoint != null && otherPoint.pathCount == -1 && advisor.isFreeToWalk(otherPoint)) {
                 otherPoint.pathCount = currentPathCount + 1;
                 atLeastOnePointWalked = true;

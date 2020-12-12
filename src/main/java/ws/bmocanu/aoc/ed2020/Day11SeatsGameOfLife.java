@@ -44,7 +44,7 @@ public class Day11SeatsGameOfLife extends SolutionBase {
             int occSeats = 0;
             if (point.type != 0) {
                 for (int dir = 0; dir < 8; dir++) {
-                    Point pointNear = struct.pointOrNull(point, PosDelta.byDir07(dir));
+                    Point pointNear = struct.pointOrNull(point, PosDelta.byDir8(dir));
                     if (pointNear != null) {
                         if (pointNear.type == TAKEN) {
                             occSeats++;
@@ -67,9 +67,9 @@ public class Day11SeatsGameOfLife extends SolutionBase {
             int occSeats = 0;
             if (point.type != 0) {
                 for (int dir = 0; dir < 8; dir++) {
-                    Point pointNear = struct.pointOrNull(point, PosDelta.byDir07(dir));
+                    Point pointNear = struct.pointOrNull(point, PosDelta.byDir8(dir));
                     while (pointNear != null && pointNear.type == 0) {
-                        pointNear = struct.pointOrNull(pointNear, PosDelta.byDir07(dir));
+                        pointNear = struct.pointOrNull(pointNear, PosDelta.byDir8(dir));
                     }
                     if (pointNear != null) {
                         if (pointNear.type == TAKEN) {

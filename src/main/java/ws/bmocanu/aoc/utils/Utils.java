@@ -41,9 +41,9 @@ public class Utils {
 
     public static int cycleInt(int value, int minValue, int maxValue) {
         if (value < minValue) {
-            return maxValue;
+            return maxValue + value + 1;
         } else if (value > maxValue) {
-            return minValue;
+            return minValue + (value - maxValue - 1);
         } else {
             return value;
         }
