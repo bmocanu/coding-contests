@@ -10,7 +10,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import ws.bmocanu.aoc.support.PosDelta;
+import ws.bmocanu.aoc.support.PosDelta4;
+import ws.bmocanu.aoc.support.PosDelta8;
 import ws.bmocanu.aoc.utils.FileUtils;
 import ws.bmocanu.aoc.utils.Utils;
 
@@ -79,7 +80,11 @@ public class FlexStruct implements PointSupplier {
         return pointMap.get(getUniqueCoordsHash(point.x, point.y));
     }
 
-    public Point pointOrNull(Point point, PosDelta deltaDir) {
+    public Point pointOrNull(Point point, PosDelta4 deltaDir) {
+        return pointMap.get(getUniqueCoordsHash(point.x + deltaDir.deltaX, point.y + deltaDir.deltaY));
+    }
+
+    public Point pointOrNull(Point point, PosDelta8 deltaDir) {
         return pointMap.get(getUniqueCoordsHash(point.x + deltaDir.deltaX, point.y + deltaDir.deltaY));
     }
 
@@ -115,10 +120,10 @@ public class FlexStruct implements PointSupplier {
 
     public Collection<Point> allPointsWhere(Predicate<? super Point> filterPredicate) {
         return pointMap
-            .values()
-            .stream()
-            .filter(filterPredicate)
-            .collect(Collectors.toList());
+                .values()
+                .stream()
+                .filter(filterPredicate)
+                .collect(Collectors.toList());
     }
 
     public Point pointWithMaxValue() {
@@ -129,8 +134,8 @@ public class FlexStruct implements PointSupplier {
         return pointMap.values().stream().filter(point -> point.type == type).findFirst().orElse(null);
     }
 
-    public AllPointsActions forAllPoints() {
-        return new AllPointsActions();
+    public FluentPointsActions forAllPoints() {
+        return new FluentPointsActions();
     }
 
     public boolean pointExists(int x, int y) {
@@ -205,9 +210,9 @@ public class FlexStruct implements PointSupplier {
     public String toString(Function<Point, Object> pointPrinter, String strForMissingPoints, int padding) {
         StringBuilder builder = new StringBuilder((width + 1) * padding * (height + 2) + 100);
         builder.append("Width: [").append(width)
-            .append("], Height: [").append(height)
-            .append("], Points: [").append(pointMap.size())
-            .append("]\n");
+                .append("], Height: [").append(height)
+                .append("], Points: [").append(pointMap.size())
+                .append("]\n");
         String separator = "+" + "-".repeat(width * padding) + "+\n";
         builder.append(separator);
         for (int y = 0; y < height; y++) {
@@ -242,115 +247,17 @@ public class FlexStruct implements PointSupplier {
         return Utils.getCantorPairingValue(deltaX, deltaY);
     }
 
-//    func (matrix *FlexStruct) Print() {
-//        fmt.Print("--------------------\n")
-//        var point *Point
-//        for y := 0; y < matrix.Height(); y++ {
-//            fmt.Print("|")
-//            for x := 0; x < matrix.Width(); x++ {
-//                point = matrix.Point(x, y)
-//                if point != nil {
-//                    if point.Marked {
-//                        fmt.Printf("%2s ", "#")
-//                    } else if point.Value != 0 && !point.Destroyed {
-//                        fmt.Printf("%2d ", point.Value)
-//                    } else {
-//                        fmt.Printf("%2s ", ".")
-//                    }
-//                } else {
-//                    fmt.Printf("%2s ", ".")
-//                }
-//            }
-//            fmt.Print("|\n")
-//        }
-//        fmt.Print("--------------------\n")
-//    }
-//
-//    /*
-//     TypeMapping = a CSV of key-Value items, to define the mapping when printing the content
-//     "0, ,1,#" will result in all zeroes being printed as spaces, and all ones being printed as #
-//     Special tokens that can be used:
-//     - TMC = TrailMarkCount value
-//     - VAL = Value of the node
-//     - NME = The name of the node
-//     - LOC = The location of the node
-//    */
-//    func (matrix *FlexStruct) PrintByType(typeMapping string, padding int) {
-//        fmt.Print(matrix.internalPrintByType(typeMapping, padding, "\n", true))
-//    }
-//
-//    func (matrix *FlexStruct) SerializeToString(typeMapping string, padding int) string {
-//        return matrix.internalPrintByType(typeMapping, padding, "", false)
-//    }
-//
-//// ----------------------------------------------------------------------------------------------------
-//
-//    func (matrix *FlexStruct) internalPrintByType(typeMapping string, padding int, lineSeparator string, decorate bool) string {
-//        var typeMap = make(map[int]string)
-//        if len(typeMapping) > 0 {
-//            var typeMappingFragments = strings.Split(typeMapping, ",")
-//            for index := 0; index < len(typeMappingFragments); index += 2 {
-//                var leftValue, _ = strconv.Atoi(typeMappingFragments[index])
-//                typeMap[leftValue] = typeMappingFragments[index+1]
-//            }
-//        }
-//        var result = fmt.Sprintf("%s", lineSeparator)
-//        if decorate {
-//            result += fmt.Sprintf("+%s+%s", RepeatString("-", matrix.Width()*padding), lineSeparator)
-//        }
-//        var point *Point
-//        for y := 0; y < matrix.Height(); y++ {
-//            if decorate {
-//                result += fmt.Sprint("|")
-//            }
-//            for x := 0; x < matrix.Width(); x++ {
-//                point = matrix.PointOrNil(x, y)
-//                if point != nil {
-//                    var char, charFound = typeMap[point.Type]
-//                    if charFound {
-//                        switch char {
-//                            case "TMC":
-//                                result += fmt.Sprintf("%"+strconv.Itoa(padding)+"d", point.TrailMarkCount)
-//                            case "VAL":
-//                                result += fmt.Sprintf("%"+strconv.Itoa(padding)+"d", point.Value)
-//                            case "NME":
-//                                result += fmt.Sprintf("%"+strconv.Itoa(padding)+"s", point.Name)
-//                            case "LOC":
-//                                result += fmt.Sprintf("%"+strconv.Itoa(padding)+"d", point.Location)
-//                            default:
-//                                result += fmt.Sprintf("%"+strconv.Itoa(padding)+"s", char)
-//                        }
-//                    } else {
-//                        result += fmt.Sprint(RepeatString("?", padding))
-//                    }
-//                } else {
-//                    result += fmt.Sprint(RepeatString(" ", padding))
-//                }
-//            }
-//            if decorate {
-//                result += fmt.Sprint("|")
-//            }
-//            result += fmt.Sprintf("%s", lineSeparator)
-//        }
-//
-//        if decorate {
-//            result += fmt.Sprintf("+%s+", RepeatString("-", matrix.Width()*padding))
-//        }
-//        result += fmt.Sprintf("%s", lineSeparator)
-//        return result
-//    }
-
     // ----------------------------------------------------------------------------------------------------
 
-    public static class FlexMappingProcessor {
+    public static class FluentMappingActions {
 
         private final Collection<Point> points;
 
-        public FlexMappingProcessor(Collection<Point> points) {
+        public FluentMappingActions(Collection<Point> points) {
             this.points = points;
         }
 
-        public FlexMappingProcessor charToType(char character, int type) {
+        public FluentMappingActions charToType(char character, int type) {
             points.forEach(point -> {
                 if (point.chr == character) {
                     point.type = type;
@@ -359,7 +266,7 @@ public class FlexStruct implements PointSupplier {
             return this;
         }
 
-        public FlexMappingProcessor anyLetterToType(int type) {
+        public FluentMappingActions anyLetterToType(int type) {
             points.forEach(point -> {
                 if (Utils.charIsLetter(point.chr)) {
                     point.type = type;
@@ -370,40 +277,40 @@ public class FlexStruct implements PointSupplier {
 
     }
 
-    public class AllPointsActions {
+    public class FluentPointsActions {
 
-        public AllPointsActions setMarked() {
+        public FluentPointsActions setMarked() {
             pointMap.values().forEach(Point::mark);
             return this;
         }
 
-        public AllPointsActions clearPathLink() {
+        public FluentPointsActions clearPathLink() {
             pointMap.values().forEach(point -> point.setPathLink(null));
             return this;
         }
 
-        public AllPointsActions clearPathCount() {
+        public FluentPointsActions clearPathCount() {
             pointMap.values().forEach(point -> point.setPathCount(0));
             return this;
         }
 
-        public AllPointsActions setPathCount(int pathCount) {
+        public FluentPointsActions setPathCount(int pathCount) {
             pointMap.values().forEach(point -> point.setPathCount(pathCount));
             return this;
         }
 
-        public AllPointsActions setValueTo(int value) {
+        public FluentPointsActions setValueTo(int value) {
             pointMap.values().forEach(point -> point.value = value);
             return this;
         }
 
-        public AllPointsActions setTypeTo(int type) {
+        public FluentPointsActions setTypeTo(int type) {
             pointMap.values().forEach(point -> point.type = type);
             return this;
         }
 
-        public FlexMappingProcessor mapData() {
-            return new FlexMappingProcessor(pointMap.values());
+        public FluentMappingActions mapData() {
+            return new FluentMappingActions(pointMap.values());
         }
 
     }

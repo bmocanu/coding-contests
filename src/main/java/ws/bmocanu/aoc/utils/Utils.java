@@ -39,14 +39,37 @@ public class Utils {
         return result;
     }
 
+    /*
+    20 21 22 23 24 25
+    14 15 16 17 18 19
+     8  9 10 11 12 13
+     2  3  4  5  6  7
+
+   |           |               |                 |                 |                 |
+  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34
+
+    2
+    max - min + v + 1 = 8
+    max - min + v + 1 = 14
+    max - min + v + 1 = 20
+
+    34
+    v - (max - min) - 1 = 28
+    v - (max - min) - 1 = 22
+    */
     public static int cycleInt(int value, int minValue, int maxValue) {
-        if (value < minValue) {
-            return maxValue + value + 1;
-        } else if (value > maxValue) {
-            return minValue + (value - maxValue - 1);
-        } else {
+        if (value >= minValue && value <= maxValue) {
             return value;
         }
+        int newValue = value;
+        int interval = maxValue - minValue;
+        while (newValue < minValue) {
+            newValue = interval + newValue + 1;
+        }
+        while (newValue > maxValue) {
+            newValue = newValue - interval - 1;
+        }
+        return newValue;
     }
 
     public static int arrayToInt(int[] array) {

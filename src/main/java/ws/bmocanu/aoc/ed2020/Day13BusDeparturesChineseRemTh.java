@@ -1,15 +1,13 @@
 package ws.bmocanu.aoc.ed2020;
 
-import java.sql.SQLOutput;
-import java.util.ArrayList;
+import ws.bmocanu.aoc.support.Log;
+import ws.bmocanu.aoc.utils.FileUtils;
+import ws.bmocanu.aoc.utils.MathUtils;
+import ws.bmocanu.aoc.xbase.SolutionBase;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
-
-import ws.bmocanu.aoc.support.Log;
-import ws.bmocanu.aoc.utils.FileUtils;
-import ws.bmocanu.aoc.utils.Utils;
-import ws.bmocanu.aoc.xbase.SolutionBase;
 
 public class Day13BusDeparturesChineseRemTh extends SolutionBase {
 
@@ -55,7 +53,6 @@ public class Day13BusDeparturesChineseRemTh extends SolutionBase {
             }
             product *= busIds[index];
         }
-
         Log.part2(minValue);
     }
 

@@ -5,9 +5,9 @@ import ws.bmocanu.aoc.support.Log;
 import java.util.*;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
-public class Interpreter {
+public class Program {
 
-    private final Stack<Interpreter> snapshotStack = new Stack<>();
+    private final Stack<Program> snapshotStack = new Stack<>();
 
     private InterpreterConfig config = new InterpreterConfig();
     private List<Instruction> instructions = new ArrayList<>();
@@ -16,15 +16,15 @@ public class Interpreter {
 
     // ----------------------------------------------------------------------------------------------------
 
-    public static Interpreter fromStringList(List<String> stringList) {
-        Interpreter interpreter = new Interpreter();
+    public static Program fromStringList(List<String> stringList) {
+        Program interpreter = new Program();
         interpreter.loadFromStringList(stringList);
         return interpreter;
     }
 
     // ----------------------------------------------------------------------------------------------------
 
-    public Interpreter loadFromStringList(List<String> stringLines) {
+    public Program loadFromStringList(List<String> stringLines) {
         instructions = new ArrayList<>();
         for (String line : stringLines) {
             addInstructionFromString(line);
@@ -32,7 +32,7 @@ public class Interpreter {
         return this;
     }
 
-    public Interpreter loadFromInterpreter(Interpreter otherInt) {
+    public Program loadFromInterpreter(Program otherInt) {
         this.instPointer = otherInt.instPointer;
         this.memory = Arrays.copyOf(otherInt.memory, otherInt.memory.length);
         this.instructions.clear();
@@ -40,7 +40,7 @@ public class Interpreter {
         return this;
     }
 
-    public Interpreter addInstructionFromString(String str) {
+    public Program addInstructionFromString(String str) {
         if (config.loadDataLog) {
             Log.info("Interpreter: adding line [%s]", str);
         }
@@ -74,12 +74,12 @@ public class Interpreter {
         return this;
     }
 
-    public Interpreter resetPointer() {
+    public Program resetPointer() {
         instPointer = 0;
         return this;
     }
 
-    public Interpreter resetMemory() {
+    public Program resetMemory() {
         Arrays.fill(memory, 0);
         return this;
     }
@@ -96,12 +96,12 @@ public class Interpreter {
         return memory[index];
     }
 
-    public InstructionActions forAllInstructions() {
-        return new InstructionActions(instructions);
+    public FluentInstructionActions forAllInstructions() {
+        return new FluentInstructionActions(instructions);
     }
 
-    public InterpreterState run(boolean toTheEnd) {
-        InterpreterState state = new InterpreterState();
+    public ProgramState run(boolean toTheEnd) {
+        ProgramState state = new ProgramState();
         while (instPointer < instructions.size()) {
             Instruction line = instructions.get(instPointer);
             if (config.runLog) {
@@ -112,7 +112,7 @@ public class Interpreter {
                 if (config.runLog) {
                     Log.info("Interpreter: status FINISHED_LOOP");
                 }
-                state.status = StatusType.FINISHED_LOOP;
+                state.status = ProgramStatusType.FINISHED_LOOP;
                 return state;
             }
             line.executed = true;
@@ -138,18 +138,18 @@ public class Interpreter {
             if (config.runLog) {
                 Log.info("Interpreter: status FINISHED_OK");
             }
-            state.status = StatusType.FINISHED_OK;
+            state.status = ProgramStatusType.FINISHED_OK;
         } else {
             if (config.runLog) {
                 Log.info("Interpreter: status RUNNING");
             }
-            state.status = StatusType.RUNNING;
+            state.status = ProgramStatusType.RUNNING;
         }
         return state;
     }
 
-    public Interpreter deepClone() {
-        Interpreter newInterpreter = new Interpreter();
+    public Program deepClone() {
+        Program newInterpreter = new Program();
         newInterpreter.instPointer = instPointer;
         newInterpreter.memory = Arrays.copyOf(memory, memory.length);
         newInterpreter.instructions = new ArrayList<>();
@@ -158,12 +158,12 @@ public class Interpreter {
         return newInterpreter;
     }
 
-    public Interpreter pushSnapshot() {
+    public Program pushSnapshot() {
         snapshotStack.push(deepClone());
         return this;
     }
 
-    public Interpreter popSnapshot() {
+    public Program popSnapshot() {
         if (snapshotStack.isEmpty()) {
             throw new IllegalStateException("The snapshot stack is empty, nothing to pop");
         }

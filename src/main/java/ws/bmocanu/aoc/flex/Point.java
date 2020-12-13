@@ -41,7 +41,11 @@ public class Point {
     // ----------------------------------------------------------------------------------------------------
 
     public int taxicabDistanceTo(Point point2) {
-        return Math.abs(x - point2.x) + Math.abs(y - point2.y);
+        return taxicabDistanceTo(point2.x, point2.y);
+    }
+
+    public int taxicabDistanceTo(int otherX, int otherY) {
+        return Math.abs(x - otherX) + Math.abs(y - otherY);
     }
 
     // ----------------------------------------------------------------------------------------------------

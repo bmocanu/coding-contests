@@ -1,6 +1,6 @@
 package ws.bmocanu.aoc.flex;
 
-import ws.bmocanu.aoc.support.PosDelta;
+import ws.bmocanu.aoc.support.PosDelta4;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class Cursor {
@@ -35,7 +35,7 @@ public class Cursor {
     }
 
     public Point moveByDir03(int dir) {
-        PosDelta posDelta = PosDelta.byDir4(dir);
+        PosDelta4 posDelta = PosDelta4.fromDir4(dir);
         x = x + posDelta.deltaX;
         y = y + posDelta.deltaY;
         updatePointReference();

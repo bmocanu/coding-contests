@@ -1,6 +1,6 @@
 package ws.bmocanu.aoc.ed2020.interp;
 
-public enum StatusType {
+public enum ProgramStatusType {
 
     RUNNING,
     FINISHED_OK,

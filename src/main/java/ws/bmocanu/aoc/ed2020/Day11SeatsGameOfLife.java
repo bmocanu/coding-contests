@@ -1,13 +1,13 @@
 package ws.bmocanu.aoc.ed2020;
 
-import java.util.List;
-
 import ws.bmocanu.aoc.flex.FlexStruct;
 import ws.bmocanu.aoc.flex.Point;
 import ws.bmocanu.aoc.support.Log;
-import ws.bmocanu.aoc.support.PosDelta;
+import ws.bmocanu.aoc.support.PosDelta8;
 import ws.bmocanu.aoc.utils.FileUtils;
 import ws.bmocanu.aoc.xbase.SolutionBase;
+
+import java.util.List;
 
 public class Day11SeatsGameOfLife extends SolutionBase {
 
@@ -43,8 +43,8 @@ public class Day11SeatsGameOfLife extends SolutionBase {
         for (Point point : struct.allPoints()) {
             int occSeats = 0;
             if (point.type != 0) {
-                for (int dir = 0; dir < 8; dir++) {
-                    Point pointNear = struct.pointOrNull(point, PosDelta.byDir8(dir));
+                for (PosDelta8 delta8 : PosDelta8.deltaValues) {
+                    Point pointNear = struct.pointOrNull(point, delta8);
                     if (pointNear != null) {
                         if (pointNear.type == TAKEN) {
                             occSeats++;
@@ -66,10 +66,10 @@ public class Day11SeatsGameOfLife extends SolutionBase {
         for (Point point : struct.allPoints()) {
             int occSeats = 0;
             if (point.type != 0) {
-                for (int dir = 0; dir < 8; dir++) {
-                    Point pointNear = struct.pointOrNull(point, PosDelta.byDir8(dir));
+                for (PosDelta8 delta8 : PosDelta8.deltaValues) {
+                    Point pointNear = struct.pointOrNull(point, delta8);
                     while (pointNear != null && pointNear.type == 0) {
-                        pointNear = struct.pointOrNull(pointNear, PosDelta.byDir8(dir));
+                        pointNear = struct.pointOrNull(pointNear, delta8);
                     }
                     if (pointNear != null) {
                         if (pointNear.type == TAKEN) {
