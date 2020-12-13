@@ -85,7 +85,7 @@ public class Utils {
         return result;
     }
 
-    public static int smallestCommonMultiplier(int[] numbers) {
+    public static long smallestCommonMultiplier(int[] numbers) {
         Map<Integer, Integer> finalMap = new HashMap<>();
         for (int number : numbers) {
             Map<Integer, Integer> currentNumberMap = primeFactors(number);
@@ -100,7 +100,7 @@ public class Utils {
                 }
             }
         }
-        int result = 1;
+        long result = 1;
         for (Map.Entry<Integer, Integer> primeFactor : finalMap.entrySet()) {
             result *= pow(primeFactor.getKey(), primeFactor.getValue());
         }

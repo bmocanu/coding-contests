@@ -61,6 +61,16 @@ public class Point {
         return this;
     }
 
+    public Point incX(int value) {
+        x += value;
+        return this;
+    }
+
+    public Point incY(int value) {
+        y += value;
+        return this;
+    }
+
     public Point setName(String name) {
         this.name = name;
         return this;
