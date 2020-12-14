@@ -1,6 +1,7 @@
 package ws.bmocanu.aoc.support;
 
 import java.io.*;
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
@@ -95,6 +96,10 @@ public class Log {
         return (Long) part1Results[0];
     }
 
+    public static BigInteger getPart1BigInt() {
+        return (BigInteger) part1Results[0];
+    }
+
     public static Object[] getPart2Results() {
         return part2Results;
     }
@@ -105,6 +110,10 @@ public class Log {
 
     public static long getPart2Long() {
         return (Long) part2Results[0];
+    }
+
+    public static BigInteger getPart2BigInt() {
+        return (BigInteger) part2Results[0];
     }
 
     public static void reset() {
