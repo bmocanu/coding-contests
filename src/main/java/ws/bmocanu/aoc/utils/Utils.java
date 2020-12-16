@@ -93,6 +93,15 @@ public class Utils {
         return result;
     }
 
+    public static List<Integer> csvIntListToIntList(String str) {
+        List<Integer> result = new ArrayList<>();
+        StringTokenizer tokenizer = new StringTokenizer(str, ",");
+        while (tokenizer.hasMoreTokens()) {
+            result.add(Integer.parseInt(tokenizer.nextToken().trim()));
+        }
+        return result;
+    }
+
     public static Map<Integer, Integer> primeFactors(int value) {
         Map<Integer, Integer> result = new HashMap<>();
         int remainder = value;
