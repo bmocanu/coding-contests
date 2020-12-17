@@ -119,7 +119,7 @@ public class Day17 extends SolutionBase {
             for (int x = 1; x < curMat.length - 1; x++) {
                 for (int y = 1; y < curMat[x].length - 1; y++) {
                     for (int z = 1; z < curMat[x][y].length - 1; z++) {
-                        for (int w = 1; w < curMat[x][y][w].length - 1; w++) {
+                        for (int w = 1; w < curMat[x][y][z].length - 1; w++) {
 
                             int activeNeig = 0;
                             for (int dx = -1; dx <= 1; dx++) {
