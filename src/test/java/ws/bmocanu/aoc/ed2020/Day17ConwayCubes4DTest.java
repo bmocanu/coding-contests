@@ -13,14 +13,14 @@ public class Day17ConwayCubes4DTest {
     @BeforeEach
     public void setUp() {
         Log.reset();
-        Day17ConwayCubes4D.setForcedFilePath("/test-ed2020/day18.txt");
+        Day17ConwayCubes4D.setForcedFilePath("/test-ed2020/day17.txt");
     }
 
     @Test
     public void testCode() {
         Day17ConwayCubes4D.main(null);
-        assertThat(Log.getPart1Int(), is(401));
-        assertThat(Log.getPart2Int(), is(2224));
+        assertThat(Log.getPart1Long(), is(401L));
+        assertThat(Log.getPart2Long(), is(2224L));
     }
 
 }
