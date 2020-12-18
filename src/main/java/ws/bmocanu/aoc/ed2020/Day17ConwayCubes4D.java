@@ -6,7 +6,7 @@ import ws.bmocanu.aoc.support.Log;
 import ws.bmocanu.aoc.utils.FileUtils;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
-public class Day17 extends SolutionBase {
+public class Day17ConwayCubes4D extends SolutionBase {
 
     public static int OFF = 30;
 

@@ -8,7 +8,7 @@ import ws.bmocanu.aoc.utils.FileUtils;
 import ws.bmocanu.aoc.utils.Utils;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
-public class Day18 extends SolutionBase {
+public class Day18OperationOrderCalculus extends SolutionBase {
 
     private static long typeParStart = -10;
     private static long typeParEnd = -20;
@@ -22,6 +22,7 @@ public class Day18 extends SolutionBase {
         for (String line : stringLines) {
             line = line.replaceAll("\\s+", "");
             List<Long> parsedList = parseToLongs(line);
+            sum1 += calculate(new ArrayList<>(parsedList), false);
             sum2 += calculate(new ArrayList<>(parsedList), true);
         }
 
@@ -78,8 +79,8 @@ public class Day18 extends SolutionBase {
                 parDepth--;
                 if (parDepth == 0) {
                     long result = calculate(
-                            new ArrayList<>(input.subList(startPar + 1, index)),
-                            orderMatters);
+                        new ArrayList<>(input.subList(startPar + 1, index)),
+                        orderMatters);
                     for (int remIndex = 0; remIndex < index - startPar + 1; remIndex++) {
                         input.remove(startPar);
                     }
@@ -92,7 +93,26 @@ public class Day18 extends SolutionBase {
         }
 
         if (!orderMatters) {
-
+            index = 0;
+            while (index < input.size()) {
+                long curInput = input.get(index);
+                if (curInput == typeAdd) {
+                    long result = input.get(index - 1) + input.get(index + 1);
+                    input.remove(index - 1);
+                    input.remove(index - 1);
+                    input.remove(index - 1);
+                    input.add(index - 1, result);
+                    index -= 2;
+                } else if (curInput == typeMult) {
+                    long result = input.get(index - 1) * input.get(index + 1);
+                    input.remove(index - 1);
+                    input.remove(index - 1);
+                    input.remove(index - 1);
+                    input.add(index - 1, result);
+                    index -= 2;
+                }
+                index++;
+            }
         } else {
             long[] targetSigns = new long[]{typeAdd, typeMult};
             for (long sign : targetSigns) {
