@@ -57,9 +57,12 @@ public class SBinder {
                         case "java.lang.String":
                             field.set(entry, fieldValue);
                             break;
+                        case "java.lang.Character":
+                            field.set(entry, Character.valueOf(fieldValue.charAt(0)));
+                            break;
                         default:
                             Log.error("Unknown field type [%s] for field name [%s]",
-                                      field.getType().getName(), fieldName);
+                                    field.getType().getName(), fieldName);
                     }
                 }
             } catch (Exception e) {
