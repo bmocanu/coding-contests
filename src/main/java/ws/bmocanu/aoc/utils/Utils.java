@@ -216,7 +216,11 @@ public class Utils {
         for (int[] ints : mtx) {
             builder.append("|");
             for (int anInt : ints) {
-                builder.append(String.format("%" + padding + "d", anInt));
+                if (padding > 0) {
+                    builder.append(String.format("%" + padding + "d", anInt));
+                } else {
+                    builder.append(String.format("%d", anInt));
+                }
             }
             builder.append("|\n");
         }
@@ -353,7 +357,11 @@ public class Utils {
     }
 
     public static int[][] createIntMatrix2(int dim1, int dim2) {
-        return null;
+        int[][] matrix = new int[dim1][];
+        for (int i1 = 0; i1 < dim1; i1++) {
+            matrix[i1] = new int[dim2];
+        }
+        return matrix;
     }
 
     public static int[][][] createIntMatrix3(int dim1, int dim2, int dim3) {
@@ -396,6 +404,15 @@ public class Utils {
         return newMat;
     }
 
+    public static int[][] cloneIntMatrix2(int[][] mat) {
+        int[][] newMat = new int[mat.length][];
+        for (int x = 0; x < mat.length; x++) {
+            newMat[x] = new int[mat[x].length];
+            System.arraycopy(mat[x], 0, newMat[x], 0, mat[x].length);
+        }
+        return newMat;
+    }
+
     public static int[][][] cloneIntMatrix3(int[][][] mat) {
         int[][][] newMat = new int[mat.length][][];
         for (int x = 0; x < mat.length; x++) {
@@ -419,6 +436,16 @@ public class Utils {
         return matrix;
     }
 
+    public static List<Long> iterateIntMatrix2ToIntList(int[][] matrix, Matrix2Iterator iterator) {
+        List<Long> result = new ArrayList<>();
+        for (int x = 0; x < matrix.length; x++) {
+            for (int y = 0; y < matrix[x].length; y++) {
+                result.add(iterator.iterate(x, y, matrix[x][y]));
+            }
+        }
+        return result;
+    }
+
     public static List<Long> iterateIntMatrix4ToIntList(int[][][][] matrix, Matrix4Iterator iterator) {
         List<Long> result = new ArrayList<>();
         for (int x = 0; x < matrix.length; x++) {
@@ -433,11 +460,45 @@ public class Utils {
         return result;
     }
 
+    public static long iterateIntMatrix2ToSum(int[][] matrix, Matrix2Iterator iterator) {
+        return iterateIntMatrix2ToIntList(matrix, iterator).stream().reduce(0L, Long::sum);
+    }
+
+    public static long iterateIntMatrix2ToSumOfValues(int[][] matrix) {
+        return iterateIntMatrix2ToIntList(matrix, (x, y, value) -> value).stream().reduce(0L, Long::sum);
+    }
+
     public static long iterateIntMatrix4ToSum(int[][][][] matrix, Matrix4Iterator iterator) {
         return iterateIntMatrix4ToIntList(matrix, iterator).stream().reduce(0L, Long::sum);
     }
 
+    public static String flipString(String str) {
+        StringBuilder builder = new StringBuilder(str.length());
+        for (int index = str.length() - 1; index >= 0; index--) {
+            builder.append(str.charAt(index));
+        }
+        return builder.toString();
+    }
+
+    public static long mapStringCharsToBinaryToInt(String str, char chrFor1) {
+        long result = 0;
+        long mult = 1;
+        for (int index = str.length() - 1; index >= 0; index--) {
+            if (str.charAt(index) == chrFor1) {
+                result += mult;
+            }
+            mult = mult * 2;
+        }
+        return result;
+    }
+
     // ----------------------------------------------------------------------------------------------------
+
+    public interface Matrix2Iterator {
+
+        long iterate(int x, int y, int value);
+
+    }
 
     public interface Matrix4Iterator {
 
