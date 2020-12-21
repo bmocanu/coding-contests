@@ -93,15 +93,6 @@ public class Utils {
         return result;
     }
 
-    public static List<Integer> csvIntListToIntList(String str) {
-        List<Integer> result = new ArrayList<>();
-        StringTokenizer tokenizer = new StringTokenizer(str, ",");
-        while (tokenizer.hasMoreTokens()) {
-            result.add(Integer.parseInt(tokenizer.nextToken().trim()));
-        }
-        return result;
-    }
-
     public static Map<Integer, Integer> primeFactors(int value) {
         Map<Integer, Integer> result = new HashMap<>();
         int remainder = value;
@@ -125,12 +116,7 @@ public class Utils {
             for (Map.Entry<Integer, Integer> currentNumberEntry : currentNumberMap.entrySet()) {
                 Integer factor = currentNumberEntry.getKey();
                 Integer repetition = currentNumberEntry.getValue();
-                Integer finalRepetition = finalMap.get(factor);
-                if (finalRepetition != null) {
-                    finalMap.put(factor, max(repetition, finalRepetition));
-                } else {
-                    finalMap.put(factor, repetition);
-                }
+                finalMap.merge(factor, repetition, (a, b) -> max(b, a));
             }
         }
         long result = 1;
@@ -138,15 +124,6 @@ public class Utils {
             result *= pow(primeFactor.getKey(), primeFactor.getValue());
         }
         return result;
-    }
-
-    public static List<String> stringAsCsvToStringList(String content, String separator) {
-        StringTokenizer tokenizer = new StringTokenizer(content, separator);
-        List<String> stringList = new ArrayList<>();
-        while (tokenizer.hasMoreTokens()) {
-            stringList.add(tokenizer.nextToken().trim());
-        }
-        return stringList;
     }
 
     public static boolean charIsLetter(char chr) {
@@ -490,6 +467,36 @@ public class Utils {
             mult = mult * 2;
         }
         return result;
+    }
+
+    public static List<String> splitCsvStringToStringList(String input, String delimiter) {
+        List<String> result = new ArrayList<>();
+        StringTokenizer tokenizer = new StringTokenizer(input.trim(), delimiter);
+        while (tokenizer.hasMoreTokens()) {
+            result.add(tokenizer.nextToken().trim());
+        }
+        return result;
+    }
+
+    public static List<Integer> splitCsvStringToIntList(String str, String delimiter) {
+        List<Integer> result = new ArrayList<>();
+        StringTokenizer tokenizer = new StringTokenizer(str, delimiter);
+        while (tokenizer.hasMoreTokens()) {
+            result.add(Integer.parseInt(tokenizer.nextToken().trim()));
+        }
+        return result;
+    }
+
+    public static String[] toStringArray(List<String> strList) {
+        return strList.toArray(new String[0]);
+    }
+
+    public static int[] toIntArray(List<Integer> intList) {
+        return intList.stream().mapToInt(Integer::intValue).toArray();
+    }
+
+    public static int[] toIntArrayFromStringList(List<String> strList) {
+        return strList.stream().mapToInt(Integer::parseInt).toArray();
     }
 
     // ----------------------------------------------------------------------------------------------------

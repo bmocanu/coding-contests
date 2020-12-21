@@ -96,6 +96,10 @@ public class Log {
         return (Long) part1Results[0];
     }
 
+    public static String getPart1String() {
+        return (String) part1Results[0];
+    }
+
     public static BigInteger getPart1BigInt() {
         return (BigInteger) part1Results[0];
     }
@@ -110,6 +114,10 @@ public class Log {
 
     public static long getPart2Long() {
         return (Long) part2Results[0];
+    }
+
+    public static String getPart2String() {
+        return (String) part2Results[0];
     }
 
     public static BigInteger getPart2BigInt() {

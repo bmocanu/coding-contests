@@ -27,7 +27,7 @@ public class Day16TicketValidNumbersAndFields extends SolutionBase {
         }
 
         index += 2;
-        List<Integer> myTicketNumbers = Utils.csvIntListToIntList(stringLines.get(index));
+        List<Integer> myTicketNumbers = Utils.splitCsvStringToIntList(stringLines.get(index), ",");
         List<Ticket> validTickets = new ArrayList<>();
 
         index += 3;
@@ -35,7 +35,7 @@ public class Day16TicketValidNumbersAndFields extends SolutionBase {
         int sum = 0;
         while (index < stringLines.size()) {
             line = stringLines.get(index);
-            otherTicketFields = Utils.csvIntListToIntList(line);
+            otherTicketFields = Utils.splitCsvStringToIntList(line, ",");
             boolean validField;
             boolean allValidFields = true;
             for (int otherTicketField : otherTicketFields) {
