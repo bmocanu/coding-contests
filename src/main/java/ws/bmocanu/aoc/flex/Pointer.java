@@ -10,5 +10,12 @@ public class Pointer<ValueType> {
         this.value = value;
         this.position = position;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Pointer{" +
+                "value=" + value +
+                ", position=" + position +
+                '}';
+    }
 }

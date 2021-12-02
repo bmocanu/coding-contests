@@ -247,12 +247,36 @@ public class Utils {
         return new Pointer<>(max, pos);
     }
 
+    public static Pointer<Integer> maxFromList(List<Integer> list) {
+        int max = Integer.MIN_VALUE;
+        int pos = 0;
+        for (int index = 0; index < list.size(); index++) {
+            if (list.get(index) > max) {
+                max = list.get(index);
+                pos = index;
+            }
+        }
+        return new Pointer<>(max, pos);
+    }
+
     public static Pointer<Integer> minFromArray(int[] array) {
         int min = Integer.MAX_VALUE;
         int pos = 0;
         for (int index = 0; index < array.length; index++) {
             if (array[index] < min) {
                 min = array[index];
+                pos = index;
+            }
+        }
+        return new Pointer<>(min, pos);
+    }
+
+    public static Pointer<Integer> minFromList(List<Integer> list) {
+        int min = Integer.MAX_VALUE;
+        int pos = 0;
+        for (int index = 0; index < list.size(); index++) {
+            if (list.get(index) < min) {
+                min = list.get(index);
                 pos = index;
             }
         }
