@@ -8,14 +8,14 @@ import java.util.StringTokenizer;
 
 import ws.bmocanu.aoc.support.Log;
 import ws.bmocanu.aoc.support.SReg;
-import ws.bmocanu.aoc.utils.FileUtils;
+import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.utils.Utils;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
 public class Day04ValidatePassports extends SolutionBase {
 
     public static void main(String[] args) {
-        List<String> stringLines = FileUtils.fileAsStringPerLineToStringList(filePath("day04"));
+        List<String> stringLines = XRead.fileAsStringPerLineToStringList(filePath("day04"));
         List<Map<String, String>> passList = new ArrayList<>();
 
         Map<String, String> currentPass = new HashMap<>();

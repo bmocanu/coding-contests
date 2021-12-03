@@ -4,7 +4,7 @@ import java.util.List;
 
 import ws.bmocanu.aoc.flex.Point;
 import ws.bmocanu.aoc.support.Log;
-import ws.bmocanu.aoc.utils.FileUtils;
+import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.utils.Utils;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
@@ -17,7 +17,7 @@ public class Day24LobbyHexagonalConwaysGame extends SolutionBase {
     static String[] commands = new String[]{"se", "sw", "ne", "nw", "e", "w"};
 
     public static void main(String[] args) {
-        List<String> stringLines = FileUtils.fileAsStringPerLineToStringList(filePath("day24"));
+        List<String> stringLines = XRead.fileAsStringPerLineToStringList(filePath("day24"));
         floor = Utils.createIntMatrix2(floorSize, floorSize);
         for (String line : stringLines) {
             Point cursor = Point.from(startX, startY);

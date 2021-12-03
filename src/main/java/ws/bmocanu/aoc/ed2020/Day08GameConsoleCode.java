@@ -5,13 +5,13 @@ import java.util.List;
 import ws.bmocanu.aoc.ed2020.interp.InstructionType;
 import ws.bmocanu.aoc.ed2020.interp.Program;
 import ws.bmocanu.aoc.support.Log;
-import ws.bmocanu.aoc.utils.FileUtils;
+import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
 public class Day08GameConsoleCode extends SolutionBase {
 
     public static void main(String[] args) {
-        List<String> stringList = FileUtils.fileAsStringPerLineToStringList(filePath("day08"));
+        List<String> stringList = XRead.fileAsStringPerLineToStringList(filePath("day08"));
 
         Program program = Program.fromStringList(stringList);
         program.run(true);

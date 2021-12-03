@@ -3,7 +3,7 @@ package ws.bmocanu.aoc.xbase;
 import java.util.Objects;
 
 import ws.bmocanu.aoc.support.Log;
-import ws.bmocanu.aoc.utils.FileUtils;
+import ws.bmocanu.aoc.utils.XRead;
 
 public class SolutionBase {
 
@@ -15,7 +15,7 @@ public class SolutionBase {
 
     protected static String filePath(String name) {
         Log.reset();
-        return Objects.requireNonNullElseGet(forcedFilePath, () -> FileUtils.sourceFileName(name));
+        return Objects.requireNonNullElseGet(forcedFilePath, () -> XRead.sourceFileName(name));
     }
 
 }

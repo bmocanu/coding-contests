@@ -8,7 +8,7 @@ import ws.bmocanu.aoc.support.Log;
 import ws.bmocanu.aoc.support.PosDelta4;
 import ws.bmocanu.aoc.support.PosDelta8;
 import ws.bmocanu.aoc.support.SBinder;
-import ws.bmocanu.aoc.utils.FileUtils;
+import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.utils.Utils;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
@@ -20,7 +20,7 @@ public class Day12ShipMovingToWaypoint extends SolutionBase {
     }
 
     public static void main(String[] args) {
-        List<String> stringLines = FileUtils.fileAsStringPerLineToStringList(filePath("day12"));
+        List<String> stringLines = XRead.fileAsStringPerLineToStringList(filePath("day12"));
         SBinder binder = new SBinder("(\\w)(\\d+)", "command", "value");
         List<Command> commands = new ArrayList<>();
         for (String line : stringLines) {

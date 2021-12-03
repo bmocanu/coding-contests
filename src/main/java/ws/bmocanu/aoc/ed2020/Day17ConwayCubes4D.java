@@ -5,7 +5,7 @@ import java.util.List;
 import ws.bmocanu.aoc.support.Log;
 import ws.bmocanu.aoc.support.PosDelta3D;
 import ws.bmocanu.aoc.support.PosDelta4D;
-import ws.bmocanu.aoc.utils.FileUtils;
+import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.utils.Utils;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
@@ -15,7 +15,7 @@ public class Day17ConwayCubes4D extends SolutionBase {
     public static int CENTER = OFF / 2;
 
     public static void main(String[] args) {
-        List<String> stringLines = FileUtils.fileAsStringPerLineToStringList(filePath("day17"));
+        List<String> stringLines = XRead.fileAsStringPerLineToStringList(filePath("day17"));
         int[][][][] origMat = Utils.createIntMatrix4(OFF * 2, OFF * 2, OFF * 2, OFF * 2);
 
         int width = stringLines.get(0).length();

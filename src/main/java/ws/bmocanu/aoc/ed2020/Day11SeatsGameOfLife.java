@@ -4,7 +4,7 @@ import ws.bmocanu.aoc.flex.FlexStruct;
 import ws.bmocanu.aoc.flex.Point;
 import ws.bmocanu.aoc.support.Log;
 import ws.bmocanu.aoc.support.PosDelta8;
-import ws.bmocanu.aoc.utils.FileUtils;
+import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public class Day11SeatsGameOfLife extends SolutionBase {
     private static final int TAKEN = 2;
 
     public static void main(String[] args) {
-        List<String> stringLines = FileUtils.fileAsStringPerLineToStringList(filePath("day11"));
+        List<String> stringLines = XRead.fileAsStringPerLineToStringList(filePath("day11"));
         FlexStruct originalStruct = FlexStruct.fromLineList(stringLines);
         originalStruct.forAllPoints().mapData().charToType('L', FREE);
 

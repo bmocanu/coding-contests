@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import ws.bmocanu.aoc.support.Log;
-import ws.bmocanu.aoc.utils.FileUtils;
+import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.utils.Utils;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
@@ -18,7 +18,7 @@ public class Day21AllergenAssessment extends SolutionBase {
     private static final Map<String, Set<String>> allergMap = new TreeMap<>();
 
     public static void main(String[] args) {
-        List<String> stringLines = FileUtils.fileAsStringPerLineToStringList(filePath("day21"));
+        List<String> stringLines = XRead.fileAsStringPerLineToStringList(filePath("day21"));
         for (String line : stringLines) {
             List<String> ingList = Utils.splitCsvStringToStringList(line.substring(0, line.indexOf('(')), " ");
             List<String> allergList = Utils.splitCsvStringToStringList(line.substring(line.indexOf("(contains") + 9, line.indexOf(')')), ",");

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ws.bmocanu.aoc.support.Log;
-import ws.bmocanu.aoc.utils.FileUtils;
+import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.utils.Utils;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
@@ -16,7 +16,7 @@ public class Day18OperationOrderCalculus extends SolutionBase {
     private static long typeMult = -40;
 
     public static void main(String[] args) {
-        List<String> stringLines = FileUtils.fileAsStringPerLineToStringList(filePath("day18"));
+        List<String> stringLines = XRead.fileAsStringPerLineToStringList(filePath("day18"));
         long sum1 = 0;
         long sum2 = 0;
         for (String line : stringLines) {

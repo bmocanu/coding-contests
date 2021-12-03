@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import ws.bmocanu.aoc.support.Log;
-import ws.bmocanu.aoc.utils.FileUtils;
+import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
 public class Day15ElvesMemoryGameTurns extends SolutionBase {
@@ -13,7 +13,7 @@ public class Day15ElvesMemoryGameTurns extends SolutionBase {
     public static int[] cache = new int[OFFSET * 2];
 
     public static void main(String[] args) {
-        List<Integer> intList = FileUtils.fileAsCsvLineToIntList(filePath("day15"), ",");
+        List<Integer> intList = XRead.fileAsCsvLineToIntList(filePath("day15"), ",");
         Arrays.fill(cache, -1);
 
         for (int index = 1; index <= intList.size(); index++) {

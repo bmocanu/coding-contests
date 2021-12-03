@@ -10,7 +10,7 @@ import java.util.Map;
 import ws.bmocanu.aoc.support.Log;
 import ws.bmocanu.aoc.support.SBinder;
 import ws.bmocanu.aoc.support.SReg;
-import ws.bmocanu.aoc.utils.FileUtils;
+import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.utils.Utils;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
@@ -24,7 +24,7 @@ public class Day14BitMaskingAddresses extends SolutionBase {
     public static Map<BigInteger, BigInteger> mem = new HashMap<>();
 
     public static void main(String[] args) {
-        List<String> stringLines = FileUtils.fileAsStringPerLineToStringList(filePath("day14"));
+        List<String> stringLines = XRead.fileAsStringPerLineToStringList(filePath("day14"));
         SBinder binder = new SBinder("mem\\[(\\d+)] = (\\d+)", "address", "value");
         String maskString;
         int[] mask = new int[0];

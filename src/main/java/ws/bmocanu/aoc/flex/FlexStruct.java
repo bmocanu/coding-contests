@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 import ws.bmocanu.aoc.support.PosDelta4;
 import ws.bmocanu.aoc.support.PosDelta8;
-import ws.bmocanu.aoc.utils.FileUtils;
+import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.utils.Utils;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
@@ -173,7 +173,7 @@ public class FlexStruct implements PointSupplier {
     // ----------------------------------------------------------------------------------------------------
 
     public FlexStruct loadFromFile(String fileName) {
-        return loadFromLineList(FileUtils.fileAsStringPerLineToStringList(fileName));
+        return loadFromLineList(XRead.fileAsStringPerLineToStringList(fileName));
     }
 
     public FlexStruct loadFromLineList(List<String> lineList) {

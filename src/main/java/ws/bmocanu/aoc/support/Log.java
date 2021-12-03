@@ -5,8 +5,8 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
-import ws.bmocanu.aoc.utils.FileUtils;
-import ws.bmocanu.aoc.utils.TimeUtils;
+import ws.bmocanu.aoc.utils.XRead;
+import ws.bmocanu.aoc.utils.XTime;
 import ws.bmocanu.aoc.utils.Utils;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
@@ -26,7 +26,7 @@ public class Log {
         String format = "[%s] ".repeat(params.length);
         format = format.substring(0, format.length() - 1);
         String line = String.format(format, params);
-        appendLine("PART 1: " + line + ", exec time: [" + TimeUtils.formatDurationInSecAndMs(part1TimeInMs) + "]");
+        appendLine("PART 1: " + line + ", exec time: [" + XTime.formatDurationInSecAndMs(part1TimeInMs) + "]");
         part1Results = params;
     }
 
@@ -35,7 +35,7 @@ public class Log {
         String format = "[%s] ".repeat(params.length);
         format = format.substring(0, format.length() - 1);
         String line = String.format(format, params);
-        appendLine("PART 2: " + line + ", exec time: [" + TimeUtils.formatDurationInSecAndMs(part2TimeInMs) + "]");
+        appendLine("PART 2: " + line + ", exec time: [" + XTime.formatDurationInSecAndMs(part2TimeInMs) + "]");
         part2Results = params;
     }
 
@@ -138,7 +138,7 @@ public class Log {
     private static Writer writer;
 
     public static void appendToTimestampedFile(String filePrefix) {
-        File appendFile = FileUtils.getTimestampedOutputFile(filePrefix);
+        File appendFile = XRead.getTimestampedOutputFile(filePrefix);
         try {
             writer = new OutputStreamWriter(new FileOutputStream(appendFile));
             Runtime.getRuntime().addShutdownHook(new Thread(() -> {

@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 
 import ws.bmocanu.aoc.support.Log;
 import ws.bmocanu.aoc.support.SBinder;
-import ws.bmocanu.aoc.utils.FileUtils;
+import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
 public class Day07BagsContainColors extends SolutionBase {
@@ -30,7 +30,7 @@ public class Day07BagsContainColors extends SolutionBase {
     public static Map<String, List<Content>> bags = new HashMap<>();
 
     public static void main(String[] args) {
-        List<String> stringLines = FileUtils.fileAsStringPerLineToStringList(filePath("day07"));
+        List<String> stringLines = XRead.fileAsStringPerLineToStringList(filePath("day07"));
 
         for (String line : stringLines) {
             int firstIndex = line.indexOf(" bags contain ");

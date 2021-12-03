@@ -1,7 +1,7 @@
 package ws.bmocanu.aoc.ed2020;
 
 import ws.bmocanu.aoc.support.Log;
-import ws.bmocanu.aoc.utils.FileUtils;
+import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
 import java.util.HashMap;
@@ -16,7 +16,7 @@ public class Day25DoorKeyCryptoBreaking extends SolutionBase {
     static long key2;
 
     public static void main(String[] args) {
-        List<String> stringLines = FileUtils.fileAsStringPerLineToStringList(filePath("day25"));
+        List<String> stringLines = XRead.fileAsStringPerLineToStringList(filePath("day25"));
         key1 = Long.parseLong(stringLines.get(0));
         key2 = Long.parseLong(stringLines.get(1));
 

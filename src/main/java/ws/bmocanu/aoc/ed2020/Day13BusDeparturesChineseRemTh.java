@@ -1,8 +1,7 @@
 package ws.bmocanu.aoc.ed2020;
 
 import ws.bmocanu.aoc.support.Log;
-import ws.bmocanu.aoc.utils.FileUtils;
-import ws.bmocanu.aoc.utils.MathUtils;
+import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
 import java.util.Arrays;
@@ -12,7 +11,7 @@ import java.util.StringTokenizer;
 public class Day13BusDeparturesChineseRemTh extends SolutionBase {
 
     public static void main(String[] args) {
-        List<String> stringLines = FileUtils.fileAsStringPerLineToStringList(filePath("day13"));
+        List<String> stringLines = XRead.fileAsStringPerLineToStringList(filePath("day13"));
         int currentMinute = Integer.parseInt(stringLines.get(0));
 
         int[] busIds = new int[1000];

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ws.bmocanu.aoc.support.Log;
-import ws.bmocanu.aoc.utils.FileUtils;
+import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.utils.Utils;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
@@ -19,7 +19,7 @@ public class Day20ImageJigsawRotateAndFlip extends SolutionBase {
     static Tile[][] matrix;
 
     public static void main(String[] args) {
-        List<String> stringLines = FileUtils.fileAsStringPerLineToStringList(filePath("day20"));
+        List<String> stringLines = XRead.fileAsStringPerLineToStringList(filePath("day20"));
         int[][] pixels = Utils.createIntMatrix2(10, 10);
         Tile currentTile = null;
         int pixelsLine = 0;

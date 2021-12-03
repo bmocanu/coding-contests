@@ -1,16 +1,15 @@
 package ws.bmocanu.aoc.ed2021;
 
 import ws.bmocanu.aoc.support.Log;
-import ws.bmocanu.aoc.utils.FileUtils;
-import ws.bmocanu.aoc.utils.Utils;
+import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
 import java.util.List;
 
-public class Day02 extends SolutionBase {
+public class Day02SubmarinePositionAdjusting extends SolutionBase {
 
     public static void main(String[] args) {
-        List<String> commands = FileUtils.fileAsStringPerLineToStringList(filePath("day02"));
+        List<String> commands = XRead.fileAsStringPerLineToStringList(filePath("day02"));
         int position = 0;
         int depth = 0;
         for(String command : commands) {

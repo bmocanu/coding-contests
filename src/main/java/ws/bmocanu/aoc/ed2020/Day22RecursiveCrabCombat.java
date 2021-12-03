@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import ws.bmocanu.aoc.support.Log;
-import ws.bmocanu.aoc.utils.FileUtils;
+import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
 public class Day22RecursiveCrabCombat extends SolutionBase {
@@ -15,7 +15,7 @@ public class Day22RecursiveCrabCombat extends SolutionBase {
     //31587
 
     public static void main(String[] args) {
-        List<String> stringLines = FileUtils.fileAsStringPerLineToStringList(filePath("day22"));
+        List<String> stringLines = XRead.fileAsStringPerLineToStringList(filePath("day22"));
         List<Integer> original1 = new ArrayList<>();
         List<Integer> original2 = new ArrayList<>();
         List<Integer> cursor = original1;

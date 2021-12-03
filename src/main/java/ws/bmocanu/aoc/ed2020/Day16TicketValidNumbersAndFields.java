@@ -5,14 +5,14 @@ import java.util.List;
 
 import ws.bmocanu.aoc.support.Log;
 import ws.bmocanu.aoc.support.SBinder;
-import ws.bmocanu.aoc.utils.FileUtils;
+import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.utils.Utils;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
 public class Day16TicketValidNumbersAndFields extends SolutionBase {
 
     public static void main(String[] args) {
-        List<String> stringLines = FileUtils.fileAsStringPerLineToStringList(filePath("day16"));
+        List<String> stringLines = XRead.fileAsStringPerLineToStringList(filePath("day16"));
         List<Rule> ruleList = new ArrayList<>();
 
         int index = 0;

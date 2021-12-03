@@ -1,7 +1,7 @@
 package ws.bmocanu.aoc.utils;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
-public class TimeUtils {
+public class XTime {
 
     public static String formatDurationInHoursMinutesSeconds(long durationInMs) {
         if (durationInMs == 0) {

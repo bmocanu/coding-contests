@@ -4,13 +4,13 @@ import java.util.Collections;
 import java.util.List;
 
 import ws.bmocanu.aoc.support.Log;
-import ws.bmocanu.aoc.utils.FileUtils;
+import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
 public class Day10JoltsAndAdapters extends SolutionBase {
 
     public static void main(String[] args) {
-        List<Integer> numbers = FileUtils.fileAsIntPerLineToIntList(filePath("day10"));
+        List<Integer> numbers = XRead.fileAsIntPerLineToIntList(filePath("day10"));
         Collections.sort(numbers);
 
         int jolt1 = 1; // add the default increment from 0 jolts

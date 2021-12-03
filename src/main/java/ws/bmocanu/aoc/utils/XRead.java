@@ -12,13 +12,14 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
 import ws.bmocanu.aoc.support.Constants;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
-public class FileUtils {
+public class XRead {
 
     public static List<Integer> fileAsIntPerLineToIntList(String filePath) {
         List<Integer> intList = new ArrayList<>();
@@ -104,6 +105,11 @@ public class FileUtils {
             }
         }
         return resultMatrix;
+    }
+
+    public static List<char[]> fileAsCharMatrixToCharArrayList(String filePath) {
+        char[][] matrix = fileAsCharMatrixToCharMatrix(filePath);
+        return new ArrayList<>(Arrays.asList(matrix));
     }
 
     public static int[] fileAsLongDigitsLineToIntArray(String filePath) {
