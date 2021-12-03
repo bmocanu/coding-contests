@@ -1,7 +1,7 @@
 package ws.bmocanu.aoc.support;
 
 import ws.bmocanu.aoc.flex.Point;
-import ws.bmocanu.aoc.utils.Utils;
+import ws.bmocanu.aoc.utils.XUtils;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class PosDelta4 {
@@ -86,7 +86,7 @@ public class PosDelta4 {
     // ----------------------------------------------------------------------------------------------------
 
     public PosDelta4 rotateLeft() {
-        int newDir4 = Utils.cycleInt(dir4 - 1, 0, 3);
+        int newDir4 = XUtils.cycleInt(dir4 - 1, 0, 3);
         PosDelta4 newDelta = fromDir4(newDir4);
         deltaX = newDelta.deltaX;
         deltaY = newDelta.deltaY;
@@ -95,7 +95,7 @@ public class PosDelta4 {
     }
 
     public PosDelta4 rotateRight() {
-        int newDir4 = Utils.cycleInt(dir4 + 1, 0, 3);
+        int newDir4 = XUtils.cycleInt(dir4 + 1, 0, 3);
         PosDelta4 newDelta = fromDir4(newDir4);
         deltaX = newDelta.deltaX;
         deltaY = newDelta.deltaY;

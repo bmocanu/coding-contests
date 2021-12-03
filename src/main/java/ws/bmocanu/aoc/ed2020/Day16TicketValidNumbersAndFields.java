@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ws.bmocanu.aoc.support.Log;
-import ws.bmocanu.aoc.support.SBinder;
+import ws.bmocanu.aoc.utils.SBind;
 import ws.bmocanu.aoc.utils.XRead;
-import ws.bmocanu.aoc.utils.Utils;
+import ws.bmocanu.aoc.utils.XUtils;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
 public class Day16TicketValidNumbersAndFields extends SolutionBase {
@@ -18,7 +18,7 @@ public class Day16TicketValidNumbersAndFields extends SolutionBase {
         int index = 0;
         String line = stringLines.get(index);
 
-        SBinder binder = new SBinder("([a-z\\s]+): (\\d+)-(\\d+) or (\\d+)-(\\d+)",
+        SBind binder = new SBind("([a-z\\s]+): (\\d+)-(\\d+) or (\\d+)-(\\d+)",
                                      "fieldName", "int1Min", "int1Max", "int2Min", "int2Max");
         while (!line.isEmpty()) {
             ruleList.add(binder.bind(line, Rule.class));
@@ -27,7 +27,7 @@ public class Day16TicketValidNumbersAndFields extends SolutionBase {
         }
 
         index += 2;
-        List<Integer> myTicketNumbers = Utils.splitCsvStringToIntList(stringLines.get(index), ",");
+        List<Integer> myTicketNumbers = XUtils.splitCsvStringToIntList(stringLines.get(index), ",");
         List<Ticket> validTickets = new ArrayList<>();
 
         index += 3;
@@ -35,7 +35,7 @@ public class Day16TicketValidNumbersAndFields extends SolutionBase {
         int sum = 0;
         while (index < stringLines.size()) {
             line = stringLines.get(index);
-            otherTicketFields = Utils.splitCsvStringToIntList(line, ",");
+            otherTicketFields = XUtils.splitCsvStringToIntList(line, ",");
             boolean validField;
             boolean allValidFields = true;
             for (int otherTicketField : otherTicketFields) {

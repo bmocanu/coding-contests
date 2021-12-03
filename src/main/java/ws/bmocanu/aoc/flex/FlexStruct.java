@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 import ws.bmocanu.aoc.support.PosDelta4;
 import ws.bmocanu.aoc.support.PosDelta8;
 import ws.bmocanu.aoc.utils.XRead;
-import ws.bmocanu.aoc.utils.Utils;
+import ws.bmocanu.aoc.utils.XUtils;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class FlexStruct implements PointSupplier {
@@ -166,7 +166,7 @@ public class FlexStruct implements PointSupplier {
     }
 
     public FlexStruct forEachPointWithChrAsLetter(Consumer<Point> consumer) {
-        pointMap.values().stream().filter(point -> Utils.charIsLetter(point.chr)).forEach(consumer);
+        pointMap.values().stream().filter(point -> XUtils.charIsLetter(point.chr)).forEach(consumer);
         return this;
     }
 
@@ -220,9 +220,9 @@ public class FlexStruct implements PointSupplier {
             for (int x = 0; x < width; x++) {
                 Point point = pointOrNull(x, y);
                 if (point != null) {
-                    builder.append(Utils.strPadding(String.valueOf(pointPrinter.apply(point)), padding, " "));
+                    builder.append(XUtils.strPadding(String.valueOf(pointPrinter.apply(point)), padding, " "));
                 } else {
-                    builder.append(Utils.strPadding(strForMissingPoints, padding, " "));
+                    builder.append(XUtils.strPadding(strForMissingPoints, padding, " "));
                 }
             }
             builder.append("|\n");
@@ -244,7 +244,7 @@ public class FlexStruct implements PointSupplier {
     private long getUniqueCoordsHash(int x, int y) {
         int deltaX = x + positiveDelta;
         int deltaY = y + positiveDelta;
-        return Utils.getCantorPairingValue(deltaX, deltaY);
+        return XUtils.getCantorPairingValue(deltaX, deltaY);
     }
 
     // ----------------------------------------------------------------------------------------------------
@@ -268,7 +268,7 @@ public class FlexStruct implements PointSupplier {
 
         public FluentMappingActions anyLetterToType(int type) {
             points.forEach(point -> {
-                if (Utils.charIsLetter(point.chr)) {
+                if (XUtils.charIsLetter(point.chr)) {
                     point.type = type;
                 }
             });

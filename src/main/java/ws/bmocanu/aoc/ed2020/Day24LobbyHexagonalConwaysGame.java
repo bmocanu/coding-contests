@@ -5,7 +5,7 @@ import java.util.List;
 import ws.bmocanu.aoc.flex.Point;
 import ws.bmocanu.aoc.support.Log;
 import ws.bmocanu.aoc.utils.XRead;
-import ws.bmocanu.aoc.utils.Utils;
+import ws.bmocanu.aoc.utils.XUtils;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
 public class Day24LobbyHexagonalConwaysGame extends SolutionBase {
@@ -18,7 +18,7 @@ public class Day24LobbyHexagonalConwaysGame extends SolutionBase {
 
     public static void main(String[] args) {
         List<String> stringLines = XRead.fileAsStringPerLineToStringList(filePath("day24"));
-        floor = Utils.createIntMatrix2(floorSize, floorSize);
+        floor = XUtils.createIntMatrix2(floorSize, floorSize);
         for (String line : stringLines) {
             Point cursor = Point.from(startX, startY);
             int charIndex = 0;
@@ -56,10 +56,10 @@ public class Day24LobbyHexagonalConwaysGame extends SolutionBase {
             }
             floor[cursor.x][cursor.y] = 1 - floor[cursor.x][cursor.y];
         }
-        Log.part1(Utils.iterateIntMatrix2ToSumOfValues(floor));
+        Log.part1(XUtils.iterateIntMatrix2ToSumOfValues(floor));
 
         for (int round = 0; round < 100; round++) {
-            int[][] curMat = Utils.cloneIntMatrix2(floor);
+            int[][] curMat = XUtils.cloneIntMatrix2(floor);
             for (int y = 1; y < floorSize - 1; y++) {
                 for (int x = 2; x < floorSize - 2; x++) {
                     int blackTiles = 0;
@@ -105,7 +105,7 @@ public class Day24LobbyHexagonalConwaysGame extends SolutionBase {
             floor = curMat;
         }
 
-        Log.part2(Utils.iterateIntMatrix2ToSumOfValues(floor));
+        Log.part2(XUtils.iterateIntMatrix2ToSumOfValues(floor));
 
         // 360
         // 3924

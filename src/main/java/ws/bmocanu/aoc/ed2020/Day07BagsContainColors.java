@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import ws.bmocanu.aoc.support.Log;
-import ws.bmocanu.aoc.support.SBinder;
+import ws.bmocanu.aoc.utils.SBind;
 import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
@@ -39,7 +39,7 @@ public class Day07BagsContainColors extends SolutionBase {
             StringTokenizer tokenizer = new StringTokenizer(rest, ",");
             List<Content> parentContent = new ArrayList<>();
             bags.put(parent, parentContent);
-            SBinder binder = new SBinder("(\\d+) (\\w+ \\w+) bag.*", "number", "bagColour");
+            SBind binder = new SBind("(\\d+) (\\w+ \\w+) bag.*", "number", "bagColour");
             while (tokenizer.hasMoreTokens()) {
                 String subContent = tokenizer.nextToken().trim();
                 if (subContent.contains("no other")) {

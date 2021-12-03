@@ -3,7 +3,7 @@ package ws.bmocanu.aoc.utils;
 import java.util.List;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
-public class ListUtils {
+public class XList {
 
     public static void iterateWith2IntCursors(List<Integer> intList, ProcessorFor2Ints processor) {
         for (int index1 = 0; index1 < intList.size(); index1++) {

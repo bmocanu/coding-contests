@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 import ws.bmocanu.aoc.support.Log;
-import ws.bmocanu.aoc.support.SBinder;
+import ws.bmocanu.aoc.utils.SBind;
 import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
@@ -17,7 +17,7 @@ public class Day19MessagePatternValidation extends SolutionBase {
         ruleMap = new HashMap<>();
         int index = 0;
         String line;
-        SBinder charBinder = new SBinder("(\\d+): \"(\\w+)\"", "id", "chrToMatch");
+        SBind charBinder = new SBind("(\\d+): \"(\\w+)\"", "id", "chrToMatch");
         while (!(line = stringLines.get(index)).isBlank()) {
             Rule newRule;
             if (line.contains("\"")) {

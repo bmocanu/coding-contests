@@ -7,9 +7,9 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import ws.bmocanu.aoc.support.Log;
-import ws.bmocanu.aoc.support.SReg;
+import ws.bmocanu.aoc.utils.SReg;
 import ws.bmocanu.aoc.utils.XRead;
-import ws.bmocanu.aoc.utils.Utils;
+import ws.bmocanu.aoc.utils.XUtils;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
 public class Day04ValidatePassports extends SolutionBase {
@@ -32,7 +32,7 @@ public class Day04ValidatePassports extends SolutionBase {
                 while (tokenizer.hasMoreTokens()) {
                     String token = tokenizer.nextToken();
                     String id = token.substring(0, token.indexOf(':'));
-                    if (Utils.stringOneOf(id, "byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid", "cid")) {
+                    if (XUtils.stringOneOf(id, "byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid", "cid")) {
                         currentPass.put(id, token.substring(token.indexOf(':') + 1));
                     }
                 }
@@ -72,7 +72,7 @@ public class Day04ValidatePassports extends SolutionBase {
                     allValid = allValid && SReg.matches("#[0-9a-f]{6}", value);
                 }
                 if (id.equals("ecl")) {
-                    allValid = allValid && Utils.stringOneOf(value, "amb", "blu", "brn", "gry", "grn", "hzl", "oth");
+                    allValid = allValid && XUtils.stringOneOf(value, "amb", "blu", "brn", "gry", "grn", "hzl", "oth");
                 }
                 if (id.equals("pid")) {
                     allValid = allValid && SReg.matches("\\d{9}", value);

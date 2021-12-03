@@ -7,7 +7,7 @@ import java.util.List;
 
 import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.utils.XTime;
-import ws.bmocanu.aoc.utils.Utils;
+import ws.bmocanu.aoc.utils.XUtils;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class Log {
@@ -60,15 +60,15 @@ public class Log {
     }
 
     public static void array(int[] array) {
-        info(Utils.intArrayToString(array));
+        info(XUtils.intArrayToString(array));
     }
 
     public static void array(long[] array) {
-        info(Utils.longArrayToString(array));
+        info(XUtils.longArrayToString(array));
     }
 
     public static void array(String[] array) {
-        info(Utils.stringArrayToString(array));
+        info(XUtils.stringArrayToString(array));
     }
 
     public static void list(List<?> list) {

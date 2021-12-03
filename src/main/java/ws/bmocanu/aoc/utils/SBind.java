@@ -1,4 +1,6 @@
-package ws.bmocanu.aoc.support;
+package ws.bmocanu.aoc.utils;
+
+import ws.bmocanu.aoc.support.Log;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -7,12 +9,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
-public class SBinder {
+public class SBind {
 
     private final Pattern pattern;
     private final String[] fieldNames;
 
-    public SBinder(String regex, String... fieldNames) {
+    public SBind(String regex, String... fieldNames) {
         this.pattern = Pattern.compile(regex);
         this.fieldNames = fieldNames;
     }

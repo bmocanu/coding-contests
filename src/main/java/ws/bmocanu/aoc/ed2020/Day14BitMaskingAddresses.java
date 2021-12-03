@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 import ws.bmocanu.aoc.support.Log;
-import ws.bmocanu.aoc.support.SBinder;
-import ws.bmocanu.aoc.support.SReg;
+import ws.bmocanu.aoc.utils.SBind;
+import ws.bmocanu.aoc.utils.SReg;
 import ws.bmocanu.aoc.utils.XRead;
-import ws.bmocanu.aoc.utils.Utils;
+import ws.bmocanu.aoc.utils.XUtils;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
 public class Day14BitMaskingAddresses extends SolutionBase {
@@ -25,7 +25,7 @@ public class Day14BitMaskingAddresses extends SolutionBase {
 
     public static void main(String[] args) {
         List<String> stringLines = XRead.fileAsStringPerLineToStringList(filePath("day14"));
-        SBinder binder = new SBinder("mem\\[(\\d+)] = (\\d+)", "address", "value");
+        SBind binder = new SBind("mem\\[(\\d+)] = (\\d+)", "address", "value");
         String maskString;
         int[] mask = new int[0];
         for (String line : stringLines) {
@@ -73,7 +73,7 @@ public class Day14BitMaskingAddresses extends SolutionBase {
     }
 
     public static BigInteger part1GetBigWithMask(long inputNumber, int[] mask) {
-        int[] binary = Utils.longToBinaryWithPadding(inputNumber, mask.length);
+        int[] binary = XUtils.longToBinaryWithPadding(inputNumber, mask.length);
         int[] result = new int[mask.length];
         for (int index = 0; index < mask.length; index++) {
             if (mask[index] != -1) {
@@ -82,11 +82,11 @@ public class Day14BitMaskingAddresses extends SolutionBase {
                 result[index] = binary[index];
             }
         }
-        return Utils.binaryToBigInt(result);
+        return XUtils.binaryToBigInt(result);
     }
 
     public static void part2GetAddresses(long inputNumber, int[] mask, List<BigInteger> addresses) {
-        int[] binary = Utils.longToBinaryWithPadding(inputNumber, mask.length);
+        int[] binary = XUtils.longToBinaryWithPadding(inputNumber, mask.length);
         int[] result = new int[mask.length];
         for (int index = 0; index < mask.length; index++) {
             if (mask[index] == 0) {
@@ -100,7 +100,7 @@ public class Day14BitMaskingAddresses extends SolutionBase {
 
     public static void part2GenerateFloatingBitAddresses(int[] input, int inputIndex, List<BigInteger> addresses) {
         if (inputIndex >= input.length) {
-            addresses.add(Utils.binaryToBigInt(input));
+            addresses.add(XUtils.binaryToBigInt(input));
             return;
         }
         if (input[inputIndex] == -1) {

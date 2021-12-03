@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import ws.bmocanu.aoc.utils.Utils;
+import ws.bmocanu.aoc.utils.XUtils;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class FlexNumber implements Comparable<FlexNumber> {
@@ -59,7 +59,7 @@ public class FlexNumber implements Comparable<FlexNumber> {
         String localNumber = number.trim();
         for (int index = number.length() - 1; index >= 0; index--) {
             char currentChar = number.charAt(index);
-            if (Utils.charIsDigit(currentChar)) {
+            if (XUtils.charIsDigit(currentChar)) {
                 addDigit(currentChar - '0');
             } else {
                 throw new IllegalArgumentException("This char is not a digit: " + currentChar);
@@ -131,7 +131,7 @@ public class FlexNumber implements Comparable<FlexNumber> {
     }
 
     public FlexNumber add(FlexNumber other) {
-        int maxLength = Utils.max(length, other.length);
+        int maxLength = XUtils.max(length, other.length);
         int carryOn = 0;
         for (int index = 0; index < maxLength; index++) {
             int term1 = (index < length ? digits[index] : 0);
@@ -189,7 +189,7 @@ public class FlexNumber implements Comparable<FlexNumber> {
     @Override
     public int compareTo(FlexNumber other) {
         int result = 0;
-        int maxLength = Utils.max(length, other.length);
+        int maxLength = XUtils.max(length, other.length);
         for (int index = 0; index < maxLength; index++) {
             int term1 = (index < length ? digits[index] : 0);
             int term2 = (index < other.length ? other.digits[index] : 0);
@@ -206,7 +206,7 @@ public class FlexNumber implements Comparable<FlexNumber> {
             return false;
         }
         FlexNumber otherObj = (FlexNumber) obj;
-        int maxLength = Utils.max(length, otherObj.length);
+        int maxLength = XUtils.max(length, otherObj.length);
         for (int index = 0; index < maxLength; index++) {
             int term1 = (index < length ? digits[index] : 0);
             int term2 = (index < otherObj.length ? otherObj.digits[index] : 0);

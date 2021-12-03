@@ -1,6 +1,6 @@
 package ws.bmocanu.aoc.ed2020;
 
-import ws.bmocanu.aoc.support.SBinder;
+import ws.bmocanu.aoc.utils.SBind;
 import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.support.Log;
 import ws.bmocanu.aoc.xbase.SolutionBase;
@@ -18,7 +18,7 @@ public class Day02PasswordPolicy extends SolutionBase {
 
     public static void main(String[] args) {
         List<String> lineList = XRead.fileAsStringPerLineToStringList(filePath("day02"));
-        SBinder parser = new SBinder("(\\d+)-(\\d+) (\\w): (\\w+)",
+        SBind parser = new SBind("(\\d+)-(\\d+) (\\w): (\\w+)",
                                      "minAp", "maxAp", "letter", "pass");
         List<Entry> entries = parser.bind(lineList, Entry.class);
 

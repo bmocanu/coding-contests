@@ -9,7 +9,7 @@ import java.util.TreeMap;
 
 import ws.bmocanu.aoc.support.Log;
 import ws.bmocanu.aoc.utils.XRead;
-import ws.bmocanu.aoc.utils.Utils;
+import ws.bmocanu.aoc.utils.XUtils;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
 public class Day21AllergenAssessment extends SolutionBase {
@@ -20,8 +20,8 @@ public class Day21AllergenAssessment extends SolutionBase {
     public static void main(String[] args) {
         List<String> stringLines = XRead.fileAsStringPerLineToStringList(filePath("day21"));
         for (String line : stringLines) {
-            List<String> ingList = Utils.splitCsvStringToStringList(line.substring(0, line.indexOf('(')), " ");
-            List<String> allergList = Utils.splitCsvStringToStringList(line.substring(line.indexOf("(contains") + 9, line.indexOf(')')), ",");
+            List<String> ingList = XUtils.splitCsvStringToStringList(line.substring(0, line.indexOf('(')), " ");
+            List<String> allergList = XUtils.splitCsvStringToStringList(line.substring(line.indexOf("(contains") + 9, line.indexOf(')')), ",");
             for (String ing : ingList) {
                 ingCountMap.merge(ing, 1, Integer::sum);
             }

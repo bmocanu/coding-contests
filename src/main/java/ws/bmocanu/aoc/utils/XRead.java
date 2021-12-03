@@ -23,7 +23,7 @@ public class XRead {
 
     public static List<Integer> fileAsIntPerLineToIntList(String filePath) {
         List<Integer> intList = new ArrayList<>();
-        try (InputStream is = Utils.class.getResourceAsStream(filePath)) {
+        try (InputStream is = XUtils.class.getResourceAsStream(filePath)) {
             List<String> resultList = new ArrayList<>();
             LineIterator lineIterator = IOUtils.lineIterator(is, StandardCharsets.UTF_8);
             while (lineIterator.hasNext()) {
@@ -37,7 +37,7 @@ public class XRead {
 
     public static List<Long> fileAsLongPerLineToLongList(String filePath) {
         List<Long> intList = new ArrayList<>();
-        try (InputStream is = Utils.class.getResourceAsStream(filePath)) {
+        try (InputStream is = XUtils.class.getResourceAsStream(filePath)) {
             List<String> resultList = new ArrayList<>();
             LineIterator lineIterator = IOUtils.lineIterator(is, StandardCharsets.UTF_8);
             while (lineIterator.hasNext()) {
@@ -70,7 +70,7 @@ public class XRead {
     }
 
     public static String fileToOneString(String filePath) {
-        try (InputStream is = Utils.class.getResourceAsStream(filePath)) {
+        try (InputStream is = XUtils.class.getResourceAsStream(filePath)) {
             return IOUtils.toString(is, StandardCharsets.UTF_8);
         } catch (IOException e) {
             throw new RuntimeException("Failed to load file [" + filePath + "]", e);
@@ -78,7 +78,7 @@ public class XRead {
     }
 
     public static List<String> fileAsStringPerLineToStringList(String filePath) {
-        try (InputStream is = Utils.class.getResourceAsStream(filePath)) {
+        try (InputStream is = XUtils.class.getResourceAsStream(filePath)) {
             List<String> resultList = new ArrayList<>();
             LineIterator lineIterator = IOUtils.lineIterator(is, StandardCharsets.UTF_8);
             while (lineIterator.hasNext()) {

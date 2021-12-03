@@ -1,9 +1,7 @@
-package ws.bmocanu.aoc.support;
+package ws.bmocanu.aoc.utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import ws.bmocanu.aoc.utils.Utils;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class SReg {
@@ -55,7 +53,7 @@ public class SReg {
             return false;
         }
         String value = matcher.group(index);
-        return Utils.stringOneOf(value, valuesToCheck);
+        return XUtils.stringOneOf(value, valuesToCheck);
     }
 
     public int getInt(int index) {

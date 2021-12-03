@@ -5,7 +5,7 @@ import java.util.List;
 
 import ws.bmocanu.aoc.support.Log;
 import ws.bmocanu.aoc.utils.XRead;
-import ws.bmocanu.aoc.utils.Utils;
+import ws.bmocanu.aoc.utils.XUtils;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
 public class Day20ImageJigsawRotateAndFlip extends SolutionBase {
@@ -20,7 +20,7 @@ public class Day20ImageJigsawRotateAndFlip extends SolutionBase {
 
     public static void main(String[] args) {
         List<String> stringLines = XRead.fileAsStringPerLineToStringList(filePath("day20"));
-        int[][] pixels = Utils.createIntMatrix2(10, 10);
+        int[][] pixels = XUtils.createIntMatrix2(10, 10);
         Tile currentTile = null;
         int pixelsLine = 0;
         for (String line : stringLines) {
@@ -48,7 +48,7 @@ public class Day20ImageJigsawRotateAndFlip extends SolutionBase {
 
         calculatePart1(0, 0, 1);
 
-        pixels = Utils.createIntMatrix2(8 * size, 8 * size);
+        pixels = XUtils.createIntMatrix2(8 * size, 8 * size);
         for (int y = 0; y < size; y++) {
             for (int w = 1; w < 9; w++) {
                 for (int x = 0; x < size; x++) {
@@ -139,7 +139,7 @@ public class Day20ImageJigsawRotateAndFlip extends SolutionBase {
                 }
             }
             if (monstersFound > 0) {
-                Log.part2(Utils.iterateIntMatrix2ToSumOfValues(mat.pixels));
+                Log.part2(XUtils.iterateIntMatrix2ToSumOfValues(mat.pixels));
                 return;
             }
         }
@@ -181,12 +181,12 @@ public class Day20ImageJigsawRotateAndFlip extends SolutionBase {
 
         public CharMat(int size) {
             this.size = size;
-            this.pixels = Utils.createIntMatrix2(size, size);
+            this.pixels = XUtils.createIntMatrix2(size, size);
         }
 
         public CharMat(int size, int[][] pixels) {
             this.size = size;
-            this.pixels = Utils.cloneIntMatrix2(pixels);
+            this.pixels = XUtils.cloneIntMatrix2(pixels);
             initSideNums();
         }
 

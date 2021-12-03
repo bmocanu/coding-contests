@@ -6,7 +6,7 @@ import java.util.*;
 import ws.bmocanu.aoc.flex.Pointer;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
-public class Utils {
+public class XUtils {
 
     public static long getCantorPairingValue(int a1, int a2) {
         return (long) (a1 + a2) * (a1 + a2 + 1) / 2 + a2;

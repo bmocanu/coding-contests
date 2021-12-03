@@ -3,7 +3,7 @@ package ws.bmocanu.aoc.utils;
 import ws.bmocanu.aoc.flex.Point;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
-public class GeoUtils {
+public class XGeo {
 
     public static boolean pointsOnTheSameLine(Point p1, Point p2, Point p3) {
         double p12Distance = distance(p1, p2);

@@ -5,7 +5,7 @@ import java.util.List;
 
 import ws.bmocanu.aoc.support.Log;
 import ws.bmocanu.aoc.utils.XRead;
-import ws.bmocanu.aoc.utils.Utils;
+import ws.bmocanu.aoc.utils.XUtils;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
 public class Day18OperationOrderCalculus extends SolutionBase {
@@ -35,7 +35,7 @@ public class Day18OperationOrderCalculus extends SolutionBase {
         long term = 0;
         boolean hasTerm = false;
         for (int index = 0; index < input.length(); index++) {
-            if (Utils.charIsDigit(input.charAt(index))) {
+            if (XUtils.charIsDigit(input.charAt(index))) {
                 term = term * 10 + (input.charAt(index) - '0');
                 hasTerm = true;
             } else {

@@ -3,7 +3,7 @@ package ws.bmocanu.aoc.utils;
 import static java.util.Arrays.stream;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
-public class MathUtils {
+public class XMath {
 
     /*
      * Chinese remainder theorem code, taken from here:
