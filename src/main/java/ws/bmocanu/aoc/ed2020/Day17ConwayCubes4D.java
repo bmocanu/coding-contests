@@ -5,6 +5,7 @@ import java.util.List;
 import ws.bmocanu.aoc.support.Log;
 import ws.bmocanu.aoc.support.PosDelta3D;
 import ws.bmocanu.aoc.support.PosDelta4D;
+import ws.bmocanu.aoc.utils.XMatrix;
 import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.utils.XUtils;
 import ws.bmocanu.aoc.xbase.SolutionBase;
@@ -16,7 +17,7 @@ public class Day17ConwayCubes4D extends SolutionBase {
 
     public static void main(String[] args) {
         List<String> stringLines = XRead.fileAsStringPerLineToStringList(filePath("day17"));
-        int[][][][] origMat = XUtils.createIntMatrix4(OFF * 2, OFF * 2, OFF * 2, OFF * 2);
+        int[][][][] origMat = XMatrix.createIntMatrix4(OFF * 2, OFF * 2, OFF * 2, OFF * 2);
 
         int width = stringLines.get(0).length();
         int start = (OFF - width) / 2;
@@ -33,9 +34,9 @@ public class Day17ConwayCubes4D extends SolutionBase {
         int[][][][] newMat;
 
         // Part 1
-        curMat = XUtils.cloneIntMatrix4(origMat);
+        curMat = XMatrix.cloneIntMatrix4(origMat);
         for (int cycle = 0; cycle < 6; cycle++) {
-            newMat = XUtils.cloneIntMatrix4(curMat);
+            newMat = XMatrix.cloneIntMatrix4(curMat);
             for (int x = 1; x < curMat.length - 1; x++) {
                 for (int y = 1; y < curMat[x].length - 1; y++) {
                     for (int z = 1; z < curMat[x][y].length - 1; z++) {
@@ -66,12 +67,12 @@ public class Day17ConwayCubes4D extends SolutionBase {
 
         // 401
         // 2224
-        Log.part1(XUtils.iterateIntMatrix4ToSum(curMat, (x, y, z, w, value) -> value));
+        Log.part1(XMatrix.iterateIntMatrix4ToSum(curMat, (x, y, z, w, value) -> value));
 
         // Part 2
-        curMat = XUtils.cloneIntMatrix4(origMat);
+        curMat = XMatrix.cloneIntMatrix4(origMat);
         for (int cycle = 0; cycle < 6; cycle++) {
-            newMat = XUtils.cloneIntMatrix4(curMat);
+            newMat = XMatrix.cloneIntMatrix4(curMat);
             for (int x = 1; x < curMat.length - 1; x++) {
                 for (int y = 1; y < curMat[x].length - 1; y++) {
                     for (int z = 1; z < curMat[x][y].length - 1; z++) {
@@ -102,7 +103,7 @@ public class Day17ConwayCubes4D extends SolutionBase {
             curMat = newMat;
         }
 
-        Log.part2(XUtils.iterateIntMatrix4ToSum(curMat, (x, y, z, w, value) -> value));
+        Log.part2(XMatrix.iterateIntMatrix4ToSum(curMat, (x, y, z, w, value) -> value));
     }
 
 }
