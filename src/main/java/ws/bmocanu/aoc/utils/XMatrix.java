@@ -123,6 +123,14 @@ public class XMatrix {
         return iterateIntMatrix4ToIntList(matrix, iterator).stream().reduce(0L, Long::sum);
     }
 
+    public static void fillIntMatrix(int[][] matrix, int value) {
+        for (int x = 0; x < matrix.length; x++) {
+            for (int y = 0; y < matrix.length; y++) {
+                matrix[x][y] = value;
+            }
+        }
+    }
+
     @SuppressWarnings("unchecked")
     public static <T> T[][] createObjectMatrix2(int dim1, int dim2, Class<T> typeClass) {
         Class typeArrayClass = Array.newInstance(typeClass, 0).getClass();

@@ -1,6 +1,7 @@
 package ws.bmocanu.aoc.flex;
 
 import ws.bmocanu.aoc.support.PosDelta4;
+import ws.bmocanu.aoc.support.PosDeltaDiff;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class Cursor {
@@ -14,6 +15,12 @@ public class Cursor {
     public boolean cyclingOnX;
 
     public boolean cyclingOnY;
+
+    private int targetX;
+
+    private int targetY;
+
+    private boolean createPointsAsNeeded;
 
     // ----------------------------------------------------------------------------------------------------
 
@@ -34,6 +41,12 @@ public class Cursor {
         return this;
     }
 
+    public Cursor createPointsAsNeeded() {
+        createPointsAsNeeded = true;
+        updatePointReference();
+        return this;
+    }
+
     public Point moveByDir4(int dir) {
         PosDelta4 posDelta = PosDelta4.fromDir4(dir);
         x = x + posDelta.deltaX;
@@ -49,6 +62,32 @@ public class Cursor {
         return point;
     }
 
+    public void setTarget(int x, int y) {
+        targetX = x;
+        targetY = y;
+    }
+
+    public Point moveTowardsTarget() {
+        int deltaX = PosDeltaDiff.getDeltaBetween(this.x, targetX);
+        int deltaY = PosDeltaDiff.getDeltaBetween(this.y, targetY);
+        x = x + deltaX;
+        y = y + deltaY;
+        updatePointReference();
+        return point;
+    }
+
+    public boolean isAt(int x, int y) {
+        return this.x == x && this.y == y;
+    }
+
+    public boolean isNotAt(int x, int y) {
+        return this.x != x || this.y != y;
+    }
+
+    public boolean isNotAtTarget() {
+        return isNotAt(targetX, targetY);
+    }
+
     // ----------------------------------------------------------------------------------------------------
 
     private void updatePointReference() {
@@ -62,7 +101,11 @@ public class Cursor {
                 y = y - pointSupplier.height();
             }
         }
-        point = pointSupplier.pointOrNull(x, y);
+        if (createPointsAsNeeded) {
+            point = pointSupplier.point(x, y);
+        } else {
+            point = pointSupplier.pointOrNull(x, y);
+        }
     }
 
 }

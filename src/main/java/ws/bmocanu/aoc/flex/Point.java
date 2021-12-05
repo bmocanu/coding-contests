@@ -135,6 +135,14 @@ public class Point {
         return this;
     }
 
+    public boolean isAt(int x, int y) {
+        return this.x == x && this.y == y;
+    }
+
+    public boolean isNotAt(int x, int y) {
+        return this.x != x || this.y != y;
+    }
+
     public Point deepClone() {
         Point newPoint = new Point();
         newPoint.x = x;

@@ -43,6 +43,7 @@ public class FlexStruct implements PointSupplier {
         return point(point.x, point.y);
     }
 
+    @Override
     public Point point(int x, int y) {
         long uniqueCoordsHash = getUniqueCoordsHash(x, y);
         Point point = pointMap.get(uniqueCoordsHash);
