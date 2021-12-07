@@ -136,6 +136,16 @@ public class XUtils {
         return chr >= '0' && chr <= '9';
     }
 
+    public static boolean stringIsNumber(String value) {
+        char[] chars = value.toCharArray();
+        for (char c : chars) {
+            if (c < '0' || c > '9') {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static String intArrayToString(int[] array) {
         StringBuilder builder = new StringBuilder(array.length * 5);
         builder.append('[');
