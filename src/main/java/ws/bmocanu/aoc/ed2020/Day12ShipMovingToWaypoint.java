@@ -8,6 +8,7 @@ import ws.bmocanu.aoc.support.Log;
 import ws.bmocanu.aoc.support.PosDelta4;
 import ws.bmocanu.aoc.support.PosDelta8;
 import ws.bmocanu.aoc.utils.SBind;
+import ws.bmocanu.aoc.utils.XNum;
 import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.utils.XUtils;
 import ws.bmocanu.aoc.xbase.SolutionBase;
@@ -77,7 +78,7 @@ public class Day12ShipMovingToWaypoint extends SolutionBase {
             }
         }
 
-        Log.part1(XUtils.abs(p.x) + XUtils.abs(p.y));
+        Log.part1(XNum.abs(p.x) + XNum.abs(p.y));
 
         Point wp = new Point();
         wp.x = 10;
@@ -97,8 +98,8 @@ public class Day12ShipMovingToWaypoint extends SolutionBase {
                         delta.rotateLeft().rotateLeft();
                         int x = wp.x;
                         int y = wp.y;
-                        wp.x = XUtils.abs(y) * (delta.deltaX);
-                        wp.y = XUtils.abs(x) * (delta.deltaY);
+                        wp.x = XNum.abs(y) * (delta.deltaX);
+                        wp.y = XNum.abs(x) * (delta.deltaY);
                     }
                     break;
                 }
@@ -108,8 +109,8 @@ public class Day12ShipMovingToWaypoint extends SolutionBase {
                         delta.rotateRight().rotateRight();
                         int x = wp.x;
                         int y = wp.y;
-                        wp.x = XUtils.abs(y) * (delta.deltaX);
-                        wp.y = XUtils.abs(x) * (delta.deltaY);
+                        wp.x = XNum.abs(y) * (delta.deltaX);
+                        wp.y = XNum.abs(x) * (delta.deltaY);
                     }
                     break;
                 }
@@ -140,7 +141,7 @@ public class Day12ShipMovingToWaypoint extends SolutionBase {
             }
         }
 
-        Log.part2(XUtils.abs(p.x) + XUtils.abs(p.y));
+        Log.part2(XNum.abs(p.x) + XNum.abs(p.y));
     }
 
 }

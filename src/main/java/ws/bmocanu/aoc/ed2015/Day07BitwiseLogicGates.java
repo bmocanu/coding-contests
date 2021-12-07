@@ -5,17 +5,17 @@ import java.util.List;
 import java.util.Map;
 
 import ws.bmocanu.aoc.support.Log;
-import ws.bmocanu.aoc.utils.Utils;
 import ws.bmocanu.aoc.utils.XRead;
+import ws.bmocanu.aoc.utils.XUtils;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
-public class Day07 extends SolutionBase {
+public class Day07BitwiseLogicGates extends SolutionBase {
 
     static Map<String, Op> regMap = new HashMap<>();
     static Map<String, Integer> regValueMap = new HashMap<>();
 
     static int getValueForReg(String regName) {
-        if (Utils.stringIsNumber(regName)) {
+        if (XUtils.stringIsNumber(regName)) {
             return Integer.parseInt(regName);
         }
         Integer knownValue = regValueMap.get(regName);
@@ -52,7 +52,7 @@ public class Day07 extends SolutionBase {
 
         regMap.put("b", new SetOp(wireA + ""));
         regValueMap.clear();
-        Log.part1(regMap.get("a").getValue());
+        Log.part2(regMap.get("a").getValue());
     }
 
     // ----------------------------------------------------------------------------------------------------

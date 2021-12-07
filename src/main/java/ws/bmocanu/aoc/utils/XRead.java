@@ -59,6 +59,18 @@ public class XRead {
         return intList;
     }
 
+    public static int[] fileAsCsvLineToIntArray(String filePath, String separator) {
+        String fileContent = fileToOneString(filePath);
+        StringTokenizer tokenizer = new StringTokenizer(fileContent, separator);
+        int[] intArray = new int[tokenizer.countTokens()];
+        int intArrayIndex = 0;
+        while (tokenizer.hasMoreTokens()) {
+            intArray[intArrayIndex] = Integer.parseInt(tokenizer.nextToken().trim());
+            intArrayIndex++;
+        }
+        return intArray;
+    }
+
     public static List<String> fileAsCsvLineToStringList(String filePath, String separator) {
         String fileContent = fileToOneString(filePath);
         StringTokenizer tokenizer = new StringTokenizer(fileContent, separator);

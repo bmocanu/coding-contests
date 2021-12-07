@@ -3,8 +3,8 @@ package ws.bmocanu.aoc.ed2020;
 import java.util.List;
 
 import ws.bmocanu.aoc.support.Log;
+import ws.bmocanu.aoc.utils.XNum;
 import ws.bmocanu.aoc.utils.XRead;
-import ws.bmocanu.aoc.utils.XUtils;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
 public class Day09XmasPrev25Numbers extends SolutionBase {
@@ -43,8 +43,8 @@ public class Day09XmasPrev25Numbers extends SolutionBase {
                     if (c3 != numberP1Index) {
                         long currentNum = numbers.get(c3);
                         sum += currentNum;
-                        min = XUtils.min(min, currentNum);
-                        max = XUtils.max(max, currentNum);
+                        min = XNum.min(min, currentNum);
+                        max = XNum.max(max, currentNum);
                     }
                 }
                 if (sum == numberP1) {

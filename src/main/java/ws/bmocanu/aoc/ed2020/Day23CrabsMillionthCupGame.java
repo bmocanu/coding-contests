@@ -1,7 +1,7 @@
 package ws.bmocanu.aoc.ed2020;
 
 import ws.bmocanu.aoc.support.Log;
-import ws.bmocanu.aoc.utils.XUtils;
+import ws.bmocanu.aoc.utils.XNum;
 import ws.bmocanu.aoc.xbase.SolutionBase;
 
 import java.util.HashMap;
@@ -63,8 +63,8 @@ public class Day23CrabsMillionthCupGame extends SolutionBase {
             int cup = input.charAt(index) - '0';
             cursor.value = cup;
             mapOfCups.put(cup, cursor);
-            maxCup = XUtils.max(maxCup, cup);
-            minCup = XUtils.min(minCup, cup);
+            maxCup = XNum.max(maxCup, cup);
+            minCup = XNum.min(minCup, cup);
         }
         lastCup = cursor;
     }
