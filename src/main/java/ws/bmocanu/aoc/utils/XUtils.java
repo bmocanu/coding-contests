@@ -1,6 +1,11 @@
 package ws.bmocanu.aoc.utils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.StringTokenizer;
 
 import ws.bmocanu.aoc.flex.Pointer;
 
@@ -309,6 +314,27 @@ public class XUtils {
 
     public static int[] toIntArrayFromStringList(List<String> strList) {
         return strList.stream().mapToInt(Integer::parseInt).toArray();
+    }
+
+    public static int lettersInCommon(String str1, String str2) {
+        char[] str1Chars = str1.toCharArray();
+        char[] str2Chars = str2.toCharArray();
+        int result = 0;
+        for (char ch1 : str1Chars) {
+            for (char ch2 : str2Chars) {
+                if (ch1 == ch2) {
+                    result++;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    public static String sortChars(String input) {
+        char[] chars = input.toCharArray();
+        Arrays.sort(chars);
+        return new String(chars);
     }
 
 }
