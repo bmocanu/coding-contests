@@ -156,8 +156,18 @@ public class FlexStruct implements PointSupplier {
         return this;
     }
 
+    public FlexStruct forEachPointMarked(Consumer<Point> consumer) {
+        pointMap.values().stream().filter(point -> point.marked).forEach(consumer);
+        return this;
+    }
+
     public FlexStruct forEachPointWithType(int type, Consumer<Point> consumer) {
         pointMap.values().stream().filter(point -> point.type == type).forEach(consumer);
+        return this;
+    }
+
+    public FlexStruct forEachPointWithTypeDifferentThan(int type, Consumer<Point> consumer) {
+        pointMap.values().stream().filter(point -> point.type != type).forEach(consumer);
         return this;
     }
 
@@ -263,6 +273,13 @@ public class FlexStruct implements PointSupplier {
                 if (point.chr == character) {
                     point.type = type;
                 }
+            });
+            return this;
+        }
+
+        public FluentMappingActions charAsDigitToValue() {
+            points.forEach(point -> {
+                point.value = point.chr - '0';
             });
             return this;
         }
