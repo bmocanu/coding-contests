@@ -1,14 +1,16 @@
 package ws.bmocanu.aoc.ed2021;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import ws.bmocanu.aoc.flex.FlexStruct;
 import ws.bmocanu.aoc.flex.Point;
 import ws.bmocanu.aoc.support.Log;
 import ws.bmocanu.aoc.support.PosDelta4;
 import ws.bmocanu.aoc.xbase.SolutionBase;
-
-import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Day09SmokeBasin extends SolutionBase {
 
@@ -57,14 +59,7 @@ public class Day09SmokeBasin extends SolutionBase {
             basins.add(new Basin(flex.countPointsOfType(currentType), currentType));
         }
         Collections.sort(basins);
-
-        int result = 1;
-        for (int i = 0; i < 3; i++) {
-            Basin basin = basins.get(i);
-            result *= basin.size;
-        }
-
-        Log.part2(result);
+        Log.part2(basins.get(0).size * basins.get(1).size * basins.get(2).size);
     }
 
     static class Basin implements Comparable<Basin> {
