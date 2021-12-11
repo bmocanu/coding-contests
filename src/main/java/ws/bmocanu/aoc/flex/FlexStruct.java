@@ -151,6 +151,10 @@ public class FlexStruct implements PointSupplier {
         return countPointsWhere(point -> point.type == type);
     }
 
+    public int countPointsWithValue(int value) {
+        return countPointsWhere(point -> point.value == value);
+    }
+
     public int countPointsWhere(Predicate<? super Point> filterPredicate) {
         return (int) pointMap.values().stream().filter(filterPredicate).count();
     }
@@ -254,6 +258,10 @@ public class FlexStruct implements PointSupplier {
         return toString(point -> point.chr, " ", 1);
     }
 
+    public String valuesAsDigitsToString() {
+        return toString(point -> point.value, " ", 1);
+    }
+
     // ----------------------------------------------------------------------------------------------------
 
     private long getUniqueCoordsHash(int x, int y) {
@@ -303,6 +311,11 @@ public class FlexStruct implements PointSupplier {
 
         public FluentPointsActions setMarked() {
             pointMap.values().forEach(Point::mark);
+            return this;
+        }
+
+        public FluentPointsActions unmark() {
+            pointMap.values().forEach(point -> point.marked = false);
             return this;
         }
 
