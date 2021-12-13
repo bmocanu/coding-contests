@@ -22,10 +22,10 @@ public class Day12ShipMovingToWaypoint extends SolutionBase {
 
     public static void main(String[] args) {
         List<String> stringLines = XRead.fileAsStringPerLineToStringList(filePath("day12"));
-        SBind binder = new SBind("(\\w)(\\d+)", "command", "value");
+        SBind<Command> binder = new SBind("(\\w)(\\d+)", Command.class, "command", "value");
         List<Command> commands = new ArrayList<>();
         for (String line : stringLines) {
-            commands.add(binder.bind(line, Command.class));
+            commands.add(binder.bind(line));
         }
 
         Point p = new Point();

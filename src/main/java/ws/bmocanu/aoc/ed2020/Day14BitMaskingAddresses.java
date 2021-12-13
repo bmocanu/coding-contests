@@ -25,7 +25,7 @@ public class Day14BitMaskingAddresses extends SolutionBase {
 
     public static void main(String[] args) {
         List<String> stringLines = XRead.fileAsStringPerLineToStringList(filePath("day14"));
-        SBind binder = new SBind("mem\\[(\\d+)] = (\\d+)", "address", "value");
+        SBind<Command> binder = new SBind("mem\\[(\\d+)] = (\\d+)", Command.class, "address", "value");
         String maskString;
         int[] mask = new int[0];
         for (String line : stringLines) {
@@ -33,7 +33,7 @@ public class Day14BitMaskingAddresses extends SolutionBase {
                 maskString = SReg.parse("mask = ([01X]+)", line).getString(1);
                 mask = getBitMask(maskString);
             } else {
-                Command command = binder.bind(line, Command.class);
+                Command command = binder.bind(line);
                 mem.put(BigInteger.valueOf(command.address), part1GetBigWithMask(command.value, mask));
             }
         }
@@ -46,7 +46,7 @@ public class Day14BitMaskingAddresses extends SolutionBase {
                 maskString = SReg.parse("mask = ([01X]+)", line).getString(1);
                 mask = getBitMask(maskString);
             } else {
-                Command command = binder.bind(line, Command.class);
+                Command command = binder.bind(line);
                 List<BigInteger> addresses = new ArrayList<>();
                 part2GetAddresses(command.address, mask, addresses);
                 for (BigInteger address : addresses) {

@@ -197,6 +197,39 @@ public class XMatrix {
         }
     }
 
+    public static int countInIntMatrix2WhereValueIs(int value, int[][] matrix, int width, int height) {
+        int result = 0;
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                if (matrix[x][y] == value) {
+                    result++;
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     *
+     */
+    public static String printIntMatrix2WithValueMappingToChar(int[][] matrix, int width, int height, Object... mapping) {
+        if (mapping == null || mapping.length % 2 != 0) {
+            throw new IllegalArgumentException("The mapping varargs must be a set of pairs value + character to print");
+        }
+        StringBuilder builder = new StringBuilder((width + 1) * height);
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                for (int index = 0; index < mapping.length; index += 2) {
+                    if (matrix[x][y] == (Integer) mapping[index]) {
+                        builder.append(mapping[index + 1]);
+                    }
+                }
+            }
+            builder.append("\n");
+        }
+        return builder.toString();
+    }
+
     // ----------------------------------------------------------------------------------------------------
 
     public interface IntMatrix2Iterator {

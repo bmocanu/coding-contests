@@ -1,6 +1,11 @@
 package ws.bmocanu.aoc.ed2020;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
 import ws.bmocanu.aoc.support.Log;
@@ -17,11 +22,11 @@ public class Day19MessagePatternValidation extends SolutionBase {
         ruleMap = new HashMap<>();
         int index = 0;
         String line;
-        SBind charBinder = new SBind("(\\d+): \"(\\w+)\"", "id", "chrToMatch");
+        SBind<Rule> charBinder = new SBind("(\\d+): \"(\\w+)\"", Rule.class, "id", "chrToMatch");
         while (!(line = stringLines.get(index)).isBlank()) {
             Rule newRule;
             if (line.contains("\"")) {
-                newRule = charBinder.bind(line, Rule.class);
+                newRule = charBinder.bind(line);
             } else if (line.contains("|")) {
                 newRule = new Rule();
                 newRule.id = Integer.parseInt(line.substring(0, line.indexOf(':')));
@@ -76,7 +81,7 @@ public class Day19MessagePatternValidation extends SolutionBase {
             }
             if (id == 11 && depth > 5) {
                 return generateRegexExp(42, depth + 1, withLoops) +
-                        generateRegexExp(31, depth + 1, withLoops);
+                       generateRegexExp(31, depth + 1, withLoops);
             }
         }
         if (idRule.chrToMatch != null) {

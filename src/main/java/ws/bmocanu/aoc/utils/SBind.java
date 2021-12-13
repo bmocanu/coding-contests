@@ -1,28 +1,30 @@
 package ws.bmocanu.aoc.utils;
 
-import ws.bmocanu.aoc.support.Log;
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ws.bmocanu.aoc.support.Log;
+
 @SuppressWarnings({"unused", "UnusedReturnValue"})
-public class SBind {
+public class SBind<T> {
 
     private final Pattern pattern;
     private final String[] fieldNames;
+    private final Class<T> clazz;
 
-    public SBind(String regex, String... fieldNames) {
+    public SBind(String regex, Class<T> clazz, String... fieldNames) {
         this.pattern = Pattern.compile(regex);
         this.fieldNames = fieldNames;
+        this.clazz = clazz;
     }
 
-    public <T> List<T> bind(List<String> stringList, Class<T> clazz) {
+    public List<T> bind(List<String> stringList) {
         List<T> entryList = new ArrayList<>();
         for (String str : stringList) {
-            T entry = bind(str, clazz);
+            T entry = bind(str);
             if (entry != null) {
                 entryList.add(entry);
             }
@@ -30,7 +32,7 @@ public class SBind {
         return entryList;
     }
 
-    public <T> T bind(String str, Class<T> clazz) {
+    public T bind(String str) {
         T entry = null;
         Matcher matcher = pattern.matcher(str);
         if (matcher.matches()) {
@@ -64,7 +66,7 @@ public class SBind {
                             break;
                         default:
                             Log.error("Unknown field type [%s] for field name [%s]",
-                                    field.getType().getName(), fieldName);
+                                      field.getType().getName(), fieldName);
                     }
                 }
             } catch (Exception e) {

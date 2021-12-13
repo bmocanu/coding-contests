@@ -1,13 +1,13 @@
 package ws.bmocanu.aoc.ed2021;
 
+import java.util.List;
+
 import ws.bmocanu.aoc.flex.Cursor;
 import ws.bmocanu.aoc.flex.FlexStruct;
 import ws.bmocanu.aoc.support.Log;
 import ws.bmocanu.aoc.utils.SBind;
 import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.xbase.SolutionBase;
-
-import java.util.List;
 
 public class Day05HydrothermalVenture extends SolutionBase {
 
@@ -20,8 +20,8 @@ public class Day05HydrothermalVenture extends SolutionBase {
 
     public static void main(String[] args) {
         List<String> input = XRead.fileAsStringPerLineToStringList(filePath("day05"));
-        SBind bind = new SBind("(\\d+),(\\d+) -> (\\d+),(\\d+)", "x1", "y1", "x2", "y2");
-        List<Coord> coordList = bind.bind(input, Coord.class);
+        SBind<Coord> bind = new SBind("(\\d+),(\\d+) -> (\\d+),(\\d+)", Coord.class, "x1", "y1", "x2", "y2");
+        List<Coord> coordList = bind.bind(input);
 
         FlexStruct flex = new FlexStruct();
 

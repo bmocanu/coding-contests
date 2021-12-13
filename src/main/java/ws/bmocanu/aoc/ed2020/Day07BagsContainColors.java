@@ -39,13 +39,13 @@ public class Day07BagsContainColors extends SolutionBase {
             StringTokenizer tokenizer = new StringTokenizer(rest, ",");
             List<Content> parentContent = new ArrayList<>();
             bags.put(parent, parentContent);
-            SBind binder = new SBind("(\\d+) (\\w+ \\w+) bag.*", "number", "bagColour");
+            SBind<Content> binder = new SBind("(\\d+) (\\w+ \\w+) bag.*", Content.class, "number", "bagColour");
             while (tokenizer.hasMoreTokens()) {
                 String subContent = tokenizer.nextToken().trim();
                 if (subContent.contains("no other")) {
                     parentContent.add(new Content());
                 } else {
-                    parentContent.add(binder.bind(subContent, Content.class));
+                    parentContent.add(binder.bind(subContent));
                 }
             }
         }

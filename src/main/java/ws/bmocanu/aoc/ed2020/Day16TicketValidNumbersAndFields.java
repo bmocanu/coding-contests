@@ -18,10 +18,10 @@ public class Day16TicketValidNumbersAndFields extends SolutionBase {
         int index = 0;
         String line = stringLines.get(index);
 
-        SBind binder = new SBind("([a-z\\s]+): (\\d+)-(\\d+) or (\\d+)-(\\d+)",
-                                     "fieldName", "int1Min", "int1Max", "int2Min", "int2Max");
+        SBind<Rule> binder = new SBind<>("([a-z\\s]+): (\\d+)-(\\d+) or (\\d+)-(\\d+)", Rule.class,
+                                         "fieldName", "int1Min", "int1Max", "int2Min", "int2Max");
         while (!line.isEmpty()) {
-            ruleList.add(binder.bind(line, Rule.class));
+            ruleList.add(binder.bind(line));
             index++;
             line = stringLines.get(index);
         }
