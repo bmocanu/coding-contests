@@ -1,0 +1,26 @@
+package ws.bmocanu.aoc.ed2021;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import ws.bmocanu.aoc.support.Log;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+
+public class Day14ExtendedPolymerizationTest {
+
+    @BeforeEach
+    public void setUp() {
+        Log.reset();
+        Day14ExtendedPolymerization.setForcedFilePath("/test-ed2021/day14.txt");
+    }
+
+    @Test
+    public void testCode() {
+        Day14ExtendedPolymerization.main(null);
+        assertThat(Log.getPart1Long(), is(2233L));
+        assertThat(Log.getPart2Long(), is(2884513602164L));
+    }
+
+}

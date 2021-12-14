@@ -1,11 +1,7 @@
 package ws.bmocanu.aoc.utils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.StringTokenizer;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
 
 import ws.bmocanu.aoc.flex.Pointer;
 
@@ -198,6 +194,28 @@ public class XUtils {
             }
         }
         return new Pointer<>(max, pos);
+    }
+
+    public static long maxFromCollection(Collection<AtomicLong> collection) {
+        long max = Long.MIN_VALUE;
+        for (AtomicLong current : collection) {
+            long currentLong = current.get();
+            if (currentLong > max) {
+                max = currentLong;
+            }
+        }
+        return max;
+    }
+
+    public static long minFromCollection(Collection<AtomicLong> collection) {
+        long min = Long.MAX_VALUE;
+        for (AtomicLong current : collection) {
+            long currentLong = current.get();
+            if (currentLong < min) {
+                min = currentLong;
+            }
+        }
+        return min;
     }
 
     public static Pointer<Integer> maxFromList(List<Integer> list) {
