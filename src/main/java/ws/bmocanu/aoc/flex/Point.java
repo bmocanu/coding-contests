@@ -1,5 +1,9 @@
 package ws.bmocanu.aoc.flex;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class Point {
 
@@ -21,6 +25,8 @@ public class Point {
 
     public boolean marked;
 
+    public boolean visited;
+
     public int trailMarkCount;
 
     public Point link;
@@ -28,6 +34,8 @@ public class Point {
     public int pathCount;
 
     public Point pathLink;
+
+    public Map<String, Integer> trails = new HashMap<>();
 
     // ----------------------------------------------------------------------------------------------------
 
@@ -115,6 +123,11 @@ public class Point {
         return this;
     }
 
+    public Point visit() {
+        this.visited = true;
+        return this;
+    }
+
     public Point enable() {
         this.enabled = true;
         return this;
@@ -160,4 +173,20 @@ public class Point {
         return newPoint;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Point point = (Point) o;
+        return x == point.x && y == point.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
 }

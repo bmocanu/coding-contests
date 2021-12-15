@@ -7,6 +7,14 @@ import java.util.function.Predicate;
 
 public class XMatrix {
 
+    public static boolean[][] createBooleanMatrix2(int dim1, int dim2) {
+        boolean[][] matrix = new boolean[dim1][];
+        for (int i1 = 0; i1 < dim1; i1++) {
+            matrix[i1] = new boolean[dim2];
+        }
+        return matrix;
+    }
+
     public static int[][] createIntMatrix2(int dim1, int dim2) {
         int[][] matrix = new int[dim1][];
         for (int i1 = 0; i1 < dim1; i1++) {

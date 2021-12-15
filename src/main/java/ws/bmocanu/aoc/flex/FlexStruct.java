@@ -111,6 +111,22 @@ public class FlexStruct implements PointSupplier {
         return pointMap.values();
     }
 
+    public Collection<Point> allPointsMarked() {
+        return allPointsWhere(point -> point.marked);
+    }
+
+    public Collection<Point> allPointsMarkedAndUnvisited() {
+        return allPointsWhere(point -> point.marked && !point.visited);
+    }
+
+    public Collection<Point> allPointsUnmarked() {
+        return allPointsWhere(point -> !point.marked);
+    }
+
+    public Collection<Point> allPointsUnvisited() {
+        return allPointsWhere(point -> !point.visited);
+    }
+
     public Collection<Point> allPointsOfType(int type) {
         return allPointsWhere(point -> point.type == type);
     }
@@ -314,8 +330,18 @@ public class FlexStruct implements PointSupplier {
             return this;
         }
 
+        public FluentPointsActions mark() {
+            setMarked();
+            return this;
+        }
+
         public FluentPointsActions unmark() {
             pointMap.values().forEach(point -> point.marked = false);
+            return this;
+        }
+
+        public FluentPointsActions unvisit() {
+            pointMap.values().forEach(point -> point.visited = false);
             return this;
         }
 

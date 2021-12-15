@@ -102,6 +102,23 @@ public class XRead {
         }
     }
 
+    public static int[][] fileAsDigitMatrixToIntMatrix(String filePath) {
+        List<String> lineList = fileAsStringPerLineToStringList(filePath);
+        int maxWidth = lineList.stream().mapToInt(String::length).max().orElse(0);
+        int[][] resultMatrix = new int[lineList.size()][maxWidth];
+        for (int row = 0; row < lineList.size(); row++) {
+            String currentLine = lineList.get(row);
+            for (int col = 0; col < maxWidth; col++) {
+                if (col < currentLine.length()) {
+                    resultMatrix[row][col] = currentLine.charAt(col) - '0';
+                } else {
+                    resultMatrix[row][col] = 0;
+                }
+            }
+        }
+        return resultMatrix;
+    }
+
     public static char[][] fileAsCharMatrixToCharMatrix(String filePath) {
         List<String> lineList = fileAsStringPerLineToStringList(filePath);
         int maxWidth = lineList.stream().mapToInt(String::length).max().orElse(0);

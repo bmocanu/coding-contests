@@ -34,6 +34,10 @@ public class XNum {
         return Math.abs(a1);
     }
 
+    public static boolean intBetween(int value, int lowLimit, int highLimit) {
+        return (value >= lowLimit) && (value <= highLimit);
+    }
+
     public static int pow(int x, int power) {
         int result = 1;
         for (int index = 0; index < power; index++) {
