@@ -10,6 +10,9 @@ import java.util.stream.Collectors;
 
 public class Day18SnailfishMath extends SolutionBase {
 
+    // 3734
+    // 4837
+
     public static void main(String[] args) {
         List<String> inputLines = XRead.fileAsStringPerLineToStringList(filePath("day18"));
         List<Pair> inputPairs = inputLines
@@ -42,8 +45,8 @@ public class Day18SnailfishMath extends SolutionBase {
         Pair sum = new Pair();
         sum.left = p1.copy();
         sum.right = p2.copy();
-        sum.depth = 0;
-        sum.incDepth();
+        sum.left.parent = sum;
+        sum.right.parent = sum;
         return reduce(sum);
     }
 
@@ -59,7 +62,7 @@ public class Day18SnailfishMath extends SolutionBase {
             pair.addToList(allPairs);
             pair.addToListJustTheValues(valuePairs);
             for (Pair p : allPairs) {
-                if (p.depth > 4 && !p.justAValue && p.left.justAValue && p.right.justAValue) {
+                if (p.depth() > 4 && !p.justAValue && p.left.justAValue && p.right.justAValue) {
                     int leftValueIndex = valuePairs.indexOf(p.left);
                     if (leftValueIndex > 0) {
                         valuePairs.get(leftValueIndex - 1).value += p.left.value;
@@ -72,7 +75,6 @@ public class Day18SnailfishMath extends SolutionBase {
                     p.justAValue = true;
                     p.left = null;
                     p.right = null;
-                    p.depth--;
                     reductionDone = true;
                     break;
                 }
@@ -80,15 +82,14 @@ public class Day18SnailfishMath extends SolutionBase {
             if (!reductionDone) {
                 for (Pair p : valuePairs) {
                     if (p.value >= 10) {
-                        p.depth++;
                         p.left = new Pair();
                         p.left.value = p.value / 2;
                         p.left.justAValue = true;
-                        p.left.depth = p.depth;
+                        p.left.parent = p;
                         p.right = new Pair();
                         p.right.value = p.value / 2 + p.value % 2;
                         p.right.justAValue = true;
-                        p.right.depth = p.depth;
+                        p.right.parent = p;
                         p.value = 0;
                         p.justAValue = false;
                         reductionDone = true;
@@ -102,7 +103,6 @@ public class Day18SnailfishMath extends SolutionBase {
 
     public static Pair parse(String input, int pairDepth) {
         Pair result = new Pair();
-        result.depth = pairDepth;
         if (!input.contains(",")) {
             result.value = Integer.parseInt(input);
             result.justAValue = true;
@@ -118,7 +118,9 @@ public class Day18SnailfishMath extends SolutionBase {
             }
             if (input.charAt(index) == ',' && depth == 0) {
                 result.left = parse(input.substring(0, index), pairDepth);
+                result.left.parent = result;
                 result.right = parse(input.substring(index + 1), pairDepth);
+                result.right.parent = result;
                 return result;
             }
         }
@@ -129,21 +131,22 @@ public class Day18SnailfishMath extends SolutionBase {
 
     static class Pair {
         int value;
-        int depth;
         Pair left;
         Pair right;
+        Pair parent;
         boolean justAValue;
 
         public Pair copy() {
             Pair newPair = new Pair();
             newPair.value = value;
             newPair.justAValue = justAValue;
-            newPair.depth = depth;
             if (left != null) {
                 newPair.left = left.copy();
+                newPair.left.parent = newPair;
             }
             if (right != null) {
                 newPair.right = right.copy();
+                newPair.right.parent = newPair;
             }
             return newPair;
         }
@@ -173,11 +176,11 @@ public class Day18SnailfishMath extends SolutionBase {
             }
         }
 
-        public void incDepth() {
-            depth++;
-            if (!justAValue) {
-                left.incDepth();
-                right.incDepth();
+        public int depth() {
+            if (parent != null) {
+                return parent.depth() + 1;
+            } else {
+                return 1;
             }
         }
     }
