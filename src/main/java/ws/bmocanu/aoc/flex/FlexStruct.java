@@ -31,6 +31,12 @@ public class FlexStruct implements PointSupplier {
         return struct;
     }
 
+    public static FlexStruct fromLineListWithShift(List<String> lineList, int shiftX, int shiftY) {
+        FlexStruct struct = new FlexStruct();
+        struct.loadFromLineListWithShift(lineList, shiftX, shiftY);
+        return struct;
+    }
+
     public static FlexStruct fromFile(String fileName) {
         FlexStruct struct = new FlexStruct();
         struct.loadFromFile(fileName);
@@ -89,6 +95,46 @@ public class FlexStruct implements PointSupplier {
         return pointMap.get(getUniqueCoordsHash(point.x + deltaDir.deltaX, point.y + deltaDir.deltaY));
     }
 
+    public int lowestX() {
+        int minX = Integer.MAX_VALUE;
+        for (Point p : allPoints()) {
+            if (p.x < minX) {
+                minX = p.x;
+            }
+        }
+        return minX;
+    }
+
+    public int highestX() {
+        int maxX = Integer.MIN_VALUE;
+        for (Point p : allPoints()) {
+            if (p.x > maxX) {
+                maxX = p.x;
+            }
+        }
+        return maxX;
+    }
+
+    public int lowestY() {
+        int minY = Integer.MAX_VALUE;
+        for (Point p : allPoints()) {
+            if (p.y < minY) {
+                minY = p.y;
+            }
+        }
+        return minY;
+    }
+
+    public int highestY() {
+        int maxY = Integer.MIN_VALUE;
+        for (Point p : allPoints()) {
+            if (p.y > maxY) {
+                maxY = p.y;
+            }
+        }
+        return maxY;
+    }
+
     public Point pointByPoint(Point point) {
         return point(point.x, point.y);
     }
@@ -131,16 +177,20 @@ public class FlexStruct implements PointSupplier {
         return allPointsWhere(point -> point.type == type);
     }
 
+    public Collection<Point> allPointsOfValue(int value) {
+        return allPointsWhere(point -> point.value == value);
+    }
+
     public Collection<Point> allPointsWithName(String name) {
         return allPointsWhere(point -> name.equals(point.name));
     }
 
     public Collection<Point> allPointsWhere(Predicate<? super Point> filterPredicate) {
         return pointMap
-            .values()
-            .stream()
-            .filter(filterPredicate)
-            .collect(Collectors.toList());
+                .values()
+                .stream()
+                .filter(filterPredicate)
+                .collect(Collectors.toList());
     }
 
     public Point pointWithMaxValue() {
@@ -221,6 +271,16 @@ public class FlexStruct implements PointSupplier {
         return this;
     }
 
+    public FlexStruct loadFromLineListWithShift(List<String> lineList, int shiftX, int shiftY) {
+        for (int y = 0; y < lineList.size(); y++) {
+            String currentLine = lineList.get(y);
+            for (int x = 0; x < currentLine.length(); x++) {
+                point(x + shiftX, y + shiftY).setChr(currentLine.charAt(x));
+            }
+        }
+        return this;
+    }
+
     public FlexStruct deepClone() {
         FlexStruct newStruct = new FlexStruct();
         newStruct.width = width;
@@ -245,9 +305,9 @@ public class FlexStruct implements PointSupplier {
     public String toString(Function<Point, Object> pointPrinter, String strForMissingPoints, int padding) {
         StringBuilder builder = new StringBuilder((width + 1) * padding * (height + 2) + 100);
         builder.append("Width: [").append(width)
-            .append("], Height: [").append(height)
-            .append("], Points: [").append(pointMap.size())
-            .append("]\n");
+                .append("], Height: [").append(height)
+                .append("], Points: [").append(pointMap.size())
+                .append("]\n");
         String separator = "+" + "-".repeat(width * padding) + "+\n";
         builder.append(separator);
         for (int y = 0; y < height; y++) {
@@ -300,6 +360,15 @@ public class FlexStruct implements PointSupplier {
             points.forEach(point -> {
                 if (point.chr == character) {
                     point.type = type;
+                }
+            });
+            return this;
+        }
+
+        public FluentMappingActions charToValue(char character, int value) {
+            points.forEach(point -> {
+                if (point.chr == character) {
+                    point.value = value;
                 }
             });
             return this;

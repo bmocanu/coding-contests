@@ -1,6 +1,7 @@
 package ws.bmocanu.aoc.utils;
 
 import ws.bmocanu.aoc.flex.Point;
+import ws.bmocanu.aoc.support.Point3D;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class XGeo {
@@ -41,6 +42,38 @@ public class XGeo {
             result = 360 + result;
         }
         return result;
+    }
+
+    /**
+     * Compute all translation and rotations of a 3D point. Dir24 goes from 0 to 23.
+     */
+    @SuppressWarnings("SuspiciousNameCombination")
+    public static Point3D translatePoint3DByDir24(Point3D p, int dir24) {
+        if (dir24 == 0) return new Point3D(p.x, p.y, p.z);
+        if (dir24 == 1) return new Point3D(p.y, -p.x, p.z);
+        if (dir24 == 2) return new Point3D(-p.x, -p.y, p.z);
+        if (dir24 == 3) return new Point3D(-p.y, p.x, p.z);
+        if (dir24 == 4) return new Point3D(p.y, p.z, p.x);
+        if (dir24 == 5) return new Point3D(-p.x, p.z, p.y);
+        if (dir24 == 6) return new Point3D(-p.y, p.z, -p.x);
+        if (dir24 == 7) return new Point3D(p.x, p.z, -p.y);
+        if (dir24 == 8) return new Point3D(p.z, p.x, p.y);
+        if (dir24 == 9) return new Point3D(p.z, p.y, -p.x);
+        if (dir24 == 10) return new Point3D(p.z, -p.x, -p.y);
+        if (dir24 == 11) return new Point3D(p.z, -p.y, p.x);
+        if (dir24 == 12) return new Point3D(p.y, p.x, -p.z);
+        if (dir24 == 13) return new Point3D(-p.x, p.y, -p.z);
+        if (dir24 == 14) return new Point3D(-p.y, -p.x, -p.z);
+        if (dir24 == 15) return new Point3D(p.x, -p.y, -p.z);
+        if (dir24 == 16) return new Point3D(p.x, -p.z, p.y);
+        if (dir24 == 17) return new Point3D(p.y, -p.z, -p.x);
+        if (dir24 == 18) return new Point3D(-p.x, -p.z, -p.y);
+        if (dir24 == 19) return new Point3D(-p.y, -p.z, p.x);
+        if (dir24 == 20) return new Point3D(-p.z, p.y, p.x);
+        if (dir24 == 21) return new Point3D(-p.z, -p.x, p.y);
+        if (dir24 == 22) return new Point3D(-p.z, -p.y, -p.x);
+        // if (dir24 == 23)
+        return new Point3D(-p.z, p.x, -p.y);
     }
 
 }
