@@ -196,6 +196,16 @@ public class XUtils {
         return new Pointer<>(max, pos);
     }
 
+    public static Long maxFromArray(long[] array) {
+        long max = Long.MIN_VALUE;
+        for (int index = 0; index < array.length; index++) {
+            if (array[index] > max) {
+                max = array[index];
+            }
+        }
+        return max;
+    }
+
     public static long maxFromCollection(Collection<AtomicLong> collection) {
         long max = Long.MIN_VALUE;
         for (AtomicLong current : collection) {
