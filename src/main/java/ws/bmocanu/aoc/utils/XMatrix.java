@@ -23,6 +23,18 @@ public class XMatrix {
         return matrix;
     }
 
+
+    public static boolean[][][] createBooleanMatrix3(int dim1, int dim2, int dim3) {
+        boolean[][][] matrix = new boolean[dim1][][];
+        for (int i1 = 0; i1 < dim1; i1++) {
+            matrix[i1] = new boolean[dim2][];
+            for (int i2 = 0; i2 < dim2; i2++) {
+                matrix[i1][i2] = new boolean[dim3];
+            }
+        }
+        return matrix;
+    }
+
     public static int[][][] createIntMatrix3(int dim1, int dim2, int dim3) {
         int[][][] matrix = new int[dim1][][];
         for (int i1 = 0; i1 < dim1; i1++) {
