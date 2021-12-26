@@ -76,7 +76,7 @@ public class XUtils {
     public static boolean stringIsNumber(String value) {
         char[] chars = value.toCharArray();
         for (char c : chars) {
-            if (c < '0' || c > '9') {
+            if ((c < '0' || c > '9') && (c != '-')) {
                 return false;
             }
         }

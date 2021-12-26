@@ -37,6 +37,8 @@ public class Point {
 
     public Map<String, Integer> trails = new HashMap<>();
 
+    public Map<Integer, Boolean> flags = new HashMap<>();
+
     // ----------------------------------------------------------------------------------------------------
 
     public static Point from(int x, int y) {
@@ -110,6 +112,20 @@ public class Point {
 
     public Point setPathCount(int count) {
         this.pathCount = count;
+        return this;
+    }
+
+    public boolean hasFlag(int flag) {
+        return this.flags.getOrDefault(flag, false);
+    }
+
+    public Point setFlag(int flag) {
+        this.flags.put(flag, true);
+        return this;
+    }
+
+    public Point clearFlag(int flag) {
+        this.flags.remove(flag);
         return this;
     }
 

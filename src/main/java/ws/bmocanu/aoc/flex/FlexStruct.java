@@ -1,5 +1,8 @@
 package ws.bmocanu.aoc.flex;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -10,6 +13,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import ws.bmocanu.aoc.support.PosDelta4;
 import ws.bmocanu.aoc.support.PosDelta8;
 import ws.bmocanu.aoc.utils.XRead;
@@ -64,6 +68,14 @@ public class FlexStruct implements PointSupplier {
             }
         }
         return point;
+    }
+
+    public Point point(int x, int y, PosDelta4 deltaDir) {
+        return point(x + deltaDir.deltaX, y + deltaDir.deltaY);
+    }
+
+    public Point point(Point p, PosDelta4 deltaDir) {
+        return point(p.x + deltaDir.deltaX, p.y + deltaDir.deltaY);
     }
 
     public Cursor cursor(int x, int y) {
@@ -179,6 +191,10 @@ public class FlexStruct implements PointSupplier {
 
     public Collection<Point> allPointsOfValue(int value) {
         return allPointsWhere(point -> point.value == value);
+    }
+
+    public Collection<Point> allPointsOfChar(char c) {
+        return allPointsWhere(point -> point.chr == c);
     }
 
     public Collection<Point> allPointsWithName(String name) {
@@ -302,16 +318,26 @@ public class FlexStruct implements PointSupplier {
         return newStruct;
     }
 
-    public String toString(Function<Point, Object> pointPrinter, String strForMissingPoints, int padding) {
+    public String toString(Function<Point, Object> pointPrinter,
+                           String strForMissingPoints,
+                           int padding,
+                           boolean printHeader, boolean printNewLines, boolean printBorders) {
         StringBuilder builder = new StringBuilder((width + 1) * padding * (height + 2) + 100);
-        builder.append("Width: [").append(width)
-                .append("], Height: [").append(height)
-                .append("], Points: [").append(pointMap.size())
-                .append("]\n");
-        String separator = "+" + "-".repeat(width * padding) + "+\n";
-        builder.append(separator);
+        if (printHeader) {
+            builder.append("Width: [").append(width)
+                    .append("], Height: [").append(height)
+                    .append("], Points: [").append(pointMap.size())
+                    .append("]\n");
+        }
+        String separator = null;
+        if (printBorders) {
+            separator = "+" + "-".repeat(width * padding) + "+\n";
+            builder.append(separator);
+        }
         for (int y = 0; y < height; y++) {
-            builder.append('|');
+            if (printBorders) {
+                builder.append('|');
+            }
             for (int x = 0; x < width; x++) {
                 Point point = pointOrNull(x, y);
                 if (point != null) {
@@ -320,22 +346,49 @@ public class FlexStruct implements PointSupplier {
                     builder.append(XUtils.strPadding(strForMissingPoints, padding, " "));
                 }
             }
-            builder.append("|\n");
+            if (printBorders) {
+                builder.append('|');
+            }
+            if (printBorders || printNewLines) {
+                builder.append('\n');
+            }
         }
-        builder.append(separator);
+        if (printBorders) {
+            builder.append(separator);
+        }
         return builder.toString();
     }
 
     public String typesToString() {
-        return toString(point -> point.type, " ", 1);
+        return toString(point -> point.type, " ", 1, false, true, false);
     }
 
     public String charactersToString() {
-        return toString(point -> point.chr, " ", 1);
+        return toString(point -> point.chr, " ", 1, false, true, false);
     }
 
     public String valuesAsDigitsToString() {
-        return toString(point -> point.value, " ", 1);
+        return toString(point -> point.value, " ", 1, false, true, false);
+    }
+
+    public String toSha256(Function<Point, Object> pointPrinter) {
+        String strForMissingPoints = "/";
+        StringBuilder builder = new StringBuilder(width * height + 10);
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                Point point = pointOrNull(x, y);
+                if (point != null) {
+                    builder.append(pointPrinter.apply(point));
+                } else {
+                    builder.append(strForMissingPoints);
+                }
+            }
+        }
+        return DigestUtils.sha256Hex(builder.toString());
+    }
+
+    public String charactersToSha256() {
+        return toSha256(point -> point.chr);
     }
 
     // ----------------------------------------------------------------------------------------------------
