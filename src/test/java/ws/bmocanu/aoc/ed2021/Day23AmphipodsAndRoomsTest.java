@@ -18,7 +18,7 @@ public class Day23AmphipodsAndRoomsTest {
     @Test
     public void testCode() {
         Day23AmphipodsAndRooms.main(null);
-        //assertThat(Log.getPart1Int(), is(0)); // this part was done by hand
+        assertThat(Log.getPart1Int(), is(0)); // this part was done by hand
         assertThat(Log.getPart2Int(), is(55136));
     }
 

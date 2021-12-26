@@ -35,7 +35,6 @@ public class Day23AmphipodsAndRooms extends SolutionBase {
     static Node finishedNode;
 
     public static void main(String[] args) {
-        Log.part1(0); // part 1 was done by hand
 
         FlexStruct flex = FlexStruct.fromFile(filePath("day23"));
         WIDTH = flex.width();
@@ -50,7 +49,10 @@ public class Day23AmphipodsAndRooms extends SolutionBase {
         System.out.println("Calculating the best movement path...");
         calculateBestMovementPath();
 
+        Log.part1(0); // part 1 was done by hand
         Log.part2(finishedNode.cost);
+
+        //reversePrintTheBestMovementPath(finishedNode, 0);
     }
 
     static void generateAllStateNodes() {
@@ -195,7 +197,7 @@ public class Day23AmphipodsAndRooms extends SolutionBase {
         startNode.cost = 0;
         while (!finishedNode.visited) {
             int smallestCost = Integer.MAX_VALUE;
-            Node currentNode = null;
+            Node currentNode = nodesToProcess.get(0);
             for (Node otherNode : nodesToProcess) {
                 if (otherNode.cost < smallestCost) {
                     currentNode = otherNode;
@@ -209,6 +211,7 @@ public class Day23AmphipodsAndRooms extends SolutionBase {
                     int tentativeCost = currentNode.cost + link.cost;
                     if (tentativeCost < linkedNode.cost) {
                         linkedNode.cost = tentativeCost;
+                        linkedNode.backTrackParent = currentNode;
                         nodesToProcess.add(linkedNode);
                     }
                 }
@@ -218,11 +221,23 @@ public class Day23AmphipodsAndRooms extends SolutionBase {
         }
     }
 
+    @SuppressWarnings("unused")
+    static int reversePrintTheBestMovementPath(Node node, int depth) {
+        int maxDepth = depth + 1;
+        if (node.backTrackParent != null) {
+            maxDepth = reversePrintTheBestMovementPath(node.backTrackParent, depth + 1);
+        }
+        System.out.println("------------------------- Move nr: " + (maxDepth - depth) + " / " + maxDepth);
+        System.out.print(node.flex.charactersToString());
+        return maxDepth;
+    }
+
     // ----------------------------------------------------------------------------------------------------
 
     static class Node implements Comparable<Node> {
         String id;
         FlexStruct flex;
+        Node backTrackParent; // the "parent" in the best movement path; used for reverse printing the best movements list
         List<Link> links = new LinkedList<>();
         int cost = Integer.MAX_VALUE;
         boolean visited;
