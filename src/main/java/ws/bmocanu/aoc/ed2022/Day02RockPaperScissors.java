@@ -10,7 +10,6 @@ import java.util.List;
 public class Day02RockPaperScissors extends SolutionBase {
 
     public static void main(String[] args) {
-        SELECTION.init();
         List<String> input = XRead.fileAsStringPerLineToStringList(filePath("day02"));
         int totalScore = 0;
         int totalScore2 = 0;
@@ -31,12 +30,12 @@ public class Day02RockPaperScissors extends SolutionBase {
     // ----------------------------------------------------------------------------------------------------
 
     public static int scoreForMatch(SELECTION op, SELECTION you) {
-        if (op == you) {
-            return 3;
-        } else if (op == you.beater) {
+        if (op.beater == you) {
+            return 6;
+        } else if (op.beats == you) {
             return 0;
         } else {
-            return 6;
+            return 3;
         }
     }
 
@@ -49,7 +48,7 @@ public class Day02RockPaperScissors extends SolutionBase {
             case 3:
                 return op.beater;
         }
-        throw new IllegalArgumentException("Failed");
+        throw new IllegalArgumentException("Invalid score");
     }
 
     // ----------------------------------------------------------------------------------------------------
@@ -64,7 +63,7 @@ public class Day02RockPaperScissors extends SolutionBase {
         public SELECTION beats;
         public String chars;
 
-        public static void init() {
+        static {
             ROCK.score = 1;
             ROCK.beater = PAPER;
             ROCK.beats = SCISSORS;
