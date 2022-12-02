@@ -1,2 +1,3 @@
-# advent-of-code-java
-Solving the Advent of Code problems in Java.
+# Coding contests
+
+Solving various coding contests and problems in Java and other languages.
