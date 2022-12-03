@@ -1,0 +1,13 @@
+package main
+
+import (
+	"../utilities"
+	"fmt"
+)
+
+func main() {
+	var fileContent = utilities.ReadFileToString("aoc_2019/day09_input.txt")
+
+	fmt.Printf("Probl 1 result: [%d]\n", fileContent)
+	fmt.Printf("Probl 2 result: [%d]\n", 0)
+}
