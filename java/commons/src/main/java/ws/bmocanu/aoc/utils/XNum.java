@@ -1,5 +1,7 @@
 package ws.bmocanu.aoc.utils;
 
+import ws.bmocanu.aoc.support.Interval;
+
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +38,22 @@ public class XNum {
 
     public static boolean intBetween(int value, int lowLimit, int highLimit) {
         return (value >= lowLimit) && (value <= highLimit);
+    }
+
+    public static boolean intIntervalContains(int interval1Left, int interval1Right,
+                                              int interval2Left, int interval2Right) {
+        return (interval1Left <= interval2Left && interval1Right >= interval2Right);
+    }
+
+    public static boolean intervalContains(Interval interval1, Interval interval2) {
+        return (interval1.left <= interval2.left && interval1.right >= interval2.right);
+    }
+
+    public static boolean intervalOverlaps(Interval interval1, Interval interval2) {
+        return intBetween(interval1.left, interval2.left, interval2.right) ||
+                intBetween(interval1.right, interval2.left, interval2.right) ||
+                intBetween(interval2.left, interval1.left, interval1.right) ||
+                intBetween(interval2.right, interval1.left, interval1.right);
     }
 
     public static int pow(int x, int power) {

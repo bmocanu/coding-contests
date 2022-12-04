@@ -1,15 +1,15 @@
 package main
 
 import (
-	"../utils"
+	"coding-contests/utils"
 	"fmt"
 )
 
 // Probl 1 result: 4570637
 // Probl 2 result: 5485
 
-func main02() {
-	var fileAsString = utils.ReadFileToString("aoc_2019/day02_input.txt")
+func main() {
+	var fileAsString = utils.ReadFileToString("aoc_2019/resources/day02.txt")
 	var memory = utils.SplitCsvStringToFlexibleArray(fileAsString)
 
 	memory.Set(1, 12)

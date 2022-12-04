@@ -9,7 +9,6 @@
         <groupId>ws.bmocanu.coding</groupId>
         <artifactId>coding-contests</artifactId>
         <version>0.1.0</version>
-        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>advent-of-code</artifactId>

@@ -98,8 +98,8 @@
     </build>
 
     <modules>
-        <module>commons/java</module>
-        <module>advent-of-code/java</module>
+        <module>commons</module>
+        <module>advent-of-code</module>
     </modules>
 
 </project>
