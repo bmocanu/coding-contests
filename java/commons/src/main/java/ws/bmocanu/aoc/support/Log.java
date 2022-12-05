@@ -20,6 +20,19 @@ public class Log {
     private static Object[] part1Results;
     private static Object[] part2Results;
 
+    public static void part(int partNr, Object... params) {
+        switch (partNr) {
+            case 1:
+                part1(params);
+                break;
+            case 2:
+                part2(params);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid part number: expected 1 or 2, received " + partNr);
+        }
+    }
+
     public static void part1(Object... params) {
         part1Timestamp = System.currentTimeMillis();
         part1TimeInMs = part1Timestamp - startTimestamp;

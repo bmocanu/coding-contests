@@ -26,7 +26,7 @@ public class Day19MessagePatternValidation extends SolutionBase {
         while (!(line = stringLines.get(index)).isBlank()) {
             Rule newRule;
             if (line.contains("\"")) {
-                newRule = charBinder.bind(line);
+                newRule = charBinder.bindOne(line);
             } else if (line.contains("|")) {
                 newRule = new Rule();
                 newRule.id = Integer.parseInt(line.substring(0, line.indexOf(':')));

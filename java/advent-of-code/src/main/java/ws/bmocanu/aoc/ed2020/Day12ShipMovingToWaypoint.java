@@ -25,7 +25,7 @@ public class Day12ShipMovingToWaypoint extends SolutionBase {
         SBind<Command> binder = new SBind("(\\w)(\\d+)", Command.class, "command", "value");
         List<Command> commands = new ArrayList<>();
         for (String line : stringLines) {
-            commands.add(binder.bind(line));
+            commands.add(binder.bindOne(line));
         }
 
         Point p = new Point();

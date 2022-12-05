@@ -19,7 +19,7 @@ public class Day04CampCleanup extends SolutionBase {
         List<String> input = XRead.fileAsStringPerLineToStringList(filePath("day04"));
         SBind<Pair> bind = new SBind("(\\d+)-(\\d+),(\\d+)-(\\d+)", Pair.class,
                 "i1.left", "i1.right", "i2.left", "i2.right");
-        List<Pair> pairList = bind.bind(input);
+        List<Pair> pairList = bind.bindAll(input);
 
         int count1 = 0;
         for (Pair pair : pairList) {

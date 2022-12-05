@@ -21,7 +21,7 @@ public class Day17TrickShotProbeVelocity extends SolutionBase {
         // target area: x=207..263, y=-115..-63
         String input = XRead.fileAsStringPerLineToStringList(filePath("day17")).get(0);
         SBind<Area> bind = new SBind<>("target area: x=([-0-9]+)\\.\\.([-0-9]+), y=([-0-9]+)\\.\\.([-0-9]+)", Area.class, "x1", "x2", "y1", "y2");
-        Area targetArea = bind.bind(input);
+        Area targetArea = bind.bindOne(input);
         System.out.println("Here");
 
         for (int velX = 1; velX < 2000; velX++) {

@@ -20,7 +20,7 @@ public class Day02PasswordPolicy extends SolutionBase {
         List<String> lineList = XRead.fileAsStringPerLineToStringList(filePath("day02"));
         SBind<Entry> parser = new SBind("(\\d+)-(\\d+) (\\w): (\\w+)", Entry.class,
                                         "minAp", "maxAp", "letter", "pass");
-        List<Entry> entries = parser.bind(lineList);
+        List<Entry> entries = parser.bindAll(lineList);
 
         int validPasswords = 0;
         for (Entry entry : entries) {

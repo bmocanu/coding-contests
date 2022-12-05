@@ -45,7 +45,7 @@ public class Day07BagsContainColors extends SolutionBase {
                 if (subContent.contains("no other")) {
                     parentContent.add(new Content());
                 } else {
-                    parentContent.add(binder.bind(subContent));
+                    parentContent.add(binder.bindOne(subContent));
                 }
             }
         }

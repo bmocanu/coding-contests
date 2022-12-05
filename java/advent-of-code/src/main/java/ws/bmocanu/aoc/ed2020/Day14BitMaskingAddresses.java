@@ -33,7 +33,7 @@ public class Day14BitMaskingAddresses extends SolutionBase {
                 maskString = SReg.parse("mask = ([01X]+)", line).getString(1);
                 mask = getBitMask(maskString);
             } else {
-                Command command = binder.bind(line);
+                Command command = binder.bindOne(line);
                 mem.put(BigInteger.valueOf(command.address), part1GetBigWithMask(command.value, mask));
             }
         }
@@ -46,7 +46,7 @@ public class Day14BitMaskingAddresses extends SolutionBase {
                 maskString = SReg.parse("mask = ([01X]+)", line).getString(1);
                 mask = getBitMask(maskString);
             } else {
-                Command command = binder.bind(line);
+                Command command = binder.bindOne(line);
                 List<BigInteger> addresses = new ArrayList<>();
                 part2GetAddresses(command.address, mask, addresses);
                 for (BigInteger address : addresses) {

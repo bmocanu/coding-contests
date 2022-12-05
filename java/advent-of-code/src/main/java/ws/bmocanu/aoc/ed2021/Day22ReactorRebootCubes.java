@@ -13,7 +13,7 @@ public class Day22ReactorRebootCubes extends SolutionBase {
         List<String> inputLines = XRead.fileAsStringPerLineToStringList(filePath("day22"));
         SBind<CubeSection> binder = new SBind<>("([a-z]+) x=([-0-9]+)\\.\\.([-0-9]+),y=([-0-9]+)\\.\\.([-0-9]+),z=([-0-9]+)\\.\\.([-0-9]+)",
                 CubeSection.class, "stateStr", "x1", "x2", "y1", "y2", "z1", "z2");
-        List<CubeSection> inputSections = binder.bind(inputLines);
+        List<CubeSection> inputSections = binder.bindAll(inputLines);
 
         for (int part = 1; part <= 2; part++) {
             List<CubeSection> knownSections = new LinkedList<>();

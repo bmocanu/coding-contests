@@ -37,7 +37,7 @@ public class Day13TransparentOrigami extends SolutionBase {
                 width = XNum.max(width, x + 1);
                 height = XNum.max(height, y + 1);
             } else if (line.contains("fold along")) {
-                foldings.add(bind.bind(line));
+                foldings.add(bind.bindOne(line));
             }
         }
 

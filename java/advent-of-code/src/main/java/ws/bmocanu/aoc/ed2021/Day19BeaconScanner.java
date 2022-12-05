@@ -19,7 +19,7 @@ public class Day19BeaconScanner extends SolutionBase {
                 currentRead = new Scanner();
                 scanners.add(currentRead);
             } else if (!line.isEmpty()) {
-                currentRead.beacons.add(binder.bind(line));
+                currentRead.beacons.add(binder.bindOne(line));
             }
         }
 

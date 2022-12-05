@@ -21,7 +21,7 @@ public class Day16TicketValidNumbersAndFields extends SolutionBase {
         SBind<Rule> binder = new SBind<>("([a-z\\s]+): (\\d+)-(\\d+) or (\\d+)-(\\d+)", Rule.class,
                                          "fieldName", "int1Min", "int1Max", "int2Min", "int2Max");
         while (!line.isEmpty()) {
-            ruleList.add(binder.bind(line));
+            ruleList.add(binder.bindOne(line));
             index++;
             line = stringLines.get(index);
         }
