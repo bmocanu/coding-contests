@@ -7,7 +7,7 @@ import ws.bmocanu.aoc.utils.XUtils;
 public class PosDelta4 {
 
     public static PosDelta4[] deltaValues = new PosDelta4[]{
-            PosDelta4.fromDir4(0), PosDelta4.fromDir4(1), PosDelta4.fromDir4(2), PosDelta4.fromDir4(3)
+        PosDelta4.fromDir4(0), PosDelta4.fromDir4(1), PosDelta4.fromDir4(2), PosDelta4.fromDir4(3)
     };
 
     public static int[] dirValues = new int[]{0, 1, 2, 3};
@@ -81,6 +81,20 @@ public class PosDelta4 {
 
     public static PosDelta4 fromLeft() {
         return fromDir4(3);
+    }
+
+    public static PosDelta4 fromStrings(String value, String strForNorth, String strForSouth, String strForWest, String strForEast) {
+        if (strForNorth.equals(value)) {
+            return fromNorth();
+        } else if (strForSouth.equals(value)) {
+            return fromSouth();
+        } else if (strForWest.equals(value)) {
+            return fromWest();
+        } else if (strForEast.equals(value)) {
+            return fromEast();
+        } else {
+            throw new IllegalArgumentException("The value [" + value + "] does not match the given coordinate strings");
+        }
     }
 
     // ----------------------------------------------------------------------------------------------------
