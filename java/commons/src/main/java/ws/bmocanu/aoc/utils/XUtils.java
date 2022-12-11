@@ -1,9 +1,9 @@
 package ws.bmocanu.aoc.utils;
 
+import ws.bmocanu.aoc.flex.Pointer;
+
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
-
-import ws.bmocanu.aoc.flex.Pointer;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class XUtils {
@@ -204,6 +204,24 @@ public class XUtils {
             }
         }
         return max;
+    }
+
+    public static Pointer<?>[] multiMaxFromArray(long[] array, int nrOfMaxes) {
+        Set<Long> maxesSoFar = new HashSet<>();
+        List<Pointer<Long>> result = new ArrayList<>();
+        for (int maxIndex = 0; maxIndex < nrOfMaxes; maxIndex++) {
+            long localMax = Long.MIN_VALUE;
+            int localIndex = -1;
+            for (int index = 0; index < array.length; index++) {
+                if (array[index] > localMax && !maxesSoFar.contains(array[index])) {
+                    localMax = array[index];
+                    localIndex = index;
+                }
+            }
+            result.add(new Pointer<>(localMax, localIndex));
+            maxesSoFar.add(localMax);
+        }
+        return result.toArray(new Pointer<?>[0]);
     }
 
     public static long maxFromCollection(Collection<AtomicLong> collection) {
