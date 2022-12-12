@@ -1,21 +1,16 @@
 package ws.bmocanu.aoc.flex;
 
 import org.apache.commons.codec.digest.DigestUtils;
-
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-
 import ws.bmocanu.aoc.support.PosDelta4;
 import ws.bmocanu.aoc.support.PosDelta8;
 import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.utils.XUtils;
+
+import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class FlexStruct implements PointSupplier {
@@ -201,10 +196,10 @@ public class FlexStruct implements PointSupplier {
 
     public Collection<Point> allPointsWhere(Predicate<? super Point> filterPredicate) {
         return pointMap
-            .values()
-            .stream()
-            .filter(filterPredicate)
-            .collect(Collectors.toList());
+                .values()
+                .stream()
+                .filter(filterPredicate)
+                .collect(Collectors.toList());
     }
 
     public Point pointWithMaxValue() {
@@ -213,6 +208,10 @@ public class FlexStruct implements PointSupplier {
 
     public Point firstPointByType(int type) {
         return pointMap.values().stream().filter(point -> point.type == type).findFirst().orElse(null);
+    }
+
+    public Point firstPointByChar(char chr) {
+        return pointMap.values().stream().filter(point -> point.chr == chr).findFirst().orElse(null);
     }
 
     public FluentPointsActions forAllPoints() {
@@ -327,9 +326,9 @@ public class FlexStruct implements PointSupplier {
         StringBuilder builder = new StringBuilder((width + 1) * padding * (height + 2) + 100);
         if (printHeader) {
             builder.append("Width: [").append(width)
-                .append("], Height: [").append(height)
-                .append("], Points: [").append(pointMap.size())
-                .append("]\n");
+                    .append("], Height: [").append(height)
+                    .append("], Points: [").append(pointMap.size())
+                    .append("]\n");
         }
         String separator = null;
         if (printBorders) {
