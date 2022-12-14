@@ -52,25 +52,25 @@ public class Day12ShipMovingToWaypoint extends SolutionBase {
                     break;
                 }
                 case "N": {
-                    PosDelta4 posDelta = PosDelta4.fromNorth();
+                    PosDelta4 posDelta = PosDelta4.north();
                     p.x += posDelta.deltaX * command.value;
                     p.y += posDelta.deltaY * command.value;
                     break;
                 }
                 case "S": {
-                    PosDelta4 posDelta = PosDelta4.fromSouth();
+                    PosDelta4 posDelta = PosDelta4.south();
                     p.x += posDelta.deltaX * command.value;
                     p.y += posDelta.deltaY * command.value;
                     break;
                 }
                 case "E": {
-                    PosDelta4 posDelta = PosDelta4.fromEast();
+                    PosDelta4 posDelta = PosDelta4.east();
                     p.x += posDelta.deltaX * command.value;
                     p.y += posDelta.deltaY * command.value;
                     break;
                 }
                 case "W": {
-                    PosDelta4 posDelta = PosDelta4.fromWest();
+                    PosDelta4 posDelta = PosDelta4.west();
                     p.x += posDelta.deltaX * command.value;
                     p.y += posDelta.deltaY * command.value;
                     break;
@@ -115,25 +115,25 @@ public class Day12ShipMovingToWaypoint extends SolutionBase {
                     break;
                 }
                 case "N": {
-                    PosDelta4 posDelta = PosDelta4.fromNorth();
+                    PosDelta4 posDelta = PosDelta4.north();
                     wp.x += posDelta.deltaX * command.value;
                     wp.y += posDelta.deltaY * command.value;
                     break;
                 }
                 case "S": {
-                    PosDelta4 posDelta = PosDelta4.fromSouth();
+                    PosDelta4 posDelta = PosDelta4.south();
                     wp.x += posDelta.deltaX * command.value;
                     wp.y += posDelta.deltaY * command.value;
                     break;
                 }
                 case "E": {
-                    PosDelta4 posDelta = PosDelta4.fromEast();
+                    PosDelta4 posDelta = PosDelta4.east();
                     wp.x += posDelta.deltaX * command.value;
                     wp.y += posDelta.deltaY * command.value;
                     break;
                 }
                 case "W": {
-                    PosDelta4 posDelta = PosDelta4.fromWest();
+                    PosDelta4 posDelta = PosDelta4.west();
                     wp.x += posDelta.deltaX * command.value;
                     wp.y += posDelta.deltaY * command.value;
                     break;

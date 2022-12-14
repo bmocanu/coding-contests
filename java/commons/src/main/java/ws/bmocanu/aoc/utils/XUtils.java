@@ -418,4 +418,17 @@ public class XUtils {
         put('F', "1111");
     }};
 
+    public static int[] orderedArrayWithLimits(int lim1, int lim2) {
+        if (lim1 > lim2) {
+            int aux = lim1;
+            lim1 = lim2;
+            lim2 = aux;
+        }
+        int[] result = new int[lim2 - lim1 + 1];
+        for (int index = 0; index < result.length; index++) {
+            result[index] = lim1 + index;
+        }
+        return result;
+    }
+
 }

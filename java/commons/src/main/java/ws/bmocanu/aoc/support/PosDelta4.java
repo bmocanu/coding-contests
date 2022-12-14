@@ -51,47 +51,47 @@ public class PosDelta4 {
         }
     }
 
-    public static PosDelta4 fromNorth() {
+    public static PosDelta4 north() {
         return fromDir4(0);
     }
 
-    public static PosDelta4 fromUp() {
+    public static PosDelta4 up() {
         return fromDir4(0);
     }
 
-    public static PosDelta4 fromSouth() {
+    public static PosDelta4 south() {
         return fromDir4(2);
     }
 
-    public static PosDelta4 fromDown() {
+    public static PosDelta4 down() {
         return fromDir4(2);
     }
 
-    public static PosDelta4 fromEast() {
+    public static PosDelta4 east() {
         return fromDir4(1);
     }
 
-    public static PosDelta4 fromRight() {
+    public static PosDelta4 right() {
         return fromDir4(1);
     }
 
-    public static PosDelta4 fromWest() {
+    public static PosDelta4 west() {
         return fromDir4(3);
     }
 
-    public static PosDelta4 fromLeft() {
+    public static PosDelta4 left() {
         return fromDir4(3);
     }
 
     public static PosDelta4 fromStrings(String value, String strForNorth, String strForSouth, String strForWest, String strForEast) {
         if (strForNorth.equals(value)) {
-            return fromNorth();
+            return north();
         } else if (strForSouth.equals(value)) {
-            return fromSouth();
+            return south();
         } else if (strForWest.equals(value)) {
-            return fromWest();
+            return west();
         } else if (strForEast.equals(value)) {
-            return fromEast();
+            return east();
         } else {
             throw new IllegalArgumentException("The value [" + value + "] does not match the given coordinate strings");
         }

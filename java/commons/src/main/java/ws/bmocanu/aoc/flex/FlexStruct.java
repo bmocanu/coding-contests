@@ -1,16 +1,21 @@
 package ws.bmocanu.aoc.flex;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import ws.bmocanu.aoc.support.PosDelta4;
-import ws.bmocanu.aoc.support.PosDelta8;
-import ws.bmocanu.aoc.utils.XRead;
-import ws.bmocanu.aoc.utils.XUtils;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import ws.bmocanu.aoc.support.PosDelta4;
+import ws.bmocanu.aoc.support.PosDelta8;
+import ws.bmocanu.aoc.utils.XRead;
+import ws.bmocanu.aoc.utils.XUtils;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class FlexStruct implements PointSupplier {
@@ -67,7 +72,15 @@ public class FlexStruct implements PointSupplier {
         return point(x + deltaDir.deltaX, y + deltaDir.deltaY);
     }
 
+    public Point point(int x, int y, PosDelta8 deltaDir) {
+        return point(x + deltaDir.deltaX, y + deltaDir.deltaY);
+    }
+
     public Point point(Point p, PosDelta4 deltaDir) {
+        return point(p.x + deltaDir.deltaX, p.y + deltaDir.deltaY);
+    }
+
+    public Point point(Point p, PosDelta8 deltaDir) {
         return point(p.x + deltaDir.deltaX, p.y + deltaDir.deltaY);
     }
 
@@ -196,10 +209,10 @@ public class FlexStruct implements PointSupplier {
 
     public Collection<Point> allPointsWhere(Predicate<? super Point> filterPredicate) {
         return pointMap
-                .values()
-                .stream()
-                .filter(filterPredicate)
-                .collect(Collectors.toList());
+            .values()
+            .stream()
+            .filter(filterPredicate)
+            .collect(Collectors.toList());
     }
 
     public Point pointWithMaxValue() {
@@ -326,9 +339,9 @@ public class FlexStruct implements PointSupplier {
         StringBuilder builder = new StringBuilder((width + 1) * padding * (height + 2) + 100);
         if (printHeader) {
             builder.append("Width: [").append(width)
-                    .append("], Height: [").append(height)
-                    .append("], Points: [").append(pointMap.size())
-                    .append("]\n");
+                .append("], Height: [").append(height)
+                .append("], Points: [").append(pointMap.size())
+                .append("]\n");
         }
         String separator = null;
         if (printBorders) {

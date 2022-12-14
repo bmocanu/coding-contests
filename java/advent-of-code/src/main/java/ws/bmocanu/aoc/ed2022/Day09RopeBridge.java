@@ -35,14 +35,14 @@ public class Day09RopeBridge extends SolutionBase {
                     for (int index = 1; index < LENGTH; index++) {
                         if (linkNeedsToMove(rope[index - 1], rope[index])) {
                             if (rope[index - 1].x < rope[index].x) {
-                                rope[index] = flex.point(rope[index], PosDelta4.fromWest());
+                                rope[index] = flex.point(rope[index], PosDelta4.west());
                             } else if (rope[index - 1].x > rope[index].x) {
-                                rope[index] = flex.point(rope[index], PosDelta4.fromEast());
+                                rope[index] = flex.point(rope[index], PosDelta4.east());
                             }
                             if (rope[index - 1].y < rope[index].y) {
-                                rope[index] = flex.point(rope[index], PosDelta4.fromNorth());
+                                rope[index] = flex.point(rope[index], PosDelta4.north());
                             } else if (rope[index - 1].y > rope[index].y) {
-                                rope[index] = flex.point(rope[index], PosDelta4.fromSouth());
+                                rope[index] = flex.point(rope[index], PosDelta4.south());
                             }
                         }
                     }
