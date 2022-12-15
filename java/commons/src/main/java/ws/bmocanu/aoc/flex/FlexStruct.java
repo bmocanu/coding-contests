@@ -2,20 +2,16 @@ package ws.bmocanu.aoc.flex;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-
 import ws.bmocanu.aoc.support.PosDelta4;
 import ws.bmocanu.aoc.support.PosDelta8;
 import ws.bmocanu.aoc.utils.XRead;
 import ws.bmocanu.aoc.utils.XUtils;
+
+import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class FlexStruct implements PointSupplier {
@@ -373,12 +369,72 @@ public class FlexStruct implements PointSupplier {
         return builder.toString();
     }
 
+    public String toString2(Function<Point, Object> pointPrinter,
+                            String strForMissingPoints,
+                            int padding,
+                            boolean printHeader, boolean printNewLines, boolean printBorders) {
+        StringBuilder builder = new StringBuilder((width + 1) * padding * (height + 2) + 100);
+        if (printHeader) {
+            builder.append("Width: [").append(width)
+                .append("], Height: [").append(height)
+                .append("], Points: [").append(pointMap.size())
+                .append("]\n");
+        }
+        String separator = null;
+        if (printBorders) {
+            separator = "+" + "-".repeat(width * padding) + "+\n";
+            builder.append(separator);
+        }
+        int minX = 0;
+        int minY = 0;
+        for (Point p : allPoints()) {
+            if (p.x < minX) {
+                minX = p.x;
+            }
+            if (p.y < minY) {
+                minY = p.y;
+            }
+        }
+
+        for (int y = minY; y < height; y++) {
+            if (printBorders) {
+                builder.append('|');
+            }
+            for (int x = minX; x < width; x++) {
+                Point point = pointOrNull(x, y);
+                if (point != null) {
+                    builder.append(XUtils.strPadding(String.valueOf(pointPrinter.apply(point)), padding, " "));
+                } else {
+                    builder.append(XUtils.strPadding(strForMissingPoints, padding, " "));
+                }
+            }
+            if (printBorders) {
+                builder.append('|');
+            }
+            if (printBorders || printNewLines) {
+                builder.append('\n');
+            }
+        }
+        if (printBorders) {
+            builder.append(separator);
+        }
+        return builder.toString();
+    }
+
     public String typesToString() {
         return toString(point -> point.type, " ", 1, false, true, false);
     }
 
+    public String typesToString2() {
+        return toString2(point -> point.type, " ", 1, false, true, false);
+    }
+
     public String charactersToString() {
         return toString(point -> point.chr, " ", 1, false, true, false);
+    }
+
+    public String charactersToString2() {
+        return toString2(point -> point.chr, " ", 1, false, true, false);
     }
 
     public String valuesAsDigitsToString() {
@@ -427,6 +483,15 @@ public class FlexStruct implements PointSupplier {
             points.forEach(point -> {
                 if (point.chr == character) {
                     point.type = type;
+                }
+            });
+            return this;
+        }
+
+        public FluentMappingActions typeToChar(int type, char character) {
+            points.forEach(point -> {
+                if (point.type == type) {
+                    point.chr = character;
                 }
             });
             return this;
