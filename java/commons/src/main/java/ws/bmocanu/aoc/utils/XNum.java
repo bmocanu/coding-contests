@@ -16,6 +16,14 @@ public class XNum {
         return sum;
     }
 
+    public static int sumOfIntArray(int[] array) {
+        int sum = 0;
+        for (int elem : array) {
+            sum += elem;
+        }
+        return sum;
+    }
+
     public static int max(int a1, int a2) {
         return Math.max(a1, a2);
     }

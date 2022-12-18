@@ -1,7 +1,6 @@
 package ws.bmocanu.aoc.flex;
 
 import org.apache.commons.codec.digest.DigestUtils;
-
 import ws.bmocanu.aoc.support.PosDelta4;
 import ws.bmocanu.aoc.support.PosDelta8;
 import ws.bmocanu.aoc.utils.XRead;
@@ -205,10 +204,34 @@ public class FlexStruct implements PointSupplier {
 
     public Collection<Point> allPointsWhere(Predicate<? super Point> filterPredicate) {
         return pointMap
-            .values()
-            .stream()
-            .filter(filterPredicate)
-            .collect(Collectors.toList());
+                .values()
+                .stream()
+                .filter(filterPredicate)
+                .collect(Collectors.toList());
+    }
+
+    public int highestYForPointsOfType(int type) {
+        int minY = Integer.MIN_VALUE;
+        boolean valueChanged = false;
+        for (Point point : pointMap.values()) {
+            if (point.type == type && point.y > minY) {
+                minY = point.y;
+                valueChanged = true;
+            }
+        }
+        return valueChanged ? minY : 0;
+    }
+
+    public int highestYForXAndPointsOfType(int x, int type) {
+        int minY = Integer.MIN_VALUE;
+        boolean valueChanged = false;
+        for (Point point : pointMap.values()) {
+            if (point.type == type && point.x == x && point.y > minY) {
+                minY = point.y;
+                valueChanged = true;
+            }
+        }
+        return valueChanged ? minY : 0;
     }
 
     public Point pointWithMaxValue() {
@@ -335,9 +358,9 @@ public class FlexStruct implements PointSupplier {
         StringBuilder builder = new StringBuilder((width + 1) * padding * (height + 2) + 100);
         if (printHeader) {
             builder.append("Width: [").append(width)
-                .append("], Height: [").append(height)
-                .append("], Points: [").append(pointMap.size())
-                .append("]\n");
+                    .append("], Height: [").append(height)
+                    .append("], Points: [").append(pointMap.size())
+                    .append("]\n");
         }
         String separator = null;
         if (printBorders) {
@@ -376,9 +399,9 @@ public class FlexStruct implements PointSupplier {
         StringBuilder builder = new StringBuilder((width + 1) * padding * (height + 2) + 100);
         if (printHeader) {
             builder.append("Width: [").append(width)
-                .append("], Height: [").append(height)
-                .append("], Points: [").append(pointMap.size())
-                .append("]\n");
+                    .append("], Height: [").append(height)
+                    .append("], Points: [").append(pointMap.size())
+                    .append("]\n");
         }
         String separator = null;
         if (printBorders) {
