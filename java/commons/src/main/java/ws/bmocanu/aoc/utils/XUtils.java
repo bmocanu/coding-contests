@@ -184,6 +184,10 @@ public class XUtils {
         return builder.toString();
     }
 
+    public static Pointer<Integer> maxFromVarargs(int... array) {
+        return maxFromArray(array);
+    }
+
     public static Pointer<Integer> maxFromArray(int[] array) {
         int max = Integer.MIN_VALUE;
         int pos = 0;
