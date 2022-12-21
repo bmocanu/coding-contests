@@ -7,3 +7,4 @@ build
 output
 pkg
 java/advent-of-code/src/main/java/TempDay00.java
+java/advent-of-code/src/main/resources/*/**.txt
