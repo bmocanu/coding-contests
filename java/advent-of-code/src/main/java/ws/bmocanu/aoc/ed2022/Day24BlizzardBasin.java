@@ -10,7 +10,7 @@ import ws.bmocanu.aoc.xbase.SolutionBase;
 
 import java.util.*;
 
-public class Day24BlizzardBasin2 extends SolutionBase {
+public class Day24BlizzardBasin extends SolutionBase {
 
     private static final List<Blizzard> blizzardList = new LinkedList<>();
     private static int WIDTH;
