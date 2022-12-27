@@ -7,8 +7,8 @@ import ws.bmocanu.aoc.utils.XUtils;
 public class PosDelta8 {
 
     public static PosDelta8[] deltaValues = new PosDelta8[]{
-        PosDelta8.fromDir8(0), PosDelta8.fromDir8(1), PosDelta8.fromDir8(2), PosDelta8.fromDir8(3),
-        PosDelta8.fromDir8(4), PosDelta8.fromDir8(5), PosDelta8.fromDir8(6), PosDelta8.fromDir8(7)
+            PosDelta8.fromDir8(0), PosDelta8.fromDir8(1), PosDelta8.fromDir8(2), PosDelta8.fromDir8(3),
+            PosDelta8.fromDir8(4), PosDelta8.fromDir8(5), PosDelta8.fromDir8(6), PosDelta8.fromDir8(7)
     };
 
     public static int[] dirValues = new int[]{0, 1, 2, 3, 4, 5, 6, 7};
@@ -58,10 +58,9 @@ public class PosDelta8 {
         return fromDir8(6);
     }
 
-    public static PosDelta8 topLeft() {
+    public static PosDelta8 upLeft() {
         return fromDir8(7);
     }
-
 
     public static PosDelta8 fromCoordsInQuadrant(int x, int y) {
         return PosDelta8.fromDir8(getDir8ByPoint(x, y));

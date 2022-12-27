@@ -117,6 +117,22 @@ public class PosDelta4 {
         return this;
     }
 
+    public boolean isUp() {
+        return dir4 == 0;
+    }
+
+    public boolean isRight() {
+        return dir4 == 1;
+    }
+
+    public boolean isDown() {
+        return dir4 == 2;
+    }
+
+    public boolean isLeft() {
+        return dir4 == 3;
+    }
+
     // ----------------------------------------------------------------------------------------------------
 
     private static int getDir4ByPoint(int x, int y) {

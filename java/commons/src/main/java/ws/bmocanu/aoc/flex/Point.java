@@ -1,5 +1,8 @@
 package ws.bmocanu.aoc.flex;
 
+import ws.bmocanu.aoc.support.PosDelta4;
+import ws.bmocanu.aoc.support.PosDelta8;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -10,6 +13,10 @@ public class Point {
     public int x;
 
     public int y;
+
+    public int newX;
+
+    public int newY;
 
     public int type;
 
@@ -34,6 +41,8 @@ public class Point {
     public int pathCount;
 
     public Point pathLink;
+    
+    public PosDelta4 dir4;
 
     public Map<String, Integer> trails = new HashMap<>();
 
@@ -139,6 +148,11 @@ public class Point {
         return this;
     }
 
+    public Point unmark() {
+        this.marked = false;
+        return this;
+    }
+
     public Point visit() {
         this.visited = true;
         return this;
@@ -162,6 +176,10 @@ public class Point {
     public Point setType(int type) {
         this.type = type;
         return this;
+    }
+
+    public Point getOtherPointByDelta(PosDelta8 delta) {
+        return Point.from(this.x + delta.deltaX, this.y + delta.deltaY);
     }
 
     public boolean isAt(int x, int y) {

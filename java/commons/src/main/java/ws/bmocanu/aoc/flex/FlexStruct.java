@@ -186,7 +186,7 @@ public class FlexStruct implements PointSupplier {
         return allPointsWhere(point -> !point.visited);
     }
 
-    public Collection<Point> allPointsOfType(int type) {
+    public List<Point> allPointsOfType(int type) {
         return allPointsWhere(point -> point.type == type);
     }
 
@@ -202,7 +202,7 @@ public class FlexStruct implements PointSupplier {
         return allPointsWhere(point -> name.equals(point.name));
     }
 
-    public Collection<Point> allPointsWhere(Predicate<? super Point> filterPredicate) {
+    public List<Point> allPointsWhere(Predicate<? super Point> filterPredicate) {
         return pointMap
                 .values()
                 .stream()
