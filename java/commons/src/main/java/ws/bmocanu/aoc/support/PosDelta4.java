@@ -121,14 +121,24 @@ public class PosDelta4 {
         return dir4 == 0;
     }
 
+<<<<<<< Updated upstream
     public boolean isRight() {
         return dir4 == 1;
     }
 
+=======
+>>>>>>> Stashed changes
     public boolean isDown() {
         return dir4 == 2;
     }
 
+<<<<<<< Updated upstream
+=======
+    public boolean isRight() {
+        return dir4 == 1;
+    }
+
+>>>>>>> Stashed changes
     public boolean isLeft() {
         return dir4 == 3;
     }
