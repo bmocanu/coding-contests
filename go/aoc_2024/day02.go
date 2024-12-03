@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func main() {
+func main2() {
 	fileDesc, err := os.Open("aoc_2024/day02_input.txt")
 	if err != nil {
 		panic(fmt.Sprintf("Cannot read file: %v", err))
