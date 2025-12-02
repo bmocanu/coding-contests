@@ -1,7 +1,7 @@
 package main
 
 import (
-	"coding-contests/commons/go/utils"
+	"coding-contests/utils"
 	"fmt"
 )
 

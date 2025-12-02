@@ -1,3 +1,3 @@
 module coding-contests
 
-go 1.19
+go 1.25.1
