@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func main() {
+func main02() {
 	var inputLine = utilities.ReadFileToString("aoc_2025/day02_input.txt")
 	var inputIntervals = strings.Split(inputLine, ",")
 

@@ -170,8 +170,8 @@ func PrintArray(array []int, padding int) {
 }
 
 /*
- CharMapping = a CSV of key-Value items, to define the mapping when printing the content
- "0, ,1,#" will result in all zeroes being printed as spaces, and all ones being printed as #
+CharMapping = a CSV of key-Value items, to define the mapping when printing the content
+"0, ,1,#" will result in all zeroes being printed as spaces, and all ones being printed as #
 */
 func PrintMatrix(matrix [][]int, charMapping string) {
 	fmt.Println("-----------------------------------------")
@@ -203,4 +203,13 @@ func Reverse(s string) string {
 		runes[i], runes[j] = runes[j], runes[i]
 	}
 	return string(runes)
+}
+
+func StringToDigitsArray(s string) []int {
+	var digits = make([]int, len(s))
+	for index := range digits {
+		var digit, _ = strconv.Atoi(string(s[index]))
+		digits[index] = digit
+	}
+	return digits
 }
