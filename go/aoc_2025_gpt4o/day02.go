@@ -70,7 +70,7 @@ func sumInvalidIDs(input string, part int) int {
 	return totalSum
 }
 
-func main() {
+func main02() {
 	// Open the input file
 	file, err := os.Open("aoc_2025_ai/day02_input.txt")
 	if err != nil {
