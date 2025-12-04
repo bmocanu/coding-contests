@@ -13,7 +13,7 @@ var part2SumMutex sync.Mutex
 var part2WaitGroup sync.WaitGroup
 var part2Sum int64
 
-func main() {
+func main03() {
 	defer timer("main")() // <-- The trailing () is the deferred call
 	var lines [1000]string
 	var linesCount = utilities.ReadFileToStringArray("aoc_2025/day03_input.txt", lines[0:])

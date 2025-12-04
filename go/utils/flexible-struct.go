@@ -8,11 +8,12 @@ import (
 )
 
 type FlexStruct struct {
-	pointMap      map[int]*Point
-	pointCount    int
-	width         int
-	height        int
-	positiveDelta int
+	pointMap              map[int]*Point
+	pointCount            int
+	width                 int
+	height                int
+	positiveDelta         int
+	atLeastOnePointMarked bool
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -70,6 +71,14 @@ func (matrix *FlexStruct) SetChar(x int, y int, value string) {
 	matrix.SetInt(x, y, int(value[0]))
 }
 
+func (matrix *FlexStruct) SetTypeForAllPointsMarked(newType int) {
+	for _, point := range matrix.pointMap {
+		if point.Marked {
+			point.Type = newType
+		}
+	}
+}
+
 func (matrix *FlexStruct) GetInt(x int, y int) int {
 	var existingPoint = matrix.Point(x, y)
 	if existingPoint != nil {
@@ -117,6 +126,10 @@ func (matrix *FlexStruct) Height() int {
 
 func (matrix *FlexStruct) WidthAndHeight() (int, int) {
 	return matrix.width, matrix.height
+}
+
+func (matrix *FlexStruct) AtLeastOnePointMarked() bool {
+	return matrix.atLeastOnePointMarked
 }
 
 func (matrix *FlexStruct) AllPoints() map[int]*Point {
@@ -183,6 +196,16 @@ func (matrix *FlexStruct) SetAllPointsMarked(newMarked bool) {
 	for _, point := range matrix.pointMap {
 		point.Marked = newMarked
 	}
+	if !newMarked {
+		matrix.atLeastOnePointMarked = false
+	}
+}
+
+func (matrix *FlexStruct) UnmarkAllPoints() {
+	for _, point := range matrix.pointMap {
+		point.Marked = false
+	}
+	matrix.atLeastOnePointMarked = false
 }
 
 func (matrix *FlexStruct) HasPoint(x int, y int) bool {
@@ -256,13 +279,13 @@ func (matrix *FlexStruct) Print() {
 }
 
 /*
- TypeMapping = a CSV of key-Value items, to define the mapping when printing the content
- "0, ,1,#" will result in all zeroes being printed as spaces, and all ones being printed as #
- Special tokens that can be used:
- - TMC = TrailMarkCount value
- - VAL = Value of the node
- - NME = The name of the node
- - LOC = The location of the node
+TypeMapping = a CSV of key-Value items, to define the mapping when printing the content
+"0, ,1,#" will result in all zeroes being printed as spaces, and all ones being printed as #
+Special tokens that can be used:
+- TMC = TrailMarkCount value
+- VAL = Value of the node
+- NME = The name of the node
+- LOC = The location of the node
 */
 func (matrix *FlexStruct) PrintByType(typeMapping string, padding int) {
 	fmt.Print(matrix.internalPrintByType(typeMapping, padding, "\n", true))
