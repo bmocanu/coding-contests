@@ -11,7 +11,7 @@ const (
 	typeMapping = ".,1,@,2"
 )
 
-func main() {
+func main04() {
 	defer timer("main")() // <-- The trailing () is the deferred call
 	var lines [1000]string
 	var lineCount = utilities.ReadFileToStringArray("aoc_2025/day04_input.txt", lines[0:])

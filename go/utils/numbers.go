@@ -127,3 +127,7 @@ func ArrayToNumber(array []int) int {
 	}
 	return result
 }
+
+func Between(nr1 int64, left int64, right int64) bool {
+	return nr1 >= left && nr1 <= right
+}
