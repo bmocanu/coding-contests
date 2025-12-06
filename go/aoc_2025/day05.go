@@ -18,7 +18,7 @@ func (interval *Day05Interval) contains(value int64) bool {
 
 var slicedIntervals = make([]Day05Interval, 0)
 
-func main() {
+func main05() {
 	defer timer("main")()
 	var lines [1200]string
 	var lineCount = utilities.ReadFileToStringArray("aoc_2025/day05_input.txt", lines[0:])
