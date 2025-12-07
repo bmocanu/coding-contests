@@ -193,8 +193,8 @@ func ZeroThesePoints3D(points ...*Point3D) {
 }
 
 /*
- Returns an array of each specific coordinate of each Point3D.
- coord = 0 for X, 1 for Y, 2 for Z
+Returns an array of each specific coordinate of each Point3D.
+coord = 0 for X, 1 for Y, 2 for Z
 */
 func ArrayOfSingleCoordOfPoints3D(points []*Point3D, coord int) []int {
 	var result = make([]int, len(points))
@@ -213,6 +213,11 @@ func ArrayOfSingleCoordOfPoints3D(points []*Point3D, coord int) []int {
 
 func (point *Point) Mark() *Point {
 	point.Marked = true
+	return point
+}
+
+func (point *Point) Unmark() *Point {
+	point.Marked = false
 	return point
 }
 

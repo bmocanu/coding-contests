@@ -136,6 +136,16 @@ func (matrix *FlexStruct) AllPoints() map[int]*Point {
 	return matrix.pointMap
 }
 
+func (matrix *FlexStruct) AllPointsMarked() map[int]*Point {
+	var resultMap = make(map[int]*Point)
+	for index, point := range matrix.pointMap {
+		if point.Marked {
+			resultMap[index] = point
+		}
+	}
+	return resultMap
+}
+
 func (matrix *FlexStruct) AllPointsByType(theType int) map[int]*Point {
 	var resultMap = make(map[int]*Point)
 	for index, point := range matrix.pointMap {
@@ -154,6 +164,30 @@ func (matrix *FlexStruct) AllPointsByName(name string) map[int]*Point {
 		}
 	}
 	return resultMap
+}
+
+func (matrix *FlexStruct) AllPointsOnLine(y int) map[int]*Point {
+	var resultMap = make(map[int]*Point)
+	for index, point := range matrix.pointMap {
+		if point.Y == y {
+			resultMap[index] = point
+		}
+	}
+	return resultMap
+}
+
+func (matrix *FlexStruct) SumValuesOnLine(y int) int {
+	var resultSum = 0
+	for _, point := range matrix.pointMap {
+		if point.Y == y {
+			resultSum += point.Value
+		}
+	}
+	return resultSum
+}
+
+func (matrix *FlexStruct) SumValuesOnBottomLine() int {
+	return matrix.SumValuesOnLine(matrix.Height() - 1)
 }
 
 func (matrix *FlexStruct) GetPointWithMaxValue() *Point {

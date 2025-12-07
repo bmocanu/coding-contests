@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func main() {
+func main06() {
 	defer timer("main")()
 	var lines [1000]string
 	var lineCount = utilities.ReadFileToStringArray("aoc_2025/day06_input.txt", lines[0:])
