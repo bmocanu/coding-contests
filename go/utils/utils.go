@@ -213,3 +213,15 @@ func StringToDigitsArray(s string) []int {
 	}
 	return digits
 }
+
+func PackedIndex(nr1 int, nr2 int) int {
+	return nr1*100000 + nr2
+}
+
+func Part1FromPackedIndex(index int) int {
+	return index / 100000
+}
+
+func Part2FromPackedIndex(index int) int {
+	return index % 100000
+}

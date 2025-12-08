@@ -15,6 +15,13 @@ func Distance(p1 *Point, p2 *Point) float64 {
 	return math.Sqrt(float64(xPart*xPart + yPart*yPart))
 }
 
+func Distance3D(p1 *Point3D, p2 *Point3D) float64 {
+	var xPart = p1.X - p2.X
+	var yPart = p1.Y - p2.Y
+	var zPart = p1.Z - p2.Z
+	return math.Sqrt(float64(xPart*xPart + yPart*yPart + zPart*zPart))
+}
+
 func RotatePointAroundCenter(angleInDegrees float64, radius int, center *Point, result *Point) {
 	var angleInRadians = angleInDegrees * math.Pi / 180
 	var sin = math.Sin(angleInRadians)

@@ -12,7 +12,7 @@ const (
 	typeBeam     = 4
 )
 
-func main() {
+func main07() {
 	defer timer("main")()
 	var lines [1000]string
 	var lineCount = utilities.ReadFileToStringArray("aoc_2025/day07_input.txt", lines[0:])

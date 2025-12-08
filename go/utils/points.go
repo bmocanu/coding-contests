@@ -1,6 +1,8 @@
 package utils
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type Point struct {
 	X              int
@@ -17,16 +19,22 @@ type Point struct {
 }
 
 type Point3D struct {
-	X         int
-	Y         int
-	Z         int
-	Value     int
-	Destroyed bool
-	Enabled   bool
-	Marked    bool
+	X          int
+	Y          int
+	Z          int
+	Value      int
+	Destroyed  bool
+	Enabled    bool
+	Marked     bool
+	Index      int
+	ParentList *[]Point3D
 }
 
 // ----------------------------------------------------------------------------------------------------
+
+func PackedIndex3D(p1 *Point3D, p2 *Point3D) int {
+	return PackedIndex(p1.Index, p2.Index)
+}
 
 func TaxicabDistance(x1 int, y1 int, x2 int, y2 int) int {
 	return Abs(x1-x2) + Abs(y1-y2)
