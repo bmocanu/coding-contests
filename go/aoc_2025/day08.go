@@ -12,7 +12,7 @@ var usedDistancesMap map[int]float64
 var usedDistancesArray []int
 var maxCircuitIndex int
 
-func main() {
+func main08() {
 	defer timer("main")()
 	fmt.Println("Reading input data...")
 	var lines [1005]string

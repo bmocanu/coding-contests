@@ -257,6 +257,14 @@ func (matrix *FlexStruct) CountPointsOfType(theType int) int {
 	return count
 }
 
+func (matrix *FlexStruct) AddMissingPoints() {
+	for x := 0; x < matrix.Width(); x++ {
+		for y := 0; y < matrix.Height(); y++ {
+			matrix.Point(x, y)
+		}
+	}
+}
+
 func (matrix *FlexStruct) DeepClone() *FlexStruct {
 	var newMatrix = new(FlexStruct)
 	newMatrix.pointMap = make(map[int]*Point)

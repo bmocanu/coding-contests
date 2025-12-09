@@ -128,6 +128,38 @@ func ArrayToNumber(array []int) int {
 	return result
 }
 
+func OrderAsc(nr1 int, nr2 int) (int, int) {
+	if nr1 <= nr2 {
+		return nr1, nr2
+	} else {
+		return nr2, nr1
+	}
+}
+
 func Between(nr1 int64, left int64, right int64) bool {
 	return nr1 >= left && nr1 <= right
+}
+
+func BetweenSymmetricInt64(nr1 int64, left int64, right int64) bool {
+	return (nr1 >= left && nr1 <= right) ||
+		(nr1 >= right && nr1 <= left)
+}
+
+func BetweenSymmetric(nr1 int, left int, right int) bool {
+	return (nr1 >= left && nr1 <= right) ||
+		(nr1 >= right && nr1 <= left)
+}
+
+func NrStrictlyBetween(nr int, left int, right int) bool {
+	return nr > left && nr < right
+}
+
+func GetDelta(nr1 int, nr2 int) int {
+	if nr1 < nr2 {
+		return 1
+	}
+	if nr1 > nr2 {
+		return -1
+	}
+	return 0
 }
