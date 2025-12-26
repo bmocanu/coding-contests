@@ -1,13 +1,13 @@
 package utils
 
-import "fmt"
-
 type UnqNode struct {
 	Value         string
 	IntValue      int
+	Uint64Value   uint64
 	Parent        *UnqNode
 	ChildrenCount int
-	Children      map[string]*UnqNode
+	ChildrenMap   map[string]*UnqNode
+	ChildrenList  []*UnqNode
 }
 
 type UnqNodesGraph struct {
@@ -26,15 +26,17 @@ func (graph *UnqNodesGraph) Associate(parent string, child string) {
 	var parentNode = graph.AddNode(parent)
 	var childNode = graph.AddNode(child)
 	if !parentNode.HasChild(child) {
-		parentNode.Children[child] = childNode
+		parentNode.ChildrenMap[child] = childNode
+		parentNode.ChildrenList = append(parentNode.ChildrenList, childNode)
 		parentNode.ChildrenCount++
 	}
 	if childNode.Parent == nil {
 		childNode.Parent = parentNode
-	} else {
-		fmt.Printf("UnqNodeGraph: Error: node [%s] already has a parent: [%s]\n",
-			child, childNode.Parent.Value)
 	}
+	//else {
+	//	fmt.Printf("UnqNodeGraph: Error: node [%s] already has a parent: [%s]\n",
+	//		child, childNode.Parent.Value)
+	//}
 }
 
 func (graph *UnqNodesGraph) AddNode(value string) *UnqNode {
@@ -42,7 +44,8 @@ func (graph *UnqNodesGraph) AddNode(value string) *UnqNode {
 	if theNode == nil {
 		theNode = new(UnqNode)
 		theNode.Value = value
-		theNode.Children = make(map[string]*UnqNode)
+		theNode.ChildrenMap = make(map[string]*UnqNode)
+		theNode.ChildrenList = make([]*UnqNode, 0)
 		theNode.ChildrenCount = 0
 		graph.Nodes[value] = theNode
 	}
@@ -58,10 +61,14 @@ func (graph *UnqNodesGraph) GetNode(value string) *UnqNode {
 	}
 }
 
+func (graph *UnqNodesGraph) AllNodes() map[string]*UnqNode {
+	return graph.Nodes
+}
+
 // ----------------------------------------------------------------------------------------------------
 
 func (node *UnqNode) HasChild(value string) bool {
-	var _, childFound = node.Children[value]
+	var _, childFound = node.ChildrenMap[value]
 	return childFound
 }
 

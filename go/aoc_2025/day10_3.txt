@@ -1,0 +1,228 @@
+package main
+
+import (
+	utilities "coding-contests/utils"
+	"fmt"
+	"reflect"
+	"strconv"
+	"strings"
+	"sync"
+)
+
+var machineCount int
+var lightsMtx [][]bool
+var targetLightsMtx [][]bool
+var buttonSetMtx [][][]int
+var joltageMtx [][]int
+var day10Part2SumMutex sync.Mutex
+var day10Part2WaitGroup sync.WaitGroup
+var day10Part2Sum int
+
+func main() {
+	var lines [300]string
+	var lineCount = utilities.ReadFileToStringArray("./day10_input.txt", lines[0:])
+
+	machineCount = lineCount
+	lightsMtx = make([][]bool, lineCount)
+	targetLightsMtx = make([][]bool, lineCount)
+	buttonSetMtx = make([][][]int, lineCount)
+	joltageMtx = make([][]int, lineCount)
+	var maxButtonSets = 0
+	for machineIndex := 0; machineIndex < machineCount; machineIndex++ {
+		var currentLine = lines[machineIndex]
+		var currentFields = strings.Fields(currentLine)
+
+		// Parse the lights setup
+		var lightsString = currentFields[0][1 : len(currentFields[0])-1]
+		lightsMtx[machineIndex] = make([]bool, len(lightsString))
+		targetLightsMtx[machineIndex] = make([]bool, len(lightsString))
+		for lightIndex := 0; lightIndex < len(lightsString); lightIndex++ {
+			lightsMtx[machineIndex][lightIndex] = false
+			targetLightsMtx[machineIndex][lightIndex] = lightsString[lightIndex] == '#'
+		}
+
+		// Parse the button config
+		buttonSetMtx[machineIndex] = make([][]int, len(currentFields)-2)
+		for buttonSetIndex := 0; buttonSetIndex < len(currentFields)-2; buttonSetIndex++ {
+			var currentConfigFields = strings.Split(currentFields[buttonSetIndex+1][1:len(currentFields[buttonSetIndex+1])-1], ",")
+			buttonSetMtx[machineIndex][buttonSetIndex] = make([]int, len(currentConfigFields))
+			for buttonIndex := 0; buttonIndex < len(currentConfigFields); buttonIndex++ {
+				buttonSetMtx[machineIndex][buttonSetIndex][buttonIndex], _ = strconv.Atoi(currentConfigFields[buttonIndex])
+			}
+		}
+
+		if len(buttonSetMtx[machineIndex]) > maxButtonSets {
+			maxButtonSets = len(buttonSetMtx[machineIndex])
+		}
+
+		// Parse the joltage
+		var currentJoltageField = currentFields[len(currentFields)-1]
+		var currentJoltageNrs = strings.Split(currentJoltageField[1:len(currentJoltageField)-1], ",")
+		joltageMtx[machineIndex] = make([]int, len(currentJoltageNrs))
+		for joltageIndex := 0; joltageIndex < len(currentJoltageNrs); joltageIndex++ {
+			joltageMtx[machineIndex][joltageIndex], _ = strconv.Atoi(currentJoltageNrs[joltageIndex])
+		}
+	}
+
+	fmt.Printf("Max %d button sets\n", maxButtonSets)
+
+	//var part1Sum = 0
+	//for machineIndex := 0; machineIndex < machineCount; machineIndex++ {
+	//	part1Sum += calculateShortestLightConfig(machineIndex, make([]int, len(buttonSetMtx[machineIndex])), 0, 0, math.MaxInt)
+	//	//part2Sum += calculateShortestJoltageConfig(machineIndex, make([]int, len(buttonSetMtx[machineIndex])), 0, 0, math.MaxInt)
+	//}
+	//
+	//fmt.Println("Part1: ", part1Sum) // 488
+
+	for machineIndex := 0; machineIndex < machineCount; machineIndex++ {
+		day10Part2WaitGroup.Add(1)
+		go calculateShortestJoltageConfig(machineIndex)
+	}
+
+	day10Part2WaitGroup.Wait()
+	fmt.Println("Part2: ", day10Part2Sum)
+}
+
+func calculateShortestLightConfig(machineIndex int, buttonConfig []int, index int, buttonPresses int, minButtonPresses int) int {
+	if index >= len(buttonConfig) {
+		if testButtonPressConfig(buttonConfig, machineIndex) {
+			if buttonPresses < minButtonPresses {
+				return buttonPresses
+			}
+		}
+		return minButtonPresses
+	}
+	for value := 0; value < 3; value++ {
+		buttonConfig[index] = value
+		minButtonPresses = calculateShortestLightConfig(machineIndex, buttonConfig, index+1, buttonPresses+value, minButtonPresses)
+	}
+	return minButtonPresses
+}
+
+func testButtonPressConfig(buttonConfig []int, machineIndex int) bool {
+	var lightsSetup = make([]bool, len(targetLightsMtx[machineIndex]))
+	for index := 0; index < len(buttonConfig); index++ {
+		for pressIndex := 0; pressIndex < buttonConfig[index]; pressIndex++ {
+			for innerButtonIndex := 0; innerButtonIndex < len(buttonSetMtx[machineIndex][index]); innerButtonIndex++ {
+				lightsSetup[buttonSetMtx[machineIndex][index][innerButtonIndex]] = !lightsSetup[buttonSetMtx[machineIndex][index][innerButtonIndex]]
+			}
+		}
+	}
+
+	return reflect.DeepEqual(lightsSetup, targetLightsMtx[machineIndex])
+}
+
+func calculateShortestJoltageConfig(machineIndex int) {
+	defer day10Part2WaitGroup.Done()
+
+	var initialJoltage = generateInitialJoltage(machineIndex)
+	var combMap = make(map[string]int)
+	var ntp = make([][]int, 1)
+	var ntpIndex = 0
+	ntp[ntpIndex] = initialJoltage
+	combMap[convertToKey(initialJoltage)] = 0 // for the 0000,... combination, the number of button presses is 0
+	var targetJoltage = joltageMtx[machineIndex]
+	var targetJoltageStr = convertToKey(joltageMtx[machineIndex])
+
+	for ntpIndex >= 0 {
+		var currentJoltage = ntp[ntpIndex]
+		ntpIndex--
+		var currentNrOfCombs, _ = combMap[convertToKey(currentJoltage)]
+		for buttonSetIndex := 0; buttonSetIndex < len(buttonSetMtx[machineIndex]); buttonSetIndex++ {
+			var newJoltage = updateJoltage(currentJoltage, buttonSetMtx[machineIndex][buttonSetIndex])
+			if isNewJoltageValid(newJoltage, targetJoltage) {
+				var newJoltageStr = convertToKey(newJoltage)
+				var existingNrOfCombs, exists = combMap[newJoltageStr]
+				if !exists {
+					combMap[newJoltageStr] = currentNrOfCombs + 1
+					if ntpIndex+1 >= len(ntp) {
+						ntp = append(ntp, newJoltage)
+						ntpIndex++
+					} else {
+						ntpIndex++
+						ntp[ntpIndex] = newJoltage
+					}
+				} else {
+					if existingNrOfCombs > currentNrOfCombs+1 {
+						combMap[newJoltageStr] = currentNrOfCombs + 1
+						if ntpIndex+1 >= len(ntp) {
+							ntp = append(ntp, newJoltage)
+							ntpIndex++
+						} else {
+							ntpIndex++
+							ntp[ntpIndex] = newJoltage
+						}
+					}
+				}
+			}
+		}
+	}
+	var targetValue, _ = combMap[targetJoltageStr]
+	fmt.Printf("Machine %d has result %d\n", machineIndex, targetValue)
+	day10Part2SumMutex.Lock()
+	day10Part2Sum += targetValue
+	day10Part2SumMutex.Unlock()
+}
+
+func convertToKey(arr []int) string {
+	var result = ""
+	for _, value := range arr {
+		result = result + strconv.Itoa(value)
+	}
+	return result
+}
+
+func generateInitialJoltage(machineIndex int) []int {
+	return make([]int, len(joltageMtx[machineIndex]))
+}
+
+func updateJoltage(joltage []int, updateArr []int) []int {
+	var result = make([]int, len(joltage))
+	copy(result, joltage)
+	for index := 0; index < len(updateArr); index++ {
+		result[updateArr[index]]++
+	}
+	return result
+}
+
+func isNewJoltageValid(joltage []int, targetJoltage []int) bool {
+	//fmt.Print(joltage)
+	//fmt.Print(" vs ")
+	//fmt.Println(targetJoltage)
+	for index := 0; index < len(joltage); index++ {
+		if joltage[index] > targetJoltage[index] {
+			return false
+		}
+	}
+	return true
+}
+
+//
+//func calculateShortestJoltageConfig(machineIndex int, buttonConfig []int, index int, buttonPresses int, minButtonPresses int) int {
+//	if index >= len(buttonConfig) {
+//		if testJoltageConfig(buttonConfig, machineIndex) {
+//			if buttonPresses < minButtonPresses {
+//				return buttonPresses
+//			}
+//		}
+//		return minButtonPresses
+//	}
+//	for value := 0; value < 5; value++ {
+//		buttonConfig[index] = value
+//		minButtonPresses = calculateShortestJoltageConfig(machineIndex, buttonConfig, index+1, buttonPresses+value, minButtonPresses)
+//	}
+//	return minButtonPresses
+//}
+
+//func testJoltageConfig(buttonConfig []int, machineIndex int) bool {
+//	var joltageSetup = make([]int, len(joltageMtx[machineIndex]))
+//	for index := 0; index < len(buttonConfig); index++ {
+//		for pressIndex := 0; pressIndex < buttonConfig[index]; pressIndex++ {
+//			for innerButtonIndex := 0; innerButtonIndex < len(buttonSetMtx[machineIndex][index]); innerButtonIndex++ {
+//				joltageSetup[buttonSetMtx[machineIndex][index][innerButtonIndex]]++
+//			}
+//		}
+//	}
+//
+//	return reflect.DeepEqual(joltageSetup, joltageMtx[machineIndex])
+//}

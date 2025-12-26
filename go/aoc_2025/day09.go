@@ -30,7 +30,7 @@ var allPoints []Xy
 var allEdges []Edge
 var allAreas []Area
 
-func main() {
+func main09() {
 	defer timer("main")()
 	var lines [1000]string
 	var lineCount = utilities.ReadFileToStringArray("aoc_2025/day09_input.txt", lines[0:])

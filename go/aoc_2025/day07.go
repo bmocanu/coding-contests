@@ -22,7 +22,7 @@ func main07() {
 
 	var part1Count = 0
 	var beamsMovedOnce = true
-	teleMap.GetFirstPointByType(typeStart).Mark().SetValue(1) // the Start is in timeline 1
+	teleMap.GetFirstPointByType(typeStart).Mark().SetValue(1) // the start is in timeline 1
 	for beamsMovedOnce {
 		beamsMovedOnce = false
 		for _, point := range teleMap.AllPointsMarked() {
